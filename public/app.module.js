@@ -10,7 +10,6 @@ angular
         controller: "loginController"
       })
       .when('/create', {
-        template: "create.html",
-        controller: "createController"
+        templateURL: "/templates.create.html"
       });
   });
