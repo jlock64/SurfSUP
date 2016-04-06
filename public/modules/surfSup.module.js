@@ -1,11 +1,12 @@
-
+var angular = require('angular');
+var angularRoute = require('angular-route');
 
 angular
   .module('surfSup', ['$ngRoute'])
   .config(function($ngProvider) {
     $routeProvider
       .when('/create', {
-        template: "<h1> create is working! </h1>",
+        template: "create.html",
         controller: "createController"
       });
   });
