@@ -11,7 +11,7 @@
   },
   "scripts": {
     "serve": "node_modules/.bin/serve",
-    "bundle": "node_modules/.bin/browserify app.js -o bundle.js",
+    "bundle": "node_modules/.bin/browserify app.module.js -o bundle.js",
     "watch": "node_modules/.bin/node-sass main.scss main.css -w & node_modules/.bin/watchify app.js -o bundle.js",
     "test": "echo \"Error: no test specified\" && exit 1",
     "surf": "say dude, you snaked my wave, you bitch",
