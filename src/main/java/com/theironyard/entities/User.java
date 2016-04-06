@@ -1,12 +1,12 @@
 package com.theironyard.entities;
 
-import javax.persistence.Column;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 /**
- * Created by noellemachin on 4/6/16.
+ * Created by keatonfoster on 4/6/16.
  */
+@Entity
+@Table(name = "users")
 public class User {
     @Id
     @GeneratedValue
@@ -32,4 +32,7 @@ public class User {
 
     @Column(nullable = false)
     String password;
+
+//    @Column(nullable = false)
+//    // profileImage
 }
