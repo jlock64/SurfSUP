@@ -6,8 +6,8 @@ angular
   .config(function($routeProvider) {
     $routeProvider
       .when('/login', {
-        templateURL: "login.html",
-        controller: "loginController"
+        template: "<h1>login.html</h1>",
+        // controller: "loginController"
       })
       .when('/create', {
         templateURL: "create.html",
