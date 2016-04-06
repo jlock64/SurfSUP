@@ -1,1 +1,1 @@
-console.error("Error: Cannot find module 'angular' from '/Users/williamhood/Desktop/iron_yard/SurfSUP/public/modules'");
+console.error("Error: Cannot find module '/Users/williamhood/Desktop/iron_yard/SurfSUP/public/modules/surfSup.module.js' from '/Users/williamhood/Desktop/iron_yard/SurfSUP/public'");
