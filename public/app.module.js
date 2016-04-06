@@ -8,7 +8,7 @@ angular
       .when('/login', {
         template: "<h1> create is working! </h1>",
         controller: "loginController"
-      });
+      })
       .when('/create', {
         template: "create.html",
         controller: "createController"
