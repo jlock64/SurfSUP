@@ -1,4 +1,5 @@
-
+var angular = require('angular');
+var angularRoute = require('angular-route');
 
 angular
   .module('surfSup', ['$ngRoute'])
@@ -9,7 +10,7 @@ angular
         controller: "loginController"
       });
       .when('/create', {
-        template: "<h1> create is working! </h1>",
+        template: "create.html",
         controller: "createController"
       });
   });
