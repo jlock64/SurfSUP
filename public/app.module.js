@@ -10,6 +10,6 @@ angular
         controller: "loginController"
       })
       .when('/create', {
-        templateURL: "<h1>hello</h1>"
+        templateURL: "/templates.create.html"
       });
   });
