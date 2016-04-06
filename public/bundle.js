@@ -7,12 +7,19 @@ angular
   .config(function($routeProvider) {
     $routeProvider
       .when('/login', {
+<<<<<<< HEAD
         templateURL: "login.html",
         controller: "loginController"
       })
       .when('/create', {
         templateURL: "create.html",
         controller: "createController"
+=======
+        template: "<h1> create is working! </h1>",
+      })
+      .when('/create', {
+        templateUrl: "templates/create.html",
+>>>>>>> 9eaca5f1feee72396d7c343fafbc91931a47114a
       });
   });
 
