@@ -37,7 +37,7 @@ public class SurfSupController {
         dbui.stop();
     }
 
-    // CREATE USER ROUTE
+    // CREATE USER ROUTE /user
     @RequestMapping(path = "/user", method = RequestMethod.POST)
     public User createUser (@RequestBody User user, HttpSession session) throws PasswordStorage.CannotPerformOperationException {
         user.setPassword(PasswordStorage.createHash(user.getPassword()));
@@ -46,7 +46,7 @@ public class SurfSupController {
         return user;
     }
 
-    // LOGIN ROUTE
+    // LOGIN ROUTE /login
     @RequestMapping(path = "/login", method = RequestMethod.POST)
     public User login (@RequestBody User user, HttpSession session) throws Exception {
         User existing = users.findByUsername(user.getUsername());
@@ -59,5 +59,15 @@ public class SurfSupController {
         }
         return user;
     }
+
+    // LOGOUT ROUTE /logout
+    @RequestMapping(path = "/logout", method = RequestMethod.GET)
+    public void logout (HttpSession session) {
+        session.invalidate();
+    }
+
+//    // UPLOAD PROFILE PICTURE /upload
+//    @RequestMapping(path = "/upload", method = RequestMethod.POST)
+//    public
 
 }
