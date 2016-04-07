@@ -6,7 +6,8 @@ angular
   .config(function($routeProvider) {
     $routeProvider
       .when('/login', {
-        template: "<h1> login working </h1>",
+        templateUrl: "templates/login.html",
+        controller: "LoginController"
       })
       .when('/create', {
         templateUrl: "templates/create.html",
@@ -14,4 +15,6 @@ angular
       });
   });
 require('./services/service.createAcct.js');
+require('./services/service.loginService.js');
 require('./controllers/controller.createAcct.js');
+require('./controllers/controller.login.js');
