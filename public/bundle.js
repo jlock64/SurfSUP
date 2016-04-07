@@ -7,7 +7,8 @@ angular
   .config(function($routeProvider) {
     $routeProvider
       .when('/login', {
-        template: "<h1> login working </h1>",
+        templateUrl: "templates/login.html",
+        controller: "LoginController"
       })
       .when('/create', {
         templateUrl: "templates/create.html",
@@ -15,9 +16,11 @@ angular
       });
   });
 require('./services/service.createAcct.js');
+require('./services/service.loginService.js');
 require('./controllers/controller.createAcct.js');
+require('./controllers/controller.login.js');
 
-},{"./controllers/controller.createAcct.js":2,"./services/service.createAcct.js":7,"angular":6,"angular-route":4}],2:[function(require,module,exports){
+},{"./controllers/controller.createAcct.js":2,"./controllers/controller.login.js":3,"./services/service.createAcct.js":8,"./services/service.loginService.js":9,"angular":7,"angular-route":5}],2:[function(require,module,exports){
 angular
 .module('surfSup')
 .controller('CreateAcctController', function ($scope, CreateAcctService){
@@ -31,6 +34,19 @@ angular
 }); //end of controller
 
 },{}],3:[function(require,module,exports){
+angular
+  .module('surfSup')
+  .controller('LoginController', function($scope, LoginService) {
+
+    $scope.loginObj = {};
+    $scope.login = function() {
+      console.log('login object:', $scope.loginObj);
+      LoginService.loginUser($scope.loginObj);
+    };
+
+  }) // end of LoginController
+
+},{}],4:[function(require,module,exports){
 /**
  * @license AngularJS v1.5.3
  * (c) 2010-2016 Google, Inc. http://angularjs.org
@@ -1054,11 +1070,11 @@ function ngViewFillContentFactory($compile, $controller, $route) {
 
 })(window, window.angular);
 
-},{}],4:[function(require,module,exports){
+},{}],5:[function(require,module,exports){
 require('./angular-route');
 module.exports = 'ngRoute';
 
-},{"./angular-route":3}],5:[function(require,module,exports){
+},{"./angular-route":4}],6:[function(require,module,exports){
 /**
  * @license AngularJS v1.5.3
  * (c) 2010-2016 Google, Inc. http://angularjs.org
@@ -31773,11 +31789,11 @@ $provide.value("$locale", {
 })(window, document);
 
 !window.angular.$$csp().noInlineStyle && window.angular.element(document.head).prepend('<style type="text/css">@charset "UTF-8";[ng\\:cloak],[ng-cloak],[data-ng-cloak],[x-ng-cloak],.ng-cloak,.x-ng-cloak,.ng-hide:not(.ng-hide-animate){display:none !important;}ng\\:form{display:block;}.ng-animate-shim{visibility:hidden;}.ng-anchor{position:absolute;}</style>');
-},{}],6:[function(require,module,exports){
+},{}],7:[function(require,module,exports){
 require('./angular');
 module.exports = angular;
 
-},{"./angular":5}],7:[function(require,module,exports){
+},{"./angular":6}],8:[function(require,module,exports){
 angular
 .module ('surfSup')
 .service('CreateAcctService', function ($http) {
@@ -31789,5 +31805,18 @@ angular
     addAcct: addAcct
   };
 });
+
+},{}],9:[function(require,module,exports){
+angular
+  .module('surfSup')
+  .service('LoginService', function($http) {
+    var loginUrl = '/login';
+    function loginUser(username, password) {
+      return $http.post(loginUrl, username, password)
+    }
+    return {
+      loginUser: loginUser
+    };
+  });
 
 },{}]},{},[1]);
