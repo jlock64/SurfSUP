@@ -11,17 +11,12 @@ angular
       })
       .error(function (err) {
         console.log('doh');
-      })
+      });
     };
-
-<<<<<<< HEAD
-  }); // end of LoginController
-=======
 
     $scope.logout = function() {
       LoginService.logoutUser();
       console.log('logging out');
-    }
+    };
 
-  }) // end of LoginController
->>>>>>> 3f6f12131ac0ac7e3bb3514794747b205b925695
+  }); // end of LoginController
