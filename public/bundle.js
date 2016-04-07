@@ -32,10 +32,16 @@ angular
   $scope.acctObj = {};
   $scope.submitForm = function () {
     console.log('account object:', $scope.acctObj);
-    CreateAcctService.addAcct($scope.acctObj);
-    $location.path('/home')
-  };
 
+    CreateAcctService.addAcct($scope.acctObj).success(function(res){
+      console.log('create works');
+      $location.path('/home');
+    })
+    .error (function (err) {
+      console.log('create not working');
+    });
+
+  };
 }); //end of controller
 
 },{}],3:[function(require,module,exports){
@@ -52,16 +58,15 @@ angular
       })
       .error(function (err) {
         console.log('doh');
-      })
+      });
     };
-
 
     $scope.logout = function() {
       LoginService.logoutUser();
       console.log('logging out');
-    }
+    };
 
-  }) // end of LoginController
+  }); // end of LoginController
 
 },{}],4:[function(require,module,exports){
 /**
@@ -31829,15 +31834,14 @@ angular
   .service('LoginService', function($http) {
     var loginUrl = '/login';
     function loginUser(username, password) {
-      return $http.post(loginUrl, username, password)
-    };
+      return $http.post(loginUrl, username, password);
+    }
 
     var logoutUrl = '/logout';
     function logoutUser() {
       console.log('user logged out', logoutUrl);
-      return $http.get(logoutUrl)
-
-    };
+      return $http.get(logoutUrl);
+    }
 
     return {
       loginUser: loginUser,
