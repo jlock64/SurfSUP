@@ -7,18 +7,16 @@ angular
     $routeProvider
     .when('/home', {
       templateUrl: "templates/homepage.html",
-      controller: "LoginController"
+      controller: "UserController"
     })
       .when('/login', {
         templateUrl: "templates/login.html",
-        controller: "LoginController"
+        controller: "UserController"
       })
       .when('/create', {
         templateUrl: "templates/create.html",
-        controller: "CreateAcctController"
+        controller: "UserController"
       })
   });
-require('./services/service.createAcct.js');
-require('./services/service.loginService.js');
-require('./controllers/controller.createAcct.js');
-require('./controllers/controller.login.js');
+require('./services/userService.js');
+require('./controllers/UserController.js');
