@@ -9,10 +9,14 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 import javax.servlet.http.HttpSession;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.sql.SQLException;
 
 
@@ -39,25 +43,40 @@ public class SurfSupController {
 
     // CREATE USER ROUTE /user
     @RequestMapping(path = "/user", method = RequestMethod.POST)
-    public User createUser (@RequestBody User user, HttpSession session) throws PasswordStorage.CannotPerformOperationException {
-        user.setPassword(PasswordStorage.createHash(user.getPassword()));
-        session.setAttribute("username", user.getUsername());
-        users.save(user);
-        return user;
+    public User createUser (@RequestBody User user, HttpSession session) throws Exception {
+        if (users.findByUsername(user.getUsername()) == null) {
+            user.setPassword(PasswordStorage.createHash(user.getPassword()));
+            session.setAttribute("username", user.getUsername());
+            users.save(user);
+            return user;
+        }
+        else {
+            throw new Exception("Username already taken");
+        }
+
     }
 
     // LOGIN ROUTE /login
     @RequestMapping(path = "/login", method = RequestMethod.POST)
     public User login (@RequestBody User user, HttpSession session) throws Exception {
-        User existing = users.findByUsername(user.getUsername());
-        if (existing != null) {
-            if (PasswordStorage.verifyPassword(user.getPassword(), existing.getPassword())) {
-                session.setAttribute("username", user.getUsername());
-            } else if (!PasswordStorage.verifyPassword(user.getPassword(), existing.getPassword())) {
-                throw new Exception("Username and Password do not match");
+        if (session.getAttribute("username") == null) {
+            User existing = users.findByUsername(user.getUsername());
+            if (existing != null) {
+
+                //SUCCESS SCENARIO
+                if (PasswordStorage.verifyPassword(user.getPassword(), existing.getPassword())) {
+                    session.setAttribute("username", user.getUsername());
+                    return user;
+
+                    //PASSWORD FAIL SCENARIO
+                } else if (!PasswordStorage.verifyPassword(user.getPassword(), existing.getPassword())) {
+                    throw new Exception("Password do not match");
+                }
+            } else if (existing == null) {
+                throw new Exception("Username does not exist in database");
             }
         }
-        return user;
+        return null;
     }
 
     // LOGOUT ROUTE /logout
@@ -66,8 +85,20 @@ public class SurfSupController {
         session.invalidate();
     }
 
-//    // UPLOAD PROFILE PICTURE /upload
-//    @RequestMapping(path = "/upload", method = RequestMethod.POST)
-//    public
+    // UPLOAD PROFILE PICTURE /upload
+    @RequestMapping(path = "/upload", method = RequestMethod.PUT)
+    public void addProfile (HttpSession session, MultipartFile photo) throws IOException {
+        User existing = users.findByUsername((String) session.getAttribute("username"));
+
+        // store photo file name in db
+        File dir = new File("public/profile");
+        dir.mkdirs();
+        File photoFile = File.createTempFile("image", photo.getOriginalFilename(), dir);
+        FileOutputStream fos = new FileOutputStream(photoFile);
+        fos.write(photo.getBytes());
+        existing.setPhotoFileName(photoFile.getName());
+
+        users.save(existing);
+    }
 
 }
