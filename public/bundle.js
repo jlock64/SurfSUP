@@ -7,14 +7,30 @@ angular
   .config(function($routeProvider) {
     $routeProvider
       .when('/login', {
-        templateUrl: "templates/login.html",
+        template: "<h1> login working </h1>",
       })
       .when('/create', {
         templateUrl: "templates/create.html",
+        controller: "CreateAcctController"
       });
   });
+require('./services/service.createAcct.js');
+require('./controllers/controller.createAcct.js');
 
-},{"angular":5,"angular-route":3}],2:[function(require,module,exports){
+},{"./controllers/controller.createAcct.js":2,"./services/service.createAcct.js":7,"angular":6,"angular-route":4}],2:[function(require,module,exports){
+angular
+.module('surfSup')
+.controller('CreateAcctController', function ($scope, CreateAcctService){
+
+  $scope.acctObj = {};
+  $scope.submitForm = function () {
+    console.log('account object:', $scope.acctObj);
+    CreateAcctService.addAcct($scope.acctObj);
+  };
+
+}); //end of controller
+
+},{}],3:[function(require,module,exports){
 /**
  * @license AngularJS v1.5.3
  * (c) 2010-2016 Google, Inc. http://angularjs.org
@@ -1038,11 +1054,11 @@ function ngViewFillContentFactory($compile, $controller, $route) {
 
 })(window, window.angular);
 
-},{}],3:[function(require,module,exports){
+},{}],4:[function(require,module,exports){
 require('./angular-route');
 module.exports = 'ngRoute';
 
-},{"./angular-route":2}],4:[function(require,module,exports){
+},{"./angular-route":3}],5:[function(require,module,exports){
 /**
  * @license AngularJS v1.5.3
  * (c) 2010-2016 Google, Inc. http://angularjs.org
@@ -31757,8 +31773,21 @@ $provide.value("$locale", {
 })(window, document);
 
 !window.angular.$$csp().noInlineStyle && window.angular.element(document.head).prepend('<style type="text/css">@charset "UTF-8";[ng\\:cloak],[ng-cloak],[data-ng-cloak],[x-ng-cloak],.ng-cloak,.x-ng-cloak,.ng-hide:not(.ng-hide-animate){display:none !important;}ng\\:form{display:block;}.ng-animate-shim{visibility:hidden;}.ng-anchor{position:absolute;}</style>');
-},{}],5:[function(require,module,exports){
+},{}],6:[function(require,module,exports){
 require('./angular');
 module.exports = angular;
 
-},{"./angular":4}]},{},[1]);
+},{"./angular":5}],7:[function(require,module,exports){
+angular
+.module ('surfSup')
+.service('CreateAcctService', function ($http) {
+  var createUrl = '/user';
+  function addAcct(info) {
+    return $http.post(createUrl, info);
+  }
+  return {
+    addAcct: addAcct
+  };
+});
+
+},{}]},{},[1]);

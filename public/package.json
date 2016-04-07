@@ -17,7 +17,7 @@
     "watchify": "^3.7.0"
   },
   "scripts": {
-    "serve": "node_modules/.bin/serve & npm run watch",
+    "serve": "cd ../ && java -jar SurfSUP-0.0.1-SNAPSHOT.jar & npm run watch",
     "bundle": "node_modules/.bin/browserify app.module.js -o bundle.js",
     "watch": "node_modules/.bin/node-sass main.scss main.css -w & node_modules/.bin/watchify app.module.js -o bundle.js",
     "test": "echo \"Error: no test specified\" && exit 1",
