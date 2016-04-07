@@ -7,6 +7,16 @@ angular
     $scope.logout = logout;
     $scope.acctObj = {};
     $scope.submitForm = submitForm;
+    // $scope.submitForm = function() {
+    //   console.log('account object:', $scope.acctObj);
+    //   UserService.addAcct($scope.acctObj).success(function(res){
+    //     console.log('create works');
+    //     $location.path('/home');
+    //   })
+    //   .error (function (err) {
+    //     console.log('create not working');
+    //   });
+    // }
 
     function login() {
       console.log('login object:', $scope.loginObj);
@@ -34,5 +44,6 @@ angular
         console.log('create not working');
       });
     }
+
 
   }); // end of LoginController
