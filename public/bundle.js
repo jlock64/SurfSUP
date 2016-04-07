@@ -39,6 +39,7 @@ angular
   .controller('LoginController', function($scope, LoginService) {
 
     $scope.loginObj = {};
+
     $scope.login = function() {
       console.log('login object:', $scope.loginObj);
       LoginService.loginUser($scope.loginObj).success(function (res) {
@@ -48,6 +49,12 @@ angular
         console.log('doh');
       })
     };
+
+
+    $scope.logout = function() {
+      LoginService.logoutUser();
+      console.log('logging out');
+    }
 
   }) // end of LoginController
 
@@ -31818,9 +31825,18 @@ angular
     var loginUrl = '/login';
     function loginUser(username, password) {
       return $http.post(loginUrl, username, password)
-    }
+    };
+
+    var logoutUrl = '/logout';
+    function logoutUser() {
+      console.log('user logged out', logoutUrl);
+      return $http.get(logoutUrl)
+
+    };
+
     return {
-      loginUser: loginUser
+      loginUser: loginUser,
+      logoutUser: logoutUser
     };
   });
 
