@@ -39,11 +39,17 @@ public class SurfSupController {
 
     // CREATE USER ROUTE /user
     @RequestMapping(path = "/user", method = RequestMethod.POST)
-    public User createUser (@RequestBody User user, HttpSession session) throws PasswordStorage.CannotPerformOperationException {
-        user.setPassword(PasswordStorage.createHash(user.getPassword()));
-        session.setAttribute("username", user.getUsername());
-        users.save(user);
-        return user;
+    public User createUser (@RequestBody User user, HttpSession session) throws Exception {
+        if (users.findByUsername(user.getUsername()) == null) {
+            user.setPassword(PasswordStorage.createHash(user.getPassword()));
+            session.setAttribute("username", user.getUsername());
+            users.save(user);
+            return user;
+        }
+        else {
+            throw new Exception("Username already taken");
+        }
+
     }
 
     // LOGIN ROUTE /login
@@ -51,13 +57,18 @@ public class SurfSupController {
     public User login (@RequestBody User user, HttpSession session) throws Exception {
         User existing = users.findByUsername(user.getUsername());
         if (existing != null) {
+
+            //SUCCESS SCENARIO
             if (PasswordStorage.verifyPassword(user.getPassword(), existing.getPassword())) {
                 session.setAttribute("username", user.getUsername());
+                return user;
+
+            //PASSWORD FAIL SCENARIO
             } else if (!PasswordStorage.verifyPassword(user.getPassword(), existing.getPassword())) {
-                throw new Exception("Username and Password do not match");
+                throw new Exception("Password do not match");
             }
         }
-        return user;
+        return null;
     }
 
     // LOGOUT ROUTE /logout
@@ -66,8 +77,10 @@ public class SurfSupController {
         session.invalidate();
     }
 
-//    // UPLOAD PROFILE PICTURE /upload
-//    @RequestMapping(path = "/upload", method = RequestMethod.POST)
-//    public
+    // UPLOAD PROFILE PICTURE /upload
+    @RequestMapping(path = "/upload", method = RequestMethod.PUT)
+    public void addProfile (HttpSession session) {
+
+    }
 
 }
