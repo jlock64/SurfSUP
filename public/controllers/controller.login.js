@@ -21,6 +21,6 @@ angular
     function logout() {
       LoginService.logoutUser();
       console.log('logging out');
-    }
+    };
 
-  }) // end of LoginController
+  }); // end of LoginController
