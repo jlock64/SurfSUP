@@ -41,7 +41,7 @@ public class SurfSupController {
         dbui.stop();
     }
 
-    // CREATE USER ROUTE /user
+    // CREATE A USER
     @RequestMapping(path = "/user", method = RequestMethod.POST)
     public User createUser (@RequestBody User user, HttpSession session) throws Exception {
         if (users.findByUsername(user.getUsername()) == null) {
@@ -56,7 +56,7 @@ public class SurfSupController {
 
     }
 
-    // LOGIN ROUTE /login
+    // LOGIN
     @RequestMapping(path = "/login", method = RequestMethod.POST)
     public User login (@RequestBody User user, HttpSession session) throws Exception {
         if (session.getAttribute("username") == null) {
@@ -79,14 +79,14 @@ public class SurfSupController {
         return null;
     }
 
-    // LOGOUT ROUTE /logout
+    // LOGOUT
     @RequestMapping(path = "/logout", method = RequestMethod.GET)
     public void logout (HttpSession session) {
         session.invalidate();
     }
 
-    // UPLOAD PROFILE PICTURE /upload
-    @RequestMapping(path = "/upload", method = RequestMethod.PUT)
+    // UPLOAD PROFILE PICTURE (WHEN ALREADY LOGGED IN)
+    @RequestMapping(path = "/upload", method = RequestMethod.POST)
     public void addProfile (HttpSession session, MultipartFile photo) throws IOException {
         User existing = users.findByUsername((String) session.getAttribute("username"));
 
