@@ -6,6 +6,10 @@ angular
   .module('surfSup', ['ngRoute'])
   .config(function($routeProvider) {
     $routeProvider
+    .when('/home', {
+      templateUrl: "templates/homepage.html",
+      controller: "LoginController"
+    })
       .when('/login', {
         templateUrl: "templates/login.html",
         controller: "LoginController"
@@ -13,7 +17,7 @@ angular
       .when('/create', {
         templateUrl: "templates/create.html",
         controller: "CreateAcctController"
-      });
+      })
   });
 require('./services/service.createAcct.js');
 require('./services/service.loginService.js');
@@ -23,12 +27,13 @@ require('./controllers/controller.login.js');
 },{"./controllers/controller.createAcct.js":2,"./controllers/controller.login.js":3,"./services/service.createAcct.js":8,"./services/service.loginService.js":9,"angular":7,"angular-route":5}],2:[function(require,module,exports){
 angular
 .module('surfSup')
-.controller('CreateAcctController', function ($scope, CreateAcctService){
+.controller('CreateAcctController', function ($scope, $location, CreateAcctService){
 
   $scope.acctObj = {};
   $scope.submitForm = function () {
     console.log('account object:', $scope.acctObj);
     CreateAcctService.addAcct($scope.acctObj);
+    $location.path('/home')
   };
 
 }); //end of controller

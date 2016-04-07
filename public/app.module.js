@@ -5,6 +5,10 @@ angular
   .module('surfSup', ['ngRoute'])
   .config(function($routeProvider) {
     $routeProvider
+    .when('/home', {
+      templateUrl: "templates/homepage.html",
+      controller: "LoginController"
+    })
       .when('/login', {
         templateUrl: "templates/login.html",
         controller: "LoginController"
@@ -12,7 +16,7 @@ angular
       .when('/create', {
         templateUrl: "templates/create.html",
         controller: "CreateAcctController"
-      });
+      })
   });
 require('./services/service.createAcct.js');
 require('./services/service.loginService.js');
