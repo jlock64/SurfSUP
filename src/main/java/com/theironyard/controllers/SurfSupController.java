@@ -66,5 +66,8 @@ public class SurfSupController {
         session.invalidate();
     }
 
+//    // UPLOAD PROFILE PICTURE /upload
+//    @RequestMapping(path = "/upload", method = RequestMethod.POST)
+//    public
 
 }
