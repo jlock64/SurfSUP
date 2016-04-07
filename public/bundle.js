@@ -6,6 +6,10 @@ angular
   .module('surfSup', ['ngRoute'])
   .config(function($routeProvider) {
     $routeProvider
+    .when('/home', {
+      templateUrl: "templates/homepage.html",
+      controller: "LoginController"
+    })
       .when('/login', {
         templateUrl: "templates/login.html",
         controller: "LoginController"
@@ -13,7 +17,7 @@ angular
       .when('/create', {
         templateUrl: "templates/create.html",
         controller: "CreateAcctController"
-      });
+      })
   });
 require('./services/service.createAcct.js');
 require('./services/service.loginService.js');
@@ -23,14 +27,21 @@ require('./controllers/controller.login.js');
 },{"./controllers/controller.createAcct.js":2,"./controllers/controller.login.js":3,"./services/service.createAcct.js":8,"./services/service.loginService.js":9,"angular":7,"angular-route":5}],2:[function(require,module,exports){
 angular
 .module('surfSup')
-.controller('CreateAcctController', function ($scope, CreateAcctService){
+.controller('CreateAcctController', function ($scope, $location, CreateAcctService){
 
   $scope.acctObj = {};
   $scope.submitForm = function () {
     console.log('account object:', $scope.acctObj);
-    CreateAcctService.addAcct($scope.acctObj);
-  };
 
+    CreateAcctService.addAcct($scope.acctObj).success(function(res){
+      console.log('create works');
+      $location.path('/home');
+    })
+    .error (function (err) {
+      console.log('create not working');
+    });
+
+  };
 }); //end of controller
 
 },{}],3:[function(require,module,exports){
@@ -38,13 +49,28 @@ angular
   .module('surfSup')
   .controller('LoginController', function($scope, LoginService) {
 
+    $scope.login = login;
+    $scope.logout = logout;
     $scope.loginObj = {};
-    $scope.login = function() {
+
+    function login() {
       console.log('login object:', $scope.loginObj);
-      LoginService.loginUser($scope.loginObj);
+      LoginService.loginUser($scope.loginObj).success(function (res) {
+        console.log('we can redirect here if so', res);
+      })
+      .error(function (err) {
+        console.log('doh');
+        $('#usernameAlert').html('<div class="alert alert-danger" role="alert"><strong>Oh snap!</strong> You have entered the wrong password! Try again.</div>');
+      })
     };
 
-  }) // end of LoginController
+
+    function logout() {
+      LoginService.logoutUser();
+      console.log('logging out');
+    };
+
+  }); // end of LoginController
 
 },{}],4:[function(require,module,exports){
 /**
@@ -31812,10 +31838,18 @@ angular
   .service('LoginService', function($http) {
     var loginUrl = '/login';
     function loginUser(username, password) {
-      return $http.post(loginUrl, username, password)
+      return $http.post(loginUrl, username, password);
     }
+
+    var logoutUrl = '/logout';
+    function logoutUser() {
+      console.log('user logged out', logoutUrl);
+      return $http.get(logoutUrl);
+    }
+
     return {
-      loginUser: loginUser
+      loginUser: loginUser,
+      logoutUser: logoutUser
     };
   });
 
