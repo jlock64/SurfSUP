@@ -8,54 +8,34 @@ angular
     $routeProvider
     .when('/home', {
       templateUrl: "templates/homepage.html",
-      controller: "LoginController"
+      controller: "UserController"
     })
       .when('/login', {
         templateUrl: "templates/login.html",
-        controller: "LoginController"
+        controller: "UserController"
       })
       .when('/create', {
         templateUrl: "templates/create.html",
-        controller: "CreateAcctController"
+        controller: "UserController"
       })
   });
-require('./services/service.createAcct.js');
-require('./services/service.loginService.js');
-require('./controllers/controller.createAcct.js');
-require('./controllers/controller.login.js');
+require('./services/userService.js');
+require('./controllers/UserController.js');
 
-},{"./controllers/controller.createAcct.js":2,"./controllers/controller.login.js":3,"./services/service.createAcct.js":8,"./services/service.loginService.js":9,"angular":7,"angular-route":5}],2:[function(require,module,exports){
-angular
-.module('surfSup')
-.controller('CreateAcctController', function ($scope, $location, CreateAcctService){
-
-  $scope.acctObj = {};
-  $scope.submitForm = function () {
-    console.log('account object:', $scope.acctObj);
-
-    CreateAcctService.addAcct($scope.acctObj).success(function(res){
-      console.log('create works');
-      $location.path('/home');
-    })
-    .error (function (err) {
-      console.log('create not working');
-    });
-
-  };
-}); //end of controller
-
-},{}],3:[function(require,module,exports){
+},{"./controllers/UserController.js":2,"./services/userService.js":7,"angular":6,"angular-route":4}],2:[function(require,module,exports){
 angular
   .module('surfSup')
-  .controller('LoginController', function($scope, LoginService) {
+  .controller('UserController', function($scope, UserService) {
 
+    $scope.loginObj = {};
     $scope.login = login;
     $scope.logout = logout;
-    $scope.loginObj = {};
+    $scope.acctObj = {};
+    $scope.submitForm = submitForm;
 
     function login() {
       console.log('login object:', $scope.loginObj);
-      LoginService.loginUser($scope.loginObj).success(function (res) {
+      UserService.loginUser($scope.loginObj).success(function (res) {
         console.log('we can redirect here if so', res);
       })
       .error(function (err) {
@@ -64,15 +44,25 @@ angular
       })
     };
 
-
     function logout() {
-      LoginService.logoutUser();
+      UserService.logoutUser();
       console.log('logging out');
     };
 
+    function submitForm() {
+      console.log('account object:', $scope.acctObj);
+      UserService.addAcct($scope.acctObj).success(function(res){
+        console.log('create works');
+        $location.path('/home');
+      })
+      .error (function (err) {
+        console.log('create not working');
+      });
+    }
+
   }); // end of LoginController
 
-},{}],4:[function(require,module,exports){
+},{}],3:[function(require,module,exports){
 /**
  * @license AngularJS v1.5.3
  * (c) 2010-2016 Google, Inc. http://angularjs.org
@@ -1096,11 +1086,11 @@ function ngViewFillContentFactory($compile, $controller, $route) {
 
 })(window, window.angular);
 
-},{}],5:[function(require,module,exports){
+},{}],4:[function(require,module,exports){
 require('./angular-route');
 module.exports = 'ngRoute';
 
-},{"./angular-route":4}],6:[function(require,module,exports){
+},{"./angular-route":3}],5:[function(require,module,exports){
 /**
  * @license AngularJS v1.5.3
  * (c) 2010-2016 Google, Inc. http://angularjs.org
@@ -31815,27 +31805,14 @@ $provide.value("$locale", {
 })(window, document);
 
 !window.angular.$$csp().noInlineStyle && window.angular.element(document.head).prepend('<style type="text/css">@charset "UTF-8";[ng\\:cloak],[ng-cloak],[data-ng-cloak],[x-ng-cloak],.ng-cloak,.x-ng-cloak,.ng-hide:not(.ng-hide-animate){display:none !important;}ng\\:form{display:block;}.ng-animate-shim{visibility:hidden;}.ng-anchor{position:absolute;}</style>');
-},{}],7:[function(require,module,exports){
+},{}],6:[function(require,module,exports){
 require('./angular');
 module.exports = angular;
 
-},{"./angular":6}],8:[function(require,module,exports){
-angular
-.module ('surfSup')
-.service('CreateAcctService', function ($http) {
-  var createUrl = '/user';
-  function addAcct(info) {
-    return $http.post(createUrl, info);
-  }
-  return {
-    addAcct: addAcct
-  };
-});
-
-},{}],9:[function(require,module,exports){
+},{"./angular":5}],7:[function(require,module,exports){
 angular
   .module('surfSup')
-  .service('LoginService', function($http) {
+  .service('UserService', function($http) {
     var loginUrl = '/login';
     function loginUser(username, password) {
       return $http.post(loginUrl, username, password);
@@ -31847,7 +31824,13 @@ angular
       return $http.get(logoutUrl);
     }
 
+    var createUrl = '/user';
+    function addAcct(info) {
+      return $http.post(createUrl, info);
+    }
+
     return {
+      addAcct: addAcct,
       loginUser: loginUser,
       logoutUser: logoutUser
     };
