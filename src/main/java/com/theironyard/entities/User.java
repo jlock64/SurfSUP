@@ -33,9 +33,8 @@ public class User {
     @Column(nullable = false)
     String password;
 
-//    @Column(nullable = false)
-//    // profileImage
-
+    @Column(nullable = true)
+    String photoFileName;
 
     public void setFirstName(String firstName) {
         this.firstName = firstName;
@@ -83,5 +82,9 @@ public class User {
 
     public String getPassword() {
         return password;
+    }
+
+    public void setPhotoFileName(String photoFileName) {
+        this.photoFileName = photoFileName;
     }
 }
