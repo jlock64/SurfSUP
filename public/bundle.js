@@ -44,7 +44,7 @@ angular
       LoginService.loginUser($scope.loginObj);
     };
 
-  }) // end of LoginController
+  }); // end of LoginController
 
 },{}],4:[function(require,module,exports){
 /**

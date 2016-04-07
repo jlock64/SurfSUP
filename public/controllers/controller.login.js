@@ -8,4 +8,4 @@ angular
       LoginService.loginUser($scope.loginObj);
     };
 
-  }) // end of LoginController
+  }); // end of LoginController
