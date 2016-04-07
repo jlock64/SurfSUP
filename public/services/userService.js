@@ -1,6 +1,6 @@
 angular
   .module('surfSup')
-  .service('LoginService', function($http) {
+  .service('UserService', function($http) {
     var loginUrl = '/login';
     function loginUser(username, password) {
       return $http.post(loginUrl, username, password);
@@ -12,7 +12,13 @@ angular
       return $http.get(logoutUrl);
     }
 
+    var createUrl = '/user';
+    function addAcct(info) {
+      return $http.post(createUrl, info);
+    }
+
     return {
+      addAcct: addAcct,
       loginUser: loginUser,
       logoutUser: logoutUser
     };
