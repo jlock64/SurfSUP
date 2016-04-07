@@ -3,6 +3,7 @@ angular
   .controller('LoginController', function($scope, LoginService) {
 
     $scope.loginObj = {};
+
     $scope.login = function() {
       console.log('login object:', $scope.loginObj);
       LoginService.loginUser($scope.loginObj).success(function (res) {
@@ -12,5 +13,11 @@ angular
         console.log('doh');
       })
     };
+
+
+    $scope.logout = function() {
+      LoginService.logoutUser();
+      console.log('logging out');
+    }
 
   }) // end of LoginController
