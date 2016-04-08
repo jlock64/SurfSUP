@@ -1,0 +1,31 @@
+VARIABLE NAMES (format : "data type" "variable name")
+Sesh {
+
+    int id
+
+    User user
+
+    Boolean isSurf
+    // true means surf session, false means sup session
+
+    LocalDateTime time
+
+    String location
+
+User {
+
+    int id
+
+    String firstName
+
+    String lastName
+
+    String email
+
+    String phone
+
+    String username
+
+    String password
+
+    String photoFileName

@@ -26,6 +26,8 @@ public class Sesh {
     @Column(nullable = false)
     LocalDateTime time;
 
+    String location;
+
     public User getUser() {
         return user;
     }
