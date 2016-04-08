@@ -6,16 +6,20 @@ angular
   .module('surfSup', ['ngRoute'])
   .config(function($routeProvider) {
     $routeProvider
-    .when('/home', {
-      templateUrl: "templates/homepage.html",
-      controller: "UserController"
-    })
+      .when('/home', {
+        templateUrl: "templates/homepage.html",
+        controller: "UserController"
+      })
       .when('/login', {
         templateUrl: "templates/login.html",
         controller: "UserController"
       })
       .when('/create', {
         templateUrl: "templates/create.html",
+        controller: "UserController"
+      })
+      .when('/addSession', {
+        templateUrl: "templates/addSession.html",
         controller: "UserController"
       })
   });
@@ -28,19 +32,10 @@ angular
   .controller('UserController', function($scope, $location, UserService) {
 
     $scope.loginObj = {};
-    $scope.login = login;
-    $scope.logout = logout;
+    $scope.login = login; // line 11
+    $scope.logout = logout;  // line 22
     $scope.acctObj = {};
-    $scope.submitForm = function() {
-      console.log('account object:', $scope.acctObj);
-      UserService.addAcct($scope.acctObj).success(function(res){
-        console.log('create works');
-        $location.path('/home');
-      })
-      .error (function (err) {
-        console.log('create not working');
-      });
-    }
+    $scope.submitForm = submitForm;  // line 27
 
     function login() {
       console.log('login object:', $scope.loginObj);
@@ -59,8 +54,16 @@ angular
     };
 
     function submitForm() {
-
+      console.log('account object:', $scope.acctObj);
+      UserService.addAcct($scope.acctObj).success(function(res){
+        console.log('create works');
+        $location.path('/home');
+      })
+      .error (function (err) {
+        console.log('create not working');
+      });
     }
+
 
   }); // end of LoginController
 

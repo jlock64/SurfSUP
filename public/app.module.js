@@ -5,16 +5,20 @@ angular
   .module('surfSup', ['ngRoute'])
   .config(function($routeProvider) {
     $routeProvider
-    .when('/home', {
-      templateUrl: "templates/homepage.html",
-      controller: "UserController"
-    })
+      .when('/home', {
+        templateUrl: "templates/homepage.html",
+        controller: "UserController"
+      })
       .when('/login', {
         templateUrl: "templates/login.html",
         controller: "UserController"
       })
       .when('/create', {
         templateUrl: "templates/create.html",
+        controller: "UserController"
+      })
+      .when('/addSession', {
+        templateUrl: "templates/addSession.html",
         controller: "UserController"
       })
   });
