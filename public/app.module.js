@@ -1,8 +1,7 @@
 var angular = require('angular');
 var angularRoute = require('angular-route');
-var ngMessages = require ('angular-messages')
 angular
-  .module('surfSup', ['ngRoute', 'ngMessages'])
+  .module('surfSup', ['ngRoute'])
   .config(function($routeProvider) {
     $routeProvider
       .when('/home', {
@@ -21,7 +20,7 @@ angular
         templateUrl: "templates/addSession.html",
         controller: "UserController"
       })
-      
+
   });
 require('./services/userService.js');
 require('./controllers/UserController.js');
