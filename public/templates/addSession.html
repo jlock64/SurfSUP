@@ -2,15 +2,16 @@
   <form>
     <h1>Create Session</h1>
     <div class="form-group">
-      <button class="btn btn-md btn-success surfSupButton" type="button" name="button">Surf</button>
+      <button ng-model="surf.surf"class="btn btn-md btn-success surfSupButton" type="button" name="button">Surf</button>
       <button class="btn btn-md btn-success surfSupButton" type="button" name="button">SUP</button>
     </div>
     </br>
     <div class="form-group" >
-      <input class="form-control" type="text" name="name" placeholder="Enter Location">
+      <input class="form-control" ng-model="sessionObj.location" type="text" name="name" placeholder="Enter Location">
     </div>
     <div class="form-group">
-      <input class="form-control" type="datetime-local" name="sessionTime">
+      <input class="form-control" ng-model="sessionObj.time" type="datetime-local" name="sessionTime">
+      date = {{sessionObj.time}}
     </div>
     <div class="btn-group">
       <button type="button" class="btn btn-secondary dropdown-toggle btn-block" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -25,7 +26,7 @@
       </div>
     </div>
     <div class="btn-group">
-      <button class="btn btn-md btn-success btn-block" type="button" name="button">Submit</button>
+      <button class="btn btn-md btn-success btn-block" ng-click ="addSesh()" type="button" name="button">Submit</button>
     </div>
     </br>
   </form>
