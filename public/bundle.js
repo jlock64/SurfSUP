@@ -21,13 +21,15 @@ angular
       })
       .when('/addSession', {
         templateUrl: "templates/addSession.html",
-        controller: "UserController"
+        controller: "AddSessionController"
       });
   });
 require('./services/userService.js');
+require('./services/sessionService.js');
 require('./controllers/UserController.js');
+require('./controllers/addSessionController.js');
 
-},{"./controllers/UserController.js":2,"./services/userService.js":9,"angular":8,"angular-route":4,"angular-ui-mask":6}],2:[function(require,module,exports){
+},{"./controllers/UserController.js":2,"./controllers/addSessionController.js":3,"./services/sessionService.js":10,"./services/userService.js":11,"angular":9,"angular-route":5,"angular-ui-mask":7}],2:[function(require,module,exports){
 angular
   .module('surfSup')
   .controller('UserController', function($scope, $location, UserService) {
@@ -40,7 +42,6 @@ angular
     $scope.logout = logout;
     $scope.acctObj = {};
     $scope.submitForm = submitForm;
-    $scope.goToSignup = goToSignup;
 
     function login() {
       console.log('login object:', $scope.loginObj);
@@ -51,19 +52,14 @@ angular
       .error(function (err) {
         console.log('doh');
         $('#usernameAlert').html('<div class="alert alert-danger" role="alert"><strong>Oh snap!</strong> You have entered the wrong information! Try again.</div>');
-      })
-    };
+      });
+    }
 
     function logout() {
       UserService.logoutUser();
       console.log('logging out');
       $location.path('/login');
-    };
-
-    function goToSignup() {
-      console.log('been clicked');
-      $location.path('/create');
-    };
+    }
 
     function submitForm() {
       console.log('account object:', $scope.acctObj);
@@ -80,6 +76,29 @@ angular
   }); // end of LoginController
 
 },{}],3:[function(require,module,exports){
+angular
+  .module('surfSup')
+  .controller('AddSessionController', function($scope, $location, SessionService) {
+
+      // $scope.suppy = false;
+
+    // $scope.time = new Date('');
+    $scope.addSesh = addSesh;
+
+    function addSesh () {
+      $scope.sessionObj = {
+        // time: $scope.time,
+        isSurf: $scope.suppy,
+        // location: $scope.location
+      };
+      // console.log($scope.suppy);
+      console.log("session obj", $scope.sessionObj);
+      SessionService.addSession($scope.sessionObj);
+      console.log("session button being clicked");
+    }
+  });
+
+},{}],4:[function(require,module,exports){
 /**
  * @license AngularJS v1.5.3
  * (c) 2010-2016 Google, Inc. http://angularjs.org
@@ -1103,11 +1122,11 @@ function ngViewFillContentFactory($compile, $controller, $route) {
 
 })(window, window.angular);
 
-},{}],4:[function(require,module,exports){
+},{}],5:[function(require,module,exports){
 require('./angular-route');
 module.exports = 'ngRoute';
 
-},{"./angular-route":3}],5:[function(require,module,exports){
+},{"./angular-route":4}],6:[function(require,module,exports){
 /*!
  * angular-ui-mask
  * https://github.com/angular-ui/ui-mask
@@ -1844,7 +1863,7 @@ angular.module('ui.mask', [])
         ]);
 
 }());
-},{}],6:[function(require,module,exports){
+},{}],7:[function(require,module,exports){
 //https://github.com/angular/angular.js/pull/10732
 
 var angular = require('angular');
@@ -1852,7 +1871,7 @@ var mask = require('./dist/mask');
 
 module.exports = 'ui.mask';
 
-},{"./dist/mask":5,"angular":8}],7:[function(require,module,exports){
+},{"./dist/mask":6,"angular":9}],8:[function(require,module,exports){
 /**
  * @license AngularJS v1.5.3
  * (c) 2010-2016 Google, Inc. http://angularjs.org
@@ -32567,11 +32586,24 @@ $provide.value("$locale", {
 })(window, document);
 
 !window.angular.$$csp().noInlineStyle && window.angular.element(document.head).prepend('<style type="text/css">@charset "UTF-8";[ng\\:cloak],[ng-cloak],[data-ng-cloak],[x-ng-cloak],.ng-cloak,.x-ng-cloak,.ng-hide:not(.ng-hide-animate){display:none !important;}ng\\:form{display:block;}.ng-animate-shim{visibility:hidden;}.ng-anchor{position:absolute;}</style>');
-},{}],8:[function(require,module,exports){
+},{}],9:[function(require,module,exports){
 require('./angular');
 module.exports = angular;
 
-},{"./angular":7}],9:[function(require,module,exports){
+},{"./angular":8}],10:[function(require,module,exports){
+angular
+  .module('surfSup')
+  .service('SessionService', function($http) {
+    var sessionUrl = '/sesh';
+    function addSession (info) {
+      return $http.post(sessionUrl, info);
+    }
+    return {
+      addSession: addSession
+    };
+  });
+
+},{}],11:[function(require,module,exports){
 angular
   .module('surfSup')
   .service('UserService', function($http) {

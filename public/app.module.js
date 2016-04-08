@@ -20,8 +20,10 @@ angular
       })
       .when('/addSession', {
         templateUrl: "templates/addSession.html",
-        controller: "UserController"
+        controller: "AddSessionController"
       });
   });
 require('./services/userService.js');
+require('./services/sessionService.js');
 require('./controllers/UserController.js');
+require('./controllers/addSessionController.js');
