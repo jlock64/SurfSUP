@@ -107,6 +107,15 @@ public class SurfSupController {
         users.save(existing);
     }
 
+    // CREATE SESH
+    @RequestMapping(path = "/sesh", method = RequestMethod.POST)
+    public Sesh addSesh (HttpSession session, Sesh sesh) {
+        User user = users.findByUsername((String) session.getAttribute("username"));
+        sesh.setUser(user);
+        seshs.save(sesh);
+        return sesh;
+    }
+
     // DISPLAY ALL SESHS
     @RequestMapping(path = "/sesh", method = RequestMethod.GET)
     public List<Sesh> displaySesh (HttpSession session) {

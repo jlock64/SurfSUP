@@ -23,9 +23,30 @@ public class Sesh {
     Boolean isSurf;
     // true means surf session, false means sup session
 
-//    @Column(nullable = false)
-//    DayOfWeek day;
-
     @Column(nullable = false)
     LocalDateTime time;
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public LocalDateTime getTime() {
+        return time;
+    }
+
+    public void setTime(LocalDateTime time) {
+        this.time = time;
+    }
+
+    public Boolean getSurf() {
+        return isSurf;
+    }
+
+    public void setSurf(Boolean surf) {
+        isSurf = surf;
+    }
 }
