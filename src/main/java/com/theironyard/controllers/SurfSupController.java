@@ -1,7 +1,9 @@
 package com.theironyard.controllers;
 
+import com.theironyard.entities.Join;
 import com.theironyard.entities.Sesh;
 import com.theironyard.entities.User;
+import com.theironyard.services.JoinRepository;
 import com.theironyard.services.SeshRepository;
 import com.theironyard.services.UserRepository;
 import com.theironyard.utilities.PasswordStorage;
@@ -34,6 +36,9 @@ public class SurfSupController {
 
     @Autowired
     SeshRepository seshs;
+
+    @Autowired
+    JoinRepository joins;
 
     Server dbui;
 
@@ -93,7 +98,7 @@ public class SurfSupController {
 
     // UPLOAD PROFILE PICTURE (WHEN ALREADY LOGGED IN)
     @RequestMapping(path = "/upload", method = RequestMethod.POST)
-    public void addProfile (HttpSession session, MultipartFile photo) throws IOException {
+    public void addProfile (@RequestBody HttpSession session, MultipartFile photo) throws IOException {
         User existing = users.findByUsername((String) session.getAttribute("username"));
 
         // store photo file name in db
@@ -109,10 +114,14 @@ public class SurfSupController {
 
     // CREATE SESH
     @RequestMapping(path = "/sesh", method = RequestMethod.POST)
-    public Sesh addSesh (HttpSession session, Sesh sesh) {
+    public Sesh addSesh (@RequestBody HttpSession session, Sesh sesh) {
         User user = users.findByUsername((String) session.getAttribute("username"));
         sesh.setUser(user);
         seshs.save(sesh);
+
+        //joins user and sesh in Joins table
+        Join join = new Join(user, sesh);
+        joins.save(join);
         return sesh;
     }
 
