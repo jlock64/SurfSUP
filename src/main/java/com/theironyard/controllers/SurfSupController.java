@@ -9,10 +9,7 @@ import com.theironyard.services.UserRepository;
 import com.theironyard.utilities.PasswordStorage;
 import org.h2.tools.Server;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.PostConstruct;
@@ -98,7 +95,7 @@ public class SurfSupController {
 
     // UPLOAD PROFILE PICTURE (WHEN ALREADY LOGGED IN)
     @RequestMapping(path = "/upload", method = RequestMethod.POST)
-    public void addProfile (@RequestBody HttpSession session, MultipartFile photo) throws IOException {
+    public void addProfile (@RequestBody MultipartFile photo, HttpSession session) throws IOException {
         User existing = users.findByUsername((String) session.getAttribute("username"));
 
         // store photo file name in db
@@ -114,7 +111,7 @@ public class SurfSupController {
 
     // CREATE SESH
     @RequestMapping(path = "/sesh", method = RequestMethod.POST)
-    public Sesh addSesh (@RequestBody HttpSession session, Sesh sesh) {
+    public Sesh addSesh (@RequestBody Sesh sesh, HttpSession session) {
         User user = users.findByUsername((String) session.getAttribute("username"));
         sesh.setUser(user);
         seshs.save(sesh);
@@ -127,8 +124,15 @@ public class SurfSupController {
 
     // DISPLAY ALL SESHS
     @RequestMapping(path = "/sesh", method = RequestMethod.GET)
-    public List<Sesh> displaySesh (HttpSession session) {
+    public List<Sesh> displayAllSesh () {
         return (List<Sesh>) seshs.findAll();
+    }
+
+    //DISPLAY SESHS BY USER
+    @RequestMapping(path = "/sesh/{id}", method = RequestMethod.GET)
+    public List<Sesh> displaySeshByUser (@PathVariable("id") int id) {
+        List<Sesh> list = seshs.findAllByUser(id);
+        return list;
     }
 
 }
