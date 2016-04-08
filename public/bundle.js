@@ -42,7 +42,6 @@ angular
     $scope.logout = logout;
     $scope.acctObj = {};
     $scope.submitForm = submitForm;
-    $scope.goToSignup = goToSignup;
 
     function login() {
       console.log('login object:', $scope.loginObj);
@@ -53,19 +52,14 @@ angular
       .error(function (err) {
         console.log('doh');
         $('#usernameAlert').html('<div class="alert alert-danger" role="alert"><strong>Oh snap!</strong> You have entered the wrong information! Try again.</div>');
-      })
-    };
+      });
+    }
 
     function logout() {
       UserService.logoutUser();
       console.log('logging out');
       $location.path('/login');
-    };
-
-    function goToSignup() {
-      console.log('been clicked');
-      $location.path('/create');
-    };
+    }
 
     function submitForm() {
       console.log('account object:', $scope.acctObj);
@@ -85,13 +79,21 @@ angular
 angular
   .module('surfSup')
   .controller('AddSessionController', function($scope, $location, SessionService) {
-    $scope.sessionObj = {
-      time: new Date('')
-    };
+
+      // $scope.suppy = false;
+
+    // $scope.time = new Date('');
     $scope.addSesh = addSesh;
+
     function addSesh () {
+      $scope.sessionObj = {
+        // time: $scope.time,
+        isSurf: $scope.suppy,
+        // location: $scope.location
+      };
+      // console.log($scope.suppy);
       console.log("session obj", $scope.sessionObj);
-      SessionService.addSession($scope.sessionObj, $scope.surf);
+      SessionService.addSession($scope.sessionObj);
       console.log("session button being clicked");
     }
   });
