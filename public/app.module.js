@@ -1,8 +1,8 @@
 var angular = require('angular');
 var angularRoute = require('angular-route');
-
+var ngMessages = require ('angular-messages')
 angular
-  .module('surfSup', ['ngRoute'])
+  .module('surfSup', ['ngRoute', 'ngMessages'])
   .config(function($routeProvider) {
     $routeProvider
     .when('/home', {
@@ -16,7 +16,7 @@ angular
       .when('/create', {
         templateUrl: "templates/create.html",
         controller: "UserController"
-      })
+      });
   });
 require('./services/userService.js');
 require('./controllers/UserController.js');

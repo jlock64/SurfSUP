@@ -26,13 +26,13 @@ angular
       .error(function (err) {
         console.log('doh');
         $('#usernameAlert').html('<div class="alert alert-danger" role="alert"><strong>Oh snap!</strong> You have entered the wrong password! Try again.</div>');
-      })
-    };
+      });
+    }
 
     function logout() {
       UserService.logoutUser();
       console.log('logging out');
-    };
+    }
 
     function submitForm() {
       console.log('account object:', $scope.acctObj);
