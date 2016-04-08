@@ -10,5 +10,5 @@ import java.util.List;
  * Created by noellemachin on 4/7/16.
  */
 public interface SeshRepository extends CrudRepository<Sesh, Integer>{
-    List<Sesh> findAllByUser (int id);
+    List<Sesh> findAllByUser (User user);
 }

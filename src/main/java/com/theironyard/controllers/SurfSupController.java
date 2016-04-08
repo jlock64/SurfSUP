@@ -129,9 +129,18 @@ public class SurfSupController {
     }
 
     //DISPLAY SESHS BY USER
-    @RequestMapping(path = "/sesh/{id}", method = RequestMethod.GET)
+    @RequestMapping(path = "/user/{id}/sesh", method = RequestMethod.GET)
     public List<Sesh> displaySeshByUser (@PathVariable("id") int id) {
-        List<Sesh> list = seshs.findAllByUser(id);
+        User user = users.findOne(id);
+        List<Sesh> list = seshs.findAllByUser(user);
+        return list;
+    }
+
+    //DISPLAY ALL USERS GOING TO SPECIFIC SESH
+    @RequestMapping(path = "/join/sesh/{id}", method = RequestMethod.GET)
+    public List<User> displayUserBySesh (@PathVariable("id") int id) {
+        Sesh sesh = seshs.findOne(id);
+        List<User> list = joins.findAllBySesh(sesh);
         return list;
     }
 
