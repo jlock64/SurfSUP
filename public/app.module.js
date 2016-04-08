@@ -1,7 +1,9 @@
 var angular = require('angular');
 var angularRoute = require('angular-route');
+var uiMask = require('angular-ui-mask');
+
 angular
-  .module('surfSup', ['ngRoute'])
+  .module('surfSup', ['ngRoute', uiMask])
   .config(function($routeProvider) {
     $routeProvider
       .when('/home', {
@@ -20,7 +22,6 @@ angular
         templateUrl: "templates/addSession.html",
         controller: "UserController"
       });
-
   });
 require('./services/userService.js');
 require('./controllers/UserController.js');
