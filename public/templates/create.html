@@ -2,7 +2,7 @@
       <h1>
         Sign Up
       </h1>
-
+      <a href="/#/login"><button class="pull-right btn btn-danger" type="button" name="button">Cancel</button></a>
       <form class="form" name="form" ng-app novalidate>
         <div class="form-group">
           <input class="form-control"
@@ -54,7 +54,8 @@
         <div class="form-group">
           <input class="form-control"
           ng-model ="acctObj.phone"
-          placeholder="Phone Number"
+          placeholder="###-###-####"
+          ui-mask="999-999-9999"
           type="tel"
           name="phone"
           required>
