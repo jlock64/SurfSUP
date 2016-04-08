@@ -2,16 +2,21 @@
   <form>
     <h1>Create Session</h1>
     <div class="form-group">
-      <button ng-model="surf.surf"class="btn btn-md btn-success surfSupButton" type="button" name="button">Surf</button>
-      <button class="btn btn-md btn-success surfSupButton" type="button" name="button">SUP</button>
+      <button ng-model="surf.surf"class="btn btn-md btn-success surfSupButton" type="button" ng-click="suppy = true" name="button">Surf</button>
+      <button class="btn btn-md btn-success surfSupButton" type="button" ng-click="suppy = false" name="button">SUP</button>
     </div>
     </br>
     <div class="form-group" >
-      <input class="form-control" ng-model="sessionObj.location" type="text" name="name" placeholder="Enter Location">
+      <input class="form-control" ng-model="location" type="text" name="name" placeholder="Enter Location">
     </div>
     <div class="form-group">
+<<<<<<< HEAD
       <input class="form-control" ng-model="sessionObj.time" type="datetime-local" name="sessionTime">
       date = {{sessionObj.time }}
+=======
+      <input class="form-control" ng-model="time" type="datetime-local" name="sessionTime">
+      date = {{sessionObj.time}}
+>>>>>>> 2fa6e7cfa41dca481a187ba6f294aa77164e38d2
     </div>
     <div class="btn-group">
       <button type="button" class="btn btn-secondary dropdown-toggle btn-block" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">

@@ -16,3 +16,12 @@ form .btn-success {
 
 body {
   background-color: none; }
+
+form .btn-success {
+  margin-top: 1%; }
+
+form .btn-primary {
+  text-transform: uppercase; }
+
+a:hover {
+  text-decoration: none; }
