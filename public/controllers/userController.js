@@ -20,14 +20,14 @@ angular
       .error(function (err) {
         console.log('doh');
         $('#usernameAlert').html('<div class="alert alert-danger" role="alert"><strong>Oh snap!</strong> You have entered the wrong information! Try again.</div>');
-      })
-    };
+      });
+    }
 
     function logout() {
       UserService.logoutUser();
       console.log('logging out');
       $location.path('/login');
-    };
+    }
 
     function submitForm() {
       console.log('account object:', $scope.acctObj);
