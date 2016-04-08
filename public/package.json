@@ -21,7 +21,7 @@
   "scripts": {
     "serve": "cd ../ && java -jar SurfSUP-0.0.1-SNAPSHOT.jar",
     "bundle": "node_modules/.bin/browserify app.module.js -o bundle.js",
-    "watch": "node_modules/.bin/node-sass main.scss main.css -w & node_modules/.bin/watchify app.module.js -o bundle.js",
+    "watch": "node_modules/.bin/node-sass ./css/main.scss ./css/main.css -w & node_modules/.bin/watchify app.module.js -o bundle.js",
     "test": "echo \"Error: no test specified\" && exit 1",
     "surf": "say dude, you snaked my wave, you bitch",
     "tube": "say brah, I just totally got tubed"
