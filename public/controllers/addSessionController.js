@@ -2,7 +2,7 @@ angular
   .module('surfSup')
   .controller('AddSessionController', function($scope, $location, SessionService) {
     $scope.sessionObj = {
-      time: new Date('')
+      time: new Date()
     };
     $scope.addSesh = addSesh;
     function addSesh () {
