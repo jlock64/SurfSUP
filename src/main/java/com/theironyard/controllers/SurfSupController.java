@@ -107,11 +107,10 @@ public class SurfSupController {
         users.save(existing);
     }
 
-//    // DISPLAY SESSIONS FOR SPECIFIED DAY
-//    @RequestMapping(path = "/sesh", method = RequestMethod.GET)
-//    public List<Sesh> displaySesh (HttpSession session) {
-//
-//    }
-
+    // DISPLAY ALL SESHS
+    @RequestMapping(path = "/sesh", method = RequestMethod.GET)
+    public List<Sesh> displaySesh (HttpSession session) {
+        return (List<Sesh>) seshs.findAll();
+    }
 
 }

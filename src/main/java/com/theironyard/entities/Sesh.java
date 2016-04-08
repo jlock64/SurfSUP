@@ -2,6 +2,8 @@ package com.theironyard.entities;
 
 import javax.persistence.*;
 import java.time.DayOfWeek;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.Calendar;
 
 /**
@@ -21,10 +23,9 @@ public class Sesh {
     Boolean isSurf;
     // true means surf session, false means sup session
 
-    @Column(nullable = false)
-    DayOfWeek day;
-
 //    @Column(nullable = false)
-//    //time of day?? not sure how to represent this
+//    DayOfWeek day;
 
+    @Column(nullable = false)
+    LocalDateTime time;
 }
