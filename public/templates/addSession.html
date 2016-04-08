@@ -2,15 +2,15 @@
   <form>
     <h1>Create Session</h1>
     <div class="form-group">
-      <button ng-model="surf.surf"class="btn btn-md btn-success surfSupButton" type="button" name="button">Surf</button>
-      <button class="btn btn-md btn-success surfSupButton" type="button" name="button">SUP</button>
+      <button ng-model="surf.surf"class="btn btn-md btn-success surfSupButton" type="button" ng-click="suppy = true" name="button">Surf</button>
+      <button class="btn btn-md btn-success surfSupButton" type="button" ng-click="suppy = false" name="button">SUP</button>
     </div>
     </br>
     <div class="form-group" >
-      <input class="form-control" ng-model="sessionObj.location" type="text" name="name" placeholder="Enter Location">
+      <input class="form-control" ng-model="location" type="text" name="name" placeholder="Enter Location">
     </div>
     <div class="form-group">
-      <input class="form-control" ng-model="sessionObj.time" type="datetime-local" name="sessionTime">
+      <input class="form-control" ng-model="time" type="datetime-local" name="sessionTime">
       date = {{sessionObj.time}}
     </div>
     <div class="btn-group">

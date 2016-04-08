@@ -10,7 +10,6 @@ angular
     $scope.logout = logout;
     $scope.acctObj = {};
     $scope.submitForm = submitForm;
-    $scope.goToSignup = goToSignup;
 
     function login() {
       console.log('login object:', $scope.loginObj);
@@ -28,11 +27,6 @@ angular
       UserService.logoutUser();
       console.log('logging out');
       $location.path('/login');
-    }
-
-    function goToSignup() {
-      console.log('been clicked');
-      $location.path('/create');
     }
 
     function submitForm() {
