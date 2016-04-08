@@ -1,0 +1,18 @@
+form h1 {
+  text-align: center; }
+
+form .btn-group, form .form-group {
+  width: 100%; }
+
+form .surfSupButton {
+  width: 49.5%;
+  display: inline-block; }
+
+form .btn-success {
+  text-transform: uppercase; }
+
+* {
+  box-sizing: border-box; }
+
+body {
+  background-color: none; }

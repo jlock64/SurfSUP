@@ -1,10 +1,32 @@
 <div class="container">
   <form>
-    <h1>Add New Session</h1>
-    <div class="btn-group">
-      <button class="btn btn-md btn-success" type="button" name="button">Surf</button>
-      <button class="btn btn-md btn-success" type="button" name="button">SUP</button>
+    <h1>Create Session</h1>
+    <div class="form-group">
+      <button class="btn btn-md btn-success surfSupButton" type="button" name="button">Surf</button>
+      <button class="btn btn-md btn-success surfSupButton" type="button" name="button">SUP</button>
     </div>
     </br>
-    <input type="text" name="name" placeholder="Enter Location">
+    <div class="form-group" >
+      <input class="form-control" type="text" name="name" placeholder="Enter Location">
+    </div>
+    <div class="form-group">
+      <input class="form-control" type="datetime-local" name="sessionTime">
+    </div>
+    <div class="btn-group">
+      <button type="button" class="btn btn-secondary dropdown-toggle btn-block" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        Invite Friends
+      </button>
+      <div class="dropdown-menu">
+        <a class="dropdown-item" href="#">Action</a>
+        <a class="dropdown-item" href="#">Another action</a>
+        <a class="dropdown-item" href="#">Something else here</a>
+        <div class="dropdown-divider"></div>
+        <a class="dropdown-item" href="#">Separated link</a>
+      </div>
+    </div>
+    <div class="btn-group">
+      <button class="btn btn-md btn-success btn-block" type="button" name="button">Submit</button>
+    </div>
+    </br>
+  </form>
 </div>
