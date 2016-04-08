@@ -82,14 +82,14 @@ angular
 
       // $scope.suppy = false;
 
-    // $scope.time = new Date('');
+    $scope.time = new Date('');
     $scope.addSesh = addSesh;
 
     function addSesh () {
       $scope.sessionObj = {
-        // time: $scope.time,
+        time: $scope.time,
         isSurf: $scope.suppy,
-        // location: $scope.location
+        location: $scope.location
       };
       // console.log($scope.suppy);
       console.log("session obj", $scope.sessionObj);
