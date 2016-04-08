@@ -1,6 +1,7 @@
 package com.theironyard.controllers;
 
 import com.theironyard.entities.User;
+import com.theironyard.services.SeshRepository;
 import com.theironyard.services.UserRepository;
 import com.theironyard.utilities.PasswordStorage;
 import org.h2.tools.Server;
@@ -28,6 +29,9 @@ public class SurfSupController {
 
     @Autowired
     UserRepository users;
+
+    @Autowired
+    SeshRepository seshs;
 
     Server dbui;
 
@@ -100,5 +104,6 @@ public class SurfSupController {
 
         users.save(existing);
     }
+
 
 }
