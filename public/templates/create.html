@@ -3,40 +3,76 @@
         Sign Up
       </h1>
 
-      <form>
+      <form class="form" name="form" ng-app novalidate>
         <div class="form-group">
-          <input class="form-control" ng-model ="acctObj.firstName" placeholder="First Name" type="text" required>
+          <input class="form-control"
+          ng-model ="acctObj.firstName"
+          placeholder="First Name"
+          type="text" name="firstName"
+          required/>
+        </div>
+        <div ng-show="submitted && form.$invalid" >
+          <div ng-show="form.firstName.$error.required" class="alert alert-danger">
+            First Name is Required
+          </div>
+        </div>
+        <div class="form-group">
+          <input class="form-control"
+          ng-model ="acctObj.lastName"
+          placeholder="Last Name"
+          type="text"
+          required>
         </div>
 
         <div class="form-group">
-          <input class="form-control" ng-model ="acctObj.lastName" placeholder="Last Name" type="text">
+          <input class="form-control"
+          ng-model ="acctObj.email"
+          placeholder="Email"
+          type="email"
+          required>
         </div>
 
         <div class="form-group">
-          <input class="form-control" ng-model ="acctObj.email" placeholder="Email" type="email">
+          <input class="form-control"
+          ng-model ="acctObj.phone"
+          placeholder="Phone Number"
+          type="tel"
+          required>
         </div>
 
         <div class="form-group">
-          <input class="form-control" ng-model ="acctObj.phone" placeholder="Phone Number" type="tel">
-        </div>
-
-        <div class="form-group">
-          <input class="form-control" placeholder="Enter Your Location" type="text">
+          <input class="form-control"
+          placeholder="Enter Your Location"
+          type="text"
+          required>
         </div>
 
         <hr>
 
         <div class="form-group">
-          <input class="form-control" ng-model ="acctObj.username" placeholder="Enter New Username" type="text">
+          <input class="form-control"
+          ng-model ="acctObj.username"
+          placeholder="Enter New Username"
+          type="text"
+          required>
         </div>
 
         <div class="form-group">
-          <input class="form-control" ng-model ="acctObj.password" placeholder="Enter New Password" type="password">
+          <input class="form-control"
+          ng-model ="acctObj.password"
+          placeholder="Enter New Password"
+          type="password"
+          required>
         </div>
 
         <!-- <div class="form-group">
           <label for="exampleInputFile">Photo Upload</label> <input type="file">
         </div> -->
-        <button ng-click = "submitForm()" class="btn btn-default" type="submit">Submit</button>
+
+        <button ng-click = "submitForm(); submitted=true"
+        class="btn btn-primary btn-large"
+        type="submit">Submit</button>
+
+
       </form>
     </div>
