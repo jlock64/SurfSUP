@@ -1,5 +1,6 @@
 package com.theironyard.controllers;
 
+import com.theironyard.entities.Sesh;
 import com.theironyard.entities.User;
 import com.theironyard.services.SeshRepository;
 import com.theironyard.services.UserRepository;
@@ -19,6 +20,7 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.List;
 
 
 /**
@@ -104,6 +106,12 @@ public class SurfSupController {
 
         users.save(existing);
     }
+
+//    // DISPLAY SESSIONS FOR SPECIFIED DAY
+//    @RequestMapping(path = "/sesh", method = RequestMethod.GET)
+//    public List<Sesh> displaySesh (HttpSession session) {
+//
+//    }
 
 
 }
