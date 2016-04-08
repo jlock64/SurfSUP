@@ -19,11 +19,9 @@ angular
       .when('/addSession', {
         templateUrl: "templates/addSession.html",
         controller: "UserController"
-<<<<<<< HEAD
+
       });
-=======
-      })
->>>>>>> e06aad7935a45a6d659f90da5b4e46a4ca379543
+
 
   });
 require('./services/userService.js');
