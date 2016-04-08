@@ -144,4 +144,10 @@ public class SurfSupController {
         return list;
     }
 
+    //EDIT EXISTING SESSION
+    @RequestMapping(path = "/sesh", method = RequestMethod.PUT)
+    public void editSesh (@RequestBody Sesh sesh) {
+        seshs.save(sesh);
+    }
+
 }
