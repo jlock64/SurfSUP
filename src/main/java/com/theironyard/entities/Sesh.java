@@ -53,11 +53,11 @@ public class Sesh {
         this.time = time;
     }
 
-    public Boolean getSurf() {
+    public Boolean getIsSurf() {
         return isSurf;
     }
 
-    public void setSurf(Boolean surf) {
+    public void setIsSurf(Boolean surf) {
         isSurf = surf;
     }
 }
