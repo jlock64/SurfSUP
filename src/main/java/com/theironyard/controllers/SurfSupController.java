@@ -1,14 +1,15 @@
 package com.theironyard.controllers;
 
+import com.theironyard.entities.Join;
+import com.theironyard.entities.Sesh;
 import com.theironyard.entities.User;
+import com.theironyard.services.JoinRepository;
+import com.theironyard.services.SeshRepository;
 import com.theironyard.services.UserRepository;
 import com.theironyard.utilities.PasswordStorage;
 import org.h2.tools.Server;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.PostConstruct;
@@ -18,6 +19,7 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.List;
 
 
 /**
@@ -28,6 +30,12 @@ public class SurfSupController {
 
     @Autowired
     UserRepository users;
+
+    @Autowired
+    SeshRepository seshs;
+
+    @Autowired
+    JoinRepository joins;
 
     Server dbui;
 
@@ -87,7 +95,7 @@ public class SurfSupController {
 
     // UPLOAD PROFILE PICTURE (WHEN ALREADY LOGGED IN)
     @RequestMapping(path = "/upload", method = RequestMethod.POST)
-    public void addProfile (HttpSession session, MultipartFile photo) throws IOException {
+    public void addProfile (@RequestBody MultipartFile photo, HttpSession session) throws IOException {
         User existing = users.findByUsername((String) session.getAttribute("username"));
 
         // store photo file name in db
@@ -99,6 +107,41 @@ public class SurfSupController {
         existing.setPhotoFileName(photoFile.getName());
 
         users.save(existing);
+    }
+
+    // CREATE SESH
+    @RequestMapping(path = "/sesh", method = RequestMethod.POST)
+    public Sesh addSesh (@RequestBody Sesh sesh, HttpSession session) {
+        User user = users.findByUsername((String) session.getAttribute("username"));
+        sesh.setUser(user);
+        seshs.save(sesh);
+
+        //joins user and sesh in Joins table
+        Join join = new Join(user, sesh);
+        joins.save(join);
+        return sesh;
+    }
+
+    // DISPLAY ALL SESHS
+    @RequestMapping(path = "/sesh", method = RequestMethod.GET)
+    public List<Sesh> displayAllSesh () {
+        return (List<Sesh>) seshs.findAll();
+    }
+
+    //DISPLAY SESHS BY USER
+    @RequestMapping(path = "/user/{id}/sesh", method = RequestMethod.GET)
+    public List<Sesh> displaySeshByUser (@PathVariable("id") int id) {
+        User user = users.findOne(id);
+        List<Sesh> list = seshs.findAllByUser(user);
+        return list;
+    }
+
+    //DISPLAY ALL USERS GOING TO SPECIFIC SESH
+    @RequestMapping(path = "/join/sesh/{id}", method = RequestMethod.GET)
+    public List<User> displayUserBySesh (@PathVariable("id") int id) {
+        Sesh sesh = seshs.findOne(id);
+        List<User> list = joins.findAllBySesh(sesh);
+        return list;
     }
 
 }
