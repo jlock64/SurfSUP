@@ -89,7 +89,7 @@ angular
       $scope.sessionObj = {
         time: $scope.time.toISOString().slice(0,19),
         isSurf: $scope.suppy,
-        // location: $scope.location
+        location: $scope.location
       };
       // console.log($scope.suppy);
       console.log("session obj", $scope.sessionObj);
