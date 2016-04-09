@@ -12,9 +12,15 @@ angular
       });
       return defer.promise;
     }
+
+    function deleteSession(id) {
+         return $http.delete(sessionUrl + '/' + id);
+       }
+
     return {
       addSession: addSession,
-      getSession: getSession
+      getSession: getSession,
+      deleteSession: deleteSession
     };
 
   });

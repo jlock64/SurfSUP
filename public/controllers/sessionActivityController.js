@@ -15,4 +15,11 @@ angular
           console.log('data pulling is working!');
         });
     }
+
+    $scope.deleteSession = function (id) {
+      console.log('this is id', id);
+      SessionService.deleteSession(id);
+    }
+
+
   });
