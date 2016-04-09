@@ -33,3 +33,4 @@ require('./services/cacheEngineService.js');
 require('./controllers/UserController.js');
 require('./controllers/addSessionController.js');
 require('./controllers/sessionActivityController.js');
+require ('./directives/sessionDirective.js');
