@@ -23,7 +23,7 @@ angular
       .error(function(err) {
         console.log('doh', err);
         $('#sessionTime').html('<div class="alert alert-danger" role="alert"><strong>Oh no!</strong> The username and password do not match. Try again.</div>');
-      })
+      });
     } // end of addSesh()
 
 

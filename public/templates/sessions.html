@@ -1,9 +1,5 @@
 <h1>Welcome to sessions!</h1>
-<ul class="listGroup">
-  <li class="listGroupItem"
-      ng-repeat="sessionObj in sessionObjs">
-      <!-- {{sessionObj.time}}
-      {{sessionObj.location}}
-      {{sessionObj.isSurf}} -->
-  </li>
-</ul>
+
+<div class="col-xs-6 col-sm-6 col-md-2" ng-repeat="seshActivities in seshActivity" class="">
+  {{seshActivities[0].location}}
+</div>
