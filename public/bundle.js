@@ -16,7 +16,7 @@ angular
         controller: "UserController"
       })
       .when('/create', {
-        templateUrl: "templates/create.html",
+        templateUrl: "templates/createUser.html",
         controller: "UserController"
       })
       .when('/addSession', {
@@ -133,6 +133,13 @@ angular
           console.log('data pulling is working!');
         });
     }
+
+    $scope.deleteSession = function (id) {
+      console.log('this is id', id);
+      SessionService.deleteSession(id);
+    }
+
+
   });
 
 },{}],5:[function(require,module,exports){
@@ -32663,9 +32670,15 @@ angular
       });
       return defer.promise;
     }
+
+    function deleteSession(id) {
+         return $http.delete(sessionUrl + '/' + id);
+       }
+
     return {
       addSession: addSession,
-      getSession: getSession
+      getSession: getSession,
+      deleteSession: deleteSession
     };
 
   });

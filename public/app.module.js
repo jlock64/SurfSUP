@@ -15,7 +15,7 @@ angular
         controller: "UserController"
       })
       .when('/create', {
-        templateUrl: "templates/create.html",
+        templateUrl: "templates/createUser.html",
         controller: "UserController"
       })
       .when('/addSession', {
