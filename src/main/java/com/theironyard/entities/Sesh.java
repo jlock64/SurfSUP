@@ -24,9 +24,18 @@ public class Sesh {
     // true means surf session, false means sup session
 
     @Column(nullable = false)
-    LocalDateTime time;
+    String time;
 
+    @Column(nullable = false)
     String location;
+
+    public String getLocation() {
+        return location;
+    }
+
+    public void setLocation(String location) {
+        this.location = location;
+    }
 
     public User getUser() {
         return user;
@@ -36,19 +45,19 @@ public class Sesh {
         this.user = user;
     }
 
-    public LocalDateTime getTime() {
+    public String getTime() {
         return time;
     }
 
-    public void setTime(LocalDateTime time) {
+    public void setTime(String time) {
         this.time = time;
     }
 
-    public Boolean getSurf() {
+    public Boolean getIsSurf() {
         return isSurf;
     }
 
-    public void setSurf(Boolean surf) {
+    public void setIsSurf(Boolean surf) {
         isSurf = surf;
     }
 }
