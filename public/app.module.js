@@ -21,7 +21,11 @@ angular
       .when('/addSession', {
         templateUrl: "templates/addSession.html",
         controller: "AddSessionController"
-      });
+      })
+      .when('/sessions', {
+        templateUrl: "templates/sessions.html",
+        controller: "AddSessionController"
+      })
   });
 require('./services/userService.js');
 require('./services/sessionService.js');
