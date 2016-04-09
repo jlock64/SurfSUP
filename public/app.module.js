@@ -24,10 +24,13 @@ angular
       })
       .when('/sessions', {
         templateUrl: "templates/sessions.html",
-        controller: "AddSessionController"
-      })
+        controller: "SessionActivityController"
+      });
   });
 require('./services/userService.js');
 require('./services/sessionService.js');
+require('./services/cacheEngineService.js');
 require('./controllers/UserController.js');
 require('./controllers/addSessionController.js');
+require('./controllers/sessionActivityController.js');
+require ('./directives/sessionDirective.js');

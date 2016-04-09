@@ -25,15 +25,18 @@ angular
       })
       .when('/sessions', {
         templateUrl: "templates/sessions.html",
-        controller: "AddSessionController"
-      })
+        controller: "SessionActivityController"
+      });
   });
 require('./services/userService.js');
 require('./services/sessionService.js');
+require('./services/cacheEngineService.js');
 require('./controllers/UserController.js');
 require('./controllers/addSessionController.js');
+require('./controllers/sessionActivityController.js');
+require ('./directives/sessionDirective.js');
 
-},{"./controllers/UserController.js":2,"./controllers/addSessionController.js":3,"./services/sessionService.js":10,"./services/userService.js":11,"angular":9,"angular-route":5,"angular-ui-mask":7}],2:[function(require,module,exports){
+},{"./controllers/UserController.js":2,"./controllers/addSessionController.js":3,"./controllers/sessionActivityController.js":4,"./directives/sessionDirective.js":5,"./services/cacheEngineService.js":12,"./services/sessionService.js":13,"./services/userService.js":14,"angular":11,"angular-route":7,"angular-ui-mask":9}],2:[function(require,module,exports){
 angular
   .module('surfSup')
   .controller('UserController', function($scope, $location, UserService) {
@@ -105,7 +108,7 @@ angular
       .error(function(err) {
         console.log('doh', err);
         $('#sessionTime').html('<div class="alert alert-danger" role="alert"><strong>Oh no!</strong> The username and password do not match. Try again.</div>');
-      })
+      });
     } // end of addSesh()
 
 
@@ -113,6 +116,40 @@ angular
   }); // end of AddSessionController
 
 },{}],4:[function(require,module,exports){
+angular
+  .module('surfSup')
+  .controller('SessionActivityController', function ($scope, SessionService, CacheEngine) {
+    if (CacheEngine.get('seshActivity')){
+      var cache = CacheEngine.get('seshActivity');
+      $scope.seshActivity = cache;
+      console.log('cache is working!');
+    }
+    else {
+        SessionService.getSession()
+        .then(function(data) {
+          CacheEngine.put('seshActivity', data);
+          $scope.seshActivity = data;
+          window.glow = data;
+          console.log('data pulling is working!');
+        });
+    }
+  });
+
+},{}],5:[function(require,module,exports){
+angular
+.module ('surfSup')
+.directive ('sessionReader', function (){
+  return {
+    templateUrl: '../templates/session-reader.html',
+    controller: 'SessionActivityController',
+    restrict: 'E',
+    scope: {
+      activity: '='
+    }
+  };
+});
+
+},{}],6:[function(require,module,exports){
 /**
  * @license AngularJS v1.5.3
  * (c) 2010-2016 Google, Inc. http://angularjs.org
@@ -1136,11 +1173,11 @@ function ngViewFillContentFactory($compile, $controller, $route) {
 
 })(window, window.angular);
 
-},{}],5:[function(require,module,exports){
+},{}],7:[function(require,module,exports){
 require('./angular-route');
 module.exports = 'ngRoute';
 
-},{"./angular-route":4}],6:[function(require,module,exports){
+},{"./angular-route":6}],8:[function(require,module,exports){
 /*!
  * angular-ui-mask
  * https://github.com/angular-ui/ui-mask
@@ -1877,7 +1914,7 @@ angular.module('ui.mask', [])
         ]);
 
 }());
-},{}],7:[function(require,module,exports){
+},{}],9:[function(require,module,exports){
 //https://github.com/angular/angular.js/pull/10732
 
 var angular = require('angular');
@@ -1885,7 +1922,7 @@ var mask = require('./dist/mask');
 
 module.exports = 'ui.mask';
 
-},{"./dist/mask":6,"angular":9}],8:[function(require,module,exports){
+},{"./dist/mask":8,"angular":11}],10:[function(require,module,exports){
 /**
  * @license AngularJS v1.5.3
  * (c) 2010-2016 Google, Inc. http://angularjs.org
@@ -32600,24 +32637,40 @@ $provide.value("$locale", {
 })(window, document);
 
 !window.angular.$$csp().noInlineStyle && window.angular.element(document.head).prepend('<style type="text/css">@charset "UTF-8";[ng\\:cloak],[ng-cloak],[data-ng-cloak],[x-ng-cloak],.ng-cloak,.x-ng-cloak,.ng-hide:not(.ng-hide-animate){display:none !important;}ng\\:form{display:block;}.ng-animate-shim{visibility:hidden;}.ng-anchor{position:absolute;}</style>');
-},{}],9:[function(require,module,exports){
+},{}],11:[function(require,module,exports){
 require('./angular');
 module.exports = angular;
 
-},{"./angular":8}],10:[function(require,module,exports){
+},{"./angular":10}],12:[function(require,module,exports){
+angular
+.module('surfSup')
+.service ('CacheEngine', function($cacheFactory){
+  return $cacheFactory('sessionsAPI');
+});
+
+},{}],13:[function(require,module,exports){
 angular
   .module('surfSup')
-  .service('SessionService', function($http) {
+  .service('SessionService', function($http, $q) {
     var sessionUrl = '/sesh';
     function addSession (info) {
       return $http.post(sessionUrl, info);
     }
+    function getSession () {
+      var defer = $q.defer();
+      $http.get(sessionUrl).then(function(data){
+        defer.resolve(data);
+      });
+      return defer.promise;
+    }
     return {
-      addSession: addSession
+      addSession: addSession,
+      getSession: getSession
     };
+
   });
 
-},{}],11:[function(require,module,exports){
+},{}],14:[function(require,module,exports){
 angular
   .module('surfSup')
   .service('UserService', function($http) {
