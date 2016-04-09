@@ -19,7 +19,7 @@ angular
       })
       .error(function (err) {
         console.log('doh');
-        $('#usernameAlert').html('<div class="alert alert-danger" role="alert"><strong>Oh snap!</strong> You have entered the wrong information! Try again.</div>');
+        $('#usernameAlert').html('<div class="alert alert-danger" role="alert"><strong>Oh no!</strong> The username and password do not match. Try again.</div>');
       });
     }
 
