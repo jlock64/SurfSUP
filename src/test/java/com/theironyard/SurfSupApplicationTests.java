@@ -83,8 +83,11 @@ public class SurfSupApplicationTests {
 		Assert.assertTrue(session.getAttribute("username") != null);
 	}
 
+//    @Test
+//    public void test3
+
     @Test
-    public void test3logout() throws Exception {
+    public void test10logout() throws Exception {
         ResultActions ra = mockMvc.perform(
                 MockMvcRequestBuilders.post("/logout")
 
