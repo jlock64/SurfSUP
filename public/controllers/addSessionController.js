@@ -1,17 +1,7 @@
 angular
   .module('surfSup')
   .controller('AddSessionController', function($scope, $location, SessionService) {
-    $scope.sessionObj = {
-      time: new Date()
-    };
 
-<<<<<<< HEAD
-    $scope.addSesh = addSesh;
-
-    function addSesh () {
-      $scope.sessionObj = {
-        time: $scope.time,
-=======
       // $scope.suppy = false;
 
     // $scope.time = new Date('');
@@ -21,7 +11,6 @@ angular
     function addSesh () {
       $scope.sessionObjs = {
         time: $scope.time.toISOString().slice(0,19),
->>>>>>> 6ecc21a7a617d9d64ef521d340d9fd4c7a54340c
         isSurf: $scope.suppy,
         location: $scope.location
       };
