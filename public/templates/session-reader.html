@@ -1,0 +1,7 @@
+
+<div class="session-container" ng-repeat = "info in activity">
+USERNAME: {{info.user.username}}
+LOCATION: {{info.location}}
+TIME: {{info.time}}
+<button class="btn btn-xs btn-danger"type="button" ng-click="deleteSession(info.user.id)" name="button">Delete</button>
+</div>

@@ -15,15 +15,22 @@ angular
         controller: "UserController"
       })
       .when('/create', {
-        templateUrl: "templates/create.html",
+        templateUrl: "templates/createUser.html",
         controller: "UserController"
       })
       .when('/addSession', {
         templateUrl: "templates/addSession.html",
         controller: "AddSessionController"
+      })
+      .when('/sessions', {
+        templateUrl: "templates/sessions.html",
+        controller: "SessionActivityController"
       });
   });
 require('./services/userService.js');
 require('./services/sessionService.js');
+require('./services/cacheEngineService.js');
 require('./controllers/UserController.js');
 require('./controllers/addSessionController.js');
+require('./controllers/sessionActivityController.js');
+require ('./directives/sessionDirective.js');
