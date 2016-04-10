@@ -48,17 +48,17 @@ angular
     // CacheEngine
     if (CacheEngine.get('seshActivity')){
       var cache = CacheEngine.get('seshActivity');
-      $scope.seshActivity = cache;
-      console.log('cache is working!', cache);
+      $scope.seshActivity = cache.data;
+      console.log('cache is working! seshActivity =', cache);
     }
     else {
         SessionService.getSession()
         .then(function(data) {
           CacheEngine.put('seshActivity', data);
-          $scope.seshActivity = data;
+          $scope.seshActivity = data.data;
           window.glow = data;
-          console.log('data pulling is working!', data);
-        ;});
+          console.log('data pulling is working! seshActivity =', data);
+        });
     }
 
     // addSesh
@@ -32698,14 +32698,14 @@ angular
       return $http.delete(sessionUrl + "/" + id)
         .then(function (res) {
           console.log('${res} deleted');
-        })
+        });
     }
 
     function editSession (editedSession) {
       return $http.put(sessionUrl + "/" + editedSession._id, editedSession)
         .then (function (res) {
           console.log(('${res} editedSession'));
-        })
+        });
     }
 
     return {
