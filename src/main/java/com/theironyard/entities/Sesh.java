@@ -60,4 +60,12 @@ public class Sesh {
     public void setIsSurf(Boolean surf) {
         isSurf = surf;
     }
+
+    public Boolean getSurf() {
+        return isSurf;
+    }
+
+    public int getId() {
+        return id;
+    }
 }
