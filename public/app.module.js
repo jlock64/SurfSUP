@@ -1,6 +1,9 @@
 var angular = require('angular');
 var angularRoute = require('angular-route');
 var uiMask = require('angular-ui-mask');
+var $ = require('jquery');
+
+
 // var xeditable = require('angular-xeditable');
 
 angular

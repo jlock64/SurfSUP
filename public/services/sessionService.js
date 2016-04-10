@@ -24,7 +24,7 @@ angular
     }
 
     function editSession (editedSession) {
-      return $http.put(sessionUrl + "/" + editedSession._id, editedSession)
+      return $http.put(sessionUrl + "/" + editedSession._id, editedSession )
         .then (function (res) {
           console.log(('${res} editedSession'));
         });
