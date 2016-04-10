@@ -16,7 +16,7 @@ angular
       return defer.promise;
     }
 
-    function deleteSession(id) {
+    function deleteSesh(id) {
       return $http.delete(sessionUrl + "/" + id)
         .then(function (res) {
           console.log('${res} deleted');
@@ -33,7 +33,7 @@ angular
     return {
       addSession: addSession,
       getSession: getSession,
-      deleteSession: deleteSession,
+      deleteSesh: deleteSesh,
       editSession: editSession
     };
 
