@@ -7,17 +7,32 @@
 	<link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.css" media="screen" title="no title" charset="utf-8">
 	<link rel="stylesheet" href="./css/main.css" media="screen" title="no title" charset="utf-8">
 </head>
-<header class="page-header">
-	<nav class="navbar navbar-default">
-		<ul class="nav nav-pills">
-			<li class=""><a href="/#/home">SurfSUP</a></li>
-		</ul>
-	</nav>
-</header>
+
 <body class="container">
-	<ng-view></ng-view>
+	<nav id="menu" class="panel" role="navigation">
+		<ul>
+				<li><a href="/#/home">Home</a></li>
+				<li><a href="/#/sessions">Session Activity</a></li>
+				<li><a href="#">Friend's List</a></li>
+				<li><a href="#">Some Other Link</a></li>
+		</ul>
+</nav>
+	<header class="page-header push">
+		<nav class="navbar navbar-default">
+			<a href="#menu" class="menu-link">&#9776;</a>
+			<ul class="nav nav-pills">
+				<li class=""><a href="/#/home">SurfSUP</a></li>
+			</ul>
+		</nav>
+	</header>
+	<div class="main-container push">
+			<ng-view></ng-view>
+	</div>
+
 
 	<script src="node_modules/jquery/dist/jquery.js" charset="utf-8"></script>
+	<script src="node_modules/bigslide/dist/bigSlide.js"></script>
+	<script src="menu.js"></script>
 	<script src="node_modules/bootstrap/dist/js/bootstrap.js" charset="utf-8"></script>
 	<!-- <script src="node_modules/angular-xeditable/dist/js/xeditable.js"></script> -->
 	<script src="bundle.js" charset="utf-8"></script>
