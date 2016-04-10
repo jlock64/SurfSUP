@@ -40,16 +40,15 @@ angular
   .module('surfSup')
   .controller('SessionController', function($scope, $location, SessionService, CacheEngine) {
 
-    $scope.seshActivity = cache;
     $scope.addSesh = addSesh;
     $scope.deleteSession = deleteSession;
     $scope.editSession = editSession;
 
-    // seshActivity
+    // CacheEngine
     if (CacheEngine.get('seshActivity')){
       var cache = CacheEngine.get('seshActivity');
       $scope.seshActivity = cache;
-      console.log('cache is working!');
+      console.log('cache is working!', cache);
     }
     else {
         SessionService.getSession()
@@ -57,7 +56,7 @@ angular
           CacheEngine.put('seshActivity', data);
           $scope.seshActivity = data;
           window.glow = data;
-          console.log('data pulling is working!');
+          console.log('data pulling is working!', data);
         ;});
     }
 
@@ -32668,7 +32667,7 @@ angular
 },{}],12:[function(require,module,exports){
 angular
   .module('surfSup')
-  .service('SessionService', function($http, $q, $rootScope) {
+  .service('SessionService', function($http, $q) {
 
     var sessionUrl = '/sesh';
 

@@ -1,6 +1,6 @@
 angular
   .module('surfSup')
-  .service('SessionService', function($http, $q, $rootScope) {
+  .service('SessionService', function($http, $q) {
 
     var sessionUrl = '/sesh';
 
