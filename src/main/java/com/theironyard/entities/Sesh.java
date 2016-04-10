@@ -1,10 +1,14 @@
 package com.theironyard.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.time.DayOfWeek;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 
 /**
  * Created by keatonfoster on 4/7/16.
@@ -18,6 +22,10 @@ public class Sesh {
 
     @ManyToOne
     User user;
+
+//    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "sesh")
+//    @JsonIgnore
+//    private List<Sesh> sesh = new ArrayList<>();
 
     @Column(nullable = false)
     Boolean isSurf;
