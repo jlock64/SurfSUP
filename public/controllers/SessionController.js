@@ -50,7 +50,7 @@ angular
           return el.id === objId;
         });
         $scope.seshActivity.splice (objPlace, 1);
-        console.log('sessions deleted', res);
+        console.log('sessions deleted', objPlace);
       });
 
     }
