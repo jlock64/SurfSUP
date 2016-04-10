@@ -20,17 +20,17 @@ angular
       })
       .when('/addSession', {
         templateUrl: "templates/addSession.html",
-        controller: "AddSessionController"
+        controller: "SessionController"
       })
       .when('/sessions', {
         templateUrl: "templates/sessions.html",
-        controller: "SessionActivityController"
+        controller: "SessionController"
       });
   });
 require('./services/userService.js');
 require('./services/sessionService.js');
+require('./services/WeatherService.js');
 require('./services/cacheEngineService.js');
 require('./controllers/UserController.js');
-require('./controllers/addSessionController.js');
-require('./controllers/sessionActivityController.js');
+require('./controllers/SessionController.js');
 require ('./directives/sessionDirective.js');

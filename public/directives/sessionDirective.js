@@ -3,10 +3,10 @@ angular
 .directive ('sessionReader', function (){
   return {
     templateUrl: '../templates/session-reader.html',
-    controller: 'SessionActivityController',
+    controller: 'SessionController',
     restrict: 'E',
     scope: {
-      activity: '='
+      activity: '=',
     }
   };
 });
