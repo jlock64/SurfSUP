@@ -30,13 +30,13 @@ angular
   });
 require('./services/userService.js');
 require('./services/sessionService.js');
-require('./services/WeatherService.js');
+// require('./services/WeatherService.js');
 require('./services/cacheEngineService.js');
 require('./controllers/UserController.js');
 require('./controllers/SessionController.js');
 require ('./directives/sessionDirective.js');
 
-},{"./controllers/SessionController.js":2,"./controllers/UserController.js":3,"./directives/sessionDirective.js":4,"./services/WeatherService.js":11,"./services/cacheEngineService.js":12,"./services/sessionService.js":13,"./services/userService.js":14,"angular":10,"angular-route":6,"angular-ui-mask":8}],2:[function(require,module,exports){
+},{"./controllers/SessionController.js":2,"./controllers/UserController.js":3,"./directives/sessionDirective.js":4,"./services/cacheEngineService.js":11,"./services/sessionService.js":12,"./services/userService.js":13,"angular":10,"angular-route":6,"angular-ui-mask":8}],2:[function(require,module,exports){
 angular
   .module('surfSup')
   .controller('SessionController', function($scope, $location, SessionService, CacheEngine) {
@@ -32670,41 +32670,12 @@ module.exports = angular;
 
 },{"./angular":9}],11:[function(require,module,exports){
 angular
-  .module('surfSup')
-  .service('WeatherService', function($http) {
-
-    var key = '05b02278d73272e0e716626de5b875e4';
-    var weatherUrl = 'http://magicseaweed.com/api/Y' + key + '/forecast/?spot_id=760';
-
-    function getWeather (weatherUrl) {
-      return $http.get(weatherUrl);
-      // console.log(weatherUrl);
-    };
-
-    return {
-      getWeather: getWeather
-    };
-  });
-
-   /* Your API details are below:
-
-   IOP id 760
-
-  Key: 05b02278d73272e0e716626de5b875e4
-  Secret: 8248d895c72901217ebffc525c305533
-
-  Documentation can be found here: http://magicseaweed.com/developer/forecast-api
-
-  Here's an example URL showing the forecast for Newquay: http://magicseaweed.com/api/05b02278d73272e0e716626de5b875e4/forecast/?spot_id=1 */
-
-},{}],12:[function(require,module,exports){
-angular
 .module('surfSup')
 .service ('CacheEngine', function($cacheFactory){
   return $cacheFactory('sessionsAPI');
 });
 
-},{}],13:[function(require,module,exports){
+},{}],12:[function(require,module,exports){
 angular
   .module('surfSup')
   .service('SessionService', function($http, $q) {
@@ -32746,7 +32717,7 @@ angular
 
   });
 
-},{}],14:[function(require,module,exports){
+},{}],13:[function(require,module,exports){
 angular
   .module('surfSup')
   .service('UserService', function($http) {
