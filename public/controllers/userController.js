@@ -1,6 +1,6 @@
 angular
   .module('surfSup')
-  .controller('UserController', function($scope, $location, UserService) {
+  .controller('UserController', function($scope, $location, UserService, WeatherService) {
 
     $scope.loginObj = {
       username: '',
@@ -10,6 +10,7 @@ angular
     $scope.logout = logout;
     $scope.acctObj = {};
     $scope.submitForm = submitForm;
+    $scope.getWeatherData = getWeatherData;
 
     function login() {
       console.log('login object:', $scope.loginObj);
@@ -39,6 +40,15 @@ angular
         console.log('create not working');
       });
     }
+
+    function getWeatherData() {
+      console.log('in getWeatherData function');
+      WeatherService.getWeather()
+        .success(function(data) {
+          console.log(data);
+        })
+    }
+    getWeatherData();
 
 
   }); // end of LoginController
