@@ -43,13 +43,16 @@ angular
     // deleteSession
     function deleteSession(id) {
       console.log('this is id', id);
-      SessionService.deleteSession(id);
-      // .success(function(res) {
-      //   console.log('sessions deleted', res);
-      // })
-      // .error(function(err) {
-      //   console.log('delete session error', err);
-      // })
+      SessionService.deleteSesh(id)
+      .then(function(data) {
+        var objId = id;
+        var objPlace = $scope.seshActivity.findIndex (function(el,idx,arr){
+          return el.id === objId;
+        });
+        $scope.seshActivity.splice (objPlace, 1);
+        console.log('sessions deleted', res);
+      });
+
     }
 
     // editedSession

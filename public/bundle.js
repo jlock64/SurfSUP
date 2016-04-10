@@ -82,13 +82,16 @@ angular
     // deleteSession
     function deleteSession(id) {
       console.log('this is id', id);
-      SessionService.deleteSession(id);
-      // .success(function(res) {
-      //   console.log('sessions deleted', res);
-      // })
-      // .error(function(err) {
-      //   console.log('delete session error', err);
-      // })
+      SessionService.deleteSesh(id)
+      .then(function(data) {
+        var objId = id;
+        var objPlace = $scope.seshActivity.findIndex (function(el,idx,arr){
+          return el.id === objId;
+        });
+        $scope.seshActivity.splice (objPlace, 1);
+        console.log('sessions deleted', res);
+      });
+
     }
 
     // editedSession
@@ -32694,7 +32697,7 @@ angular
       return defer.promise;
     }
 
-    function deleteSession(id) {
+    function deleteSesh(id) {
       return $http.delete(sessionUrl + "/" + id)
         .then(function (res) {
           console.log('${res} deleted');
@@ -32711,7 +32714,7 @@ angular
     return {
       addSession: addSession,
       getSession: getSession,
-      deleteSession: deleteSession,
+      deleteSesh: deleteSesh,
       editSession: editSession
     };
 
