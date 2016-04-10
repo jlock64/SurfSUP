@@ -153,7 +153,8 @@ public class SurfSupController {
     //DELETE SESSION
     @RequestMapping(path = "/sesh/{id}", method = RequestMethod.DELETE)
     public void deleteSesh (@PathVariable("id") int id) {
-        seshs.delete(id);
+        Sesh sesh = seshs.findOne(id);
+        seshs.delete(sesh);
     }
 
 }
