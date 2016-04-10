@@ -117,8 +117,8 @@ public class SurfSupController {
         seshs.save(sesh);
 
         //joins user and sesh in Joins table
-        Join join = new Join(user, sesh);
-        joins.save(join);
+//        Join join = new Join(user, sesh);
+//        joins.save(join);
         return sesh;
     }
 
@@ -153,7 +153,8 @@ public class SurfSupController {
     //DELETE SESSION
     @RequestMapping(path = "/sesh/{id}", method = RequestMethod.DELETE)
     public void deleteSesh (@PathVariable("id") int id) {
-        seshs.delete(id);
+        Sesh sesh = seshs.findOne(id);
+        seshs.delete(sesh);
     }
 
 }
