@@ -20,14 +20,14 @@ angular
       return $http.delete(sessionUrl + "/" + id)
         .then(function (res) {
           console.log('${res} deleted');
-        })
+        });
     }
 
     function editSession (editedSession) {
       return $http.put(sessionUrl + "/" + editedSession._id, editedSession)
         .then (function (res) {
           console.log(('${res} editedSession'));
-        })
+        });
     }
 
     return {

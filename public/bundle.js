@@ -48,17 +48,17 @@ angular
     // CacheEngine
     if (CacheEngine.get('seshActivity')){
       var cache = CacheEngine.get('seshActivity');
-      $scope.seshActivity = cache;
-      console.log('cache is working!', cache);
+      $scope.seshActivity = cache.data;
+      console.log('cache is working! seshActivity =', cache);
     }
     else {
         SessionService.getSession()
         .then(function(data) {
           CacheEngine.put('seshActivity', data);
-          $scope.seshActivity = data;
+          $scope.seshActivity = data.data;
           window.glow = data;
-          console.log('data pulling is working!', data);
-        ;});
+          console.log('data pulling is working! seshActivity =', data);
+        });
     }
 
     // addSesh
@@ -109,7 +109,7 @@ angular
 },{}],3:[function(require,module,exports){
 angular
   .module('surfSup')
-  .controller('UserController', function($scope, $location, UserService, WeatherService) {
+  .controller('UserController', function($scope, $location, UserService) {
 
     $scope.loginObj = {
       username: '',
@@ -119,7 +119,7 @@ angular
     $scope.logout = logout;
     $scope.acctObj = {};
     $scope.submitForm = submitForm;
-    $scope.getWeatherData = getWeatherData;
+    // $scope.getWeatherData = getWeatherData;
 
     function login() {
       console.log('login object:', $scope.loginObj);
@@ -150,14 +150,14 @@ angular
       });
     }
 
-    function getWeatherData() {
-      console.log('in getWeatherData function');
-      WeatherService.getWeather()
-        .success(function(data) {
-          console.log(data);
-        })
-    }
-    getWeatherData();
+    // function getWeatherData() {
+    //   console.log('in getWeatherData function');
+    //   WeatherService.getWeather()
+    //     .success(function(data) {
+    //       console.log(data);
+    //     })
+    // }
+    // getWeatherData();
 
 
   }); // end of LoginController
@@ -32698,14 +32698,14 @@ angular
       return $http.delete(sessionUrl + "/" + id)
         .then(function (res) {
           console.log('${res} deleted');
-        })
+        });
     }
 
     function editSession (editedSession) {
       return $http.put(sessionUrl + "/" + editedSession._id, editedSession)
         .then (function (res) {
           console.log(('${res} editedSession'));
-        })
+        });
     }
 
     return {
