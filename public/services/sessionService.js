@@ -1,6 +1,6 @@
 angular
   .module('surfSup')
-  .service('SessionService', function($http, $q, $rootScope) {
+  .service('SessionService', function($http, $q) {
 
     var sessionUrl = '/sesh';
 
@@ -17,17 +17,17 @@ angular
     }
 
     function deleteSession(id) {
-      $http.delete(sessionUrl + "/" + id)
+      return $http.delete(sessionUrl + "/" + id)
         .then(function (res) {
           console.log('${res} deleted');
-        })
+        });
     }
 
     function editSession (editedSession) {
-      $http.put(sessionUrl + "/" + editedSession._id, editedSession)
+      return $http.put(sessionUrl + "/" + editedSession._id, editedSession)
         .then (function (res) {
           console.log(('${res} editedSession'));
-        })
+        });
     }
 
     return {

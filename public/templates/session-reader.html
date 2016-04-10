@@ -1,8 +1,8 @@
 
-<div class="session-container" ng-repeat = "info in activity">
-USERNAME: {{info.user.username}}
-LOCATION: {{info.location}}
-TIME: {{info.time}}
-<button class="btn btn-xs btn-warning"type="button" ng-click="editSession(info.user.id)" name="button">Edit</button>
-<button class="btn btn-xs btn-danger"type="button" ng-click="deleteSession(info.user.id)" name="button">Delete</button>
+<div class="session-container" >
+  USERNAME: {{activity.user.username}}
+  LOCATION: {{activity.location}}
+  TIME: {{activity.time}}
+  <button class="btn btn-xs btn-warning"type="button" ng-click="editSession(activity.user.id)" name="button">Edit</button>
+<button class="btn btn-xs btn-danger"type="button" ng-click="deleteSession(activity.user.id)" name="button">Delete</button>
 </div>

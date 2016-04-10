@@ -30,6 +30,7 @@ angular
   });
 require('./services/userService.js');
 require('./services/sessionService.js');
+// require('./services/WeatherService.js');
 require('./services/cacheEngineService.js');
 require('./controllers/UserController.js');
 require('./controllers/SessionController.js');
@@ -40,25 +41,24 @@ angular
   .module('surfSup')
   .controller('SessionController', function($scope, $location, SessionService, CacheEngine) {
 
-    $scope.seshActivity = cache;
     $scope.addSesh = addSesh;
     $scope.deleteSession = deleteSession;
     $scope.editSession = editSession;
 
-    // seshActivity
+    // CacheEngine
     if (CacheEngine.get('seshActivity')){
       var cache = CacheEngine.get('seshActivity');
-      $scope.seshActivity = cache;
-      console.log('cache is working!');
+      $scope.seshActivity = cache.data;
+      console.log('cache is working! seshActivity =', cache);
     }
     else {
         SessionService.getSession()
         .then(function(data) {
           CacheEngine.put('seshActivity', data);
-          $scope.seshActivity = data;
+          $scope.seshActivity = data.data;
           window.glow = data;
-          console.log('data pulling is working!');
-        ;});
+          console.log('data pulling is working! seshActivity =', data);
+        });
     }
 
     // addSesh
@@ -119,6 +119,7 @@ angular
     $scope.logout = logout;
     $scope.acctObj = {};
     $scope.submitForm = submitForm;
+    // $scope.getWeatherData = getWeatherData;
 
     function login() {
       console.log('login object:', $scope.loginObj);
@@ -148,6 +149,15 @@ angular
         console.log('create not working');
       });
     }
+
+    // function getWeatherData() {
+    //   console.log('in getWeatherData function');
+    //   WeatherService.getWeather()
+    //     .success(function(data) {
+    //       console.log(data);
+    //     })
+    // }
+    // getWeatherData();
 
 
   }); // end of LoginController
@@ -32668,7 +32678,7 @@ angular
 },{}],12:[function(require,module,exports){
 angular
   .module('surfSup')
-  .service('SessionService', function($http, $q, $rootScope) {
+  .service('SessionService', function($http, $q) {
 
     var sessionUrl = '/sesh';
 
@@ -32685,17 +32695,17 @@ angular
     }
 
     function deleteSession(id) {
-      $http.delete(sessionUrl + "/" + id)
+      return $http.delete(sessionUrl + "/" + id)
         .then(function (res) {
           console.log('${res} deleted');
-        })
+        });
     }
 
     function editSession (editedSession) {
-      $http.put(sessionUrl + "/" + editedSession._id, editedSession)
+      return $http.put(sessionUrl + "/" + editedSession._id, editedSession)
         .then (function (res) {
           console.log(('${res} editedSession'));
-        })
+        });
     }
 
     return {
