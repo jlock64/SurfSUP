@@ -1,6 +1,7 @@
 var angular = require('angular');
 var angularRoute = require('angular-route');
 var uiMask = require('angular-ui-mask');
+// var xeditable = require('angular-xeditable');
 
 angular
   .module('surfSup', ['ngRoute', uiMask])
@@ -26,7 +27,10 @@ angular
         templateUrl: "templates/sessions.html",
         controller: "SessionController"
       });
-  });
+  })
+//   .run (function(editableOptions) {
+//   editableOptions.theme = 'bs3'; // bootstrap3 theme. Can be also 'bs2', 'default'
+// });
 require('./services/userService.js');
 require('./services/sessionService.js');
 // require('./services/WeatherService.js');

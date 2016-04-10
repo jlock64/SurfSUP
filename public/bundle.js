@@ -2,6 +2,7 @@
 var angular = require('angular');
 var angularRoute = require('angular-route');
 var uiMask = require('angular-ui-mask');
+// var xeditable = require('angular-xeditable');
 
 angular
   .module('surfSup', ['ngRoute', uiMask])
@@ -27,7 +28,10 @@ angular
         templateUrl: "templates/sessions.html",
         controller: "SessionController"
       });
-  });
+  })
+//   .run (function(editableOptions) {
+//   editableOptions.theme = 'bs3'; // bootstrap3 theme. Can be also 'bs2', 'default'
+// });
 require('./services/userService.js');
 require('./services/sessionService.js');
 // require('./services/WeatherService.js');
@@ -89,7 +93,7 @@ angular
           return el.id === objId;
         });
         $scope.seshActivity.splice (objPlace, 1);
-        console.log('sessions deleted', res);
+        console.log('sessions deleted', objPlace);
       });
 
     }
@@ -32700,7 +32704,7 @@ angular
     function deleteSesh(id) {
       return $http.delete(sessionUrl + "/" + id)
         .then(function (res) {
-          console.log('${res} deleted');
+          console.log(res, 'deleted');
         });
     }
 

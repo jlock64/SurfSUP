@@ -1,8 +1,8 @@
 
 <div class="session-container" >
-  USERNAME: {{activity.user.username}}
-  LOCATION: {{activity.location}}
-  TIME: {{activity.time}}
+  <span editable-text="activity.user.username">USERNAME: {{activity.user.username}}</span>
+  <span editable-text="activity.location">LOCATION: {{activity.location}}</span>
+  <span editable-text="activity.time">TIME: {{activity.time}}</span>
   <button class="btn btn-xs btn-warning"type="button" ng-click="editSession(activity.user.id)" name="button">Edit</button>
   <button class="btn btn-xs btn-danger"type="button" ng-click="deleteSession(activity.id)" name="button">Delete</button>
 </div>
