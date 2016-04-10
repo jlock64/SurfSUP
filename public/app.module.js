@@ -1,6 +1,9 @@
 var angular = require('angular');
 var angularRoute = require('angular-route');
 var uiMask = require('angular-ui-mask');
+IScroll = require('iscroll');
+var $ = require('jquery');
+var drawer = require('jquery-drawer');
 
 angular
   .module('surfSup', ['ngRoute', uiMask])
