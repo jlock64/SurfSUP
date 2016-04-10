@@ -32672,8 +32672,12 @@ angular
     }
 
     function deleteSession(id) {
-         return $http.delete(sessionUrl + '/' + id);
-       }
+      $http.delete(sessionUrl + "/" + id)
+        .then(function (res) {
+          console.log('${res}', res);
+        })
+    }
+
 
     return {
       addSession: addSession,
