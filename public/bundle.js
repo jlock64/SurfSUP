@@ -109,7 +109,7 @@ angular
 },{}],3:[function(require,module,exports){
 angular
   .module('surfSup')
-  .controller('UserController', function($scope, $location, UserService) {
+  .controller('UserController', function($scope, $location, UserService, WeatherService) {
 
     $scope.loginObj = {
       username: '',
@@ -119,6 +119,7 @@ angular
     $scope.logout = logout;
     $scope.acctObj = {};
     $scope.submitForm = submitForm;
+    $scope.getWeatherData = getWeatherData;
 
     function login() {
       console.log('login object:', $scope.loginObj);
@@ -148,6 +149,15 @@ angular
         console.log('create not working');
       });
     }
+
+    function getWeatherData() {
+      console.log('in getWeatherData function');
+      WeatherService.getWeather()
+        .success(function(data) {
+          console.log(data);
+        })
+    }
+    getWeatherData();
 
 
   }); // end of LoginController
@@ -32667,7 +32677,8 @@ angular
     var weatherUrl = 'http://magicseaweed.com/api/Y' + key + '/forecast/?spot_id=760';
 
     function getWeather (weatherUrl) {
-      return $http.get(weatherUrl)
+      return $http.get(weatherUrl);
+      // console.log(weatherUrl);
     };
 
     return {
