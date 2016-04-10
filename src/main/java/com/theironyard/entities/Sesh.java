@@ -61,10 +61,6 @@ public class Sesh {
         isSurf = surf;
     }
 
-    public Boolean getSurf() {
-        return isSurf;
-    }
-
     public int getId() {
         return id;
     }
