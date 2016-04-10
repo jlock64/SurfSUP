@@ -19,7 +19,7 @@ angular
     function deleteSesh(id) {
       return $http.delete(sessionUrl + "/" + id)
         .then(function (res) {
-          console.log('${res} deleted');
+          console.log(res, 'deleted');
         });
     }
 
