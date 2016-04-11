@@ -105,14 +105,9 @@ angular
     }
 
     // editedSession
-    function editSession(editedSession) {
-      SessionService.editSession(editedSession);
-      // .success(function(res) {
-      //   console.log('session edited', res);
-      // })
-      // .error(function(err) {
-      //   console.log('edit session error', err);
-      // })
+    function editSession(id,location) {
+      console.log('location',location);
+      SessionService.editSession(id,location);
     }
 
 
@@ -42558,11 +42553,18 @@ angular
         });
     }
 
-    function editSession (editedSession) {
-      return $http.put(sessionUrl + "/" + editedSession._id, editedSession )
-        .then (function (res) {
-          console.log(('${res} editedSession'));
-        });
+    function editSession (session) {
+      // var editedSession = {id: id};
+      // console.log('test',new Date(location).getDay());
+        // if(new Date(location).getDay()) {
+        //   session.time = location;
+        // } else {
+        //   session.location = location
+        // }
+        console.log('in editSession', session);
+        console.log('this is the id:', session.id);
+        var editUrl = sessionUrl + "/" + session.id;
+        return $http.put(editUrl, session);
     }
 
     return {
