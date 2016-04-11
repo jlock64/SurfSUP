@@ -1,8 +1,14 @@
 
 <div class="session-container" >
+<<<<<<< HEAD
   <span editable-text="activity.user.username">USERNAME: {{activity.user.username}}</span>
   <span editable-text="activity.location">LOCATION: {{activity.location}}</span>
   <a href="" editable-text="activity.time">TIME: {{activity.time || "empty"}}</a>
+=======
+  <a href="#" editable-text="activity.user.username">USERNAME: {{activity.user.username || 'empty'}}</a> 
+  <a href="#" editable-text="activity.location">LOCATION: {{activity.location || 'empty'}}</a>
+  <a href="#" editable-text="activity.time">TIME: {{activity.time || 'empty'}}</a>
+>>>>>>> 225e942af56bb1c8deec1cf02ec449615833dbe4
   <button class="btn btn-xs btn-warning"type="button" ng-click="editSession(activity.user.id)" name="button">Edit</button>
   <button class="btn btn-xs btn-danger"type="button" ng-click="deleteSession(activity.id)" name="button">Delete</button>
 </div>
