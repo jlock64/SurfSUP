@@ -188,7 +188,7 @@ public class SurfSupController {
     @RequestMapping(path = "/friend", method = RequestMethod.GET)
     public List<User> friendList (HttpSession session) {
         User user = users.findByUsername((String) session.getAttribute("username"));
-        List<User> friendsList = friends.findAllByUser(user);
+        List<User> firstList = friends.findAllByUser()
         return friendsList;
     }
 }

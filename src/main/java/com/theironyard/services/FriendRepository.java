@@ -2,6 +2,7 @@ package com.theironyard.services;
 
 import com.theironyard.entities.Friend;
 import com.theironyard.entities.User;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 
 import java.util.List;
@@ -11,4 +12,10 @@ import java.util.List;
  */
 public interface FriendRepository extends CrudRepository<Friend, Integer> {
     List<User> findAllByUser (User user);
+
+    @Query(value = "SELECT * FROM friends WHERE user_a = ?1", nativeQuery = true)
+    List<Friend> findAllWhereUserAEquals(User user);
+
+    @Query(value = "SELECT * FROM friends WHERE user_b = ?1", nativeQuery = true)
+    List<Friend> findAllWhereUserBEquals(User user);
 }
