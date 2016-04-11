@@ -1,12 +1,15 @@
 var angular = require('angular');
-var angularRoute = require('angular-route');
-var uiMask = require('angular-ui-mask');
-var xeditable = require('angular-xeditable');
-var $ = require('jquery');
+require('angular-route');
+require('angular-ui-mask');
+require('./xeditable');
+require('jquery');
 
 
 angular
-  .module('surfSup', ['ngRoute', uiMask, 'xeditable'])
+  .module('surfSup', [
+    'ngRoute',
+    'ui.mask',
+    'xeditable'])
   .config(function($routeProvider) {
     $routeProvider
       .when('/home', {
