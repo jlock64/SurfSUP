@@ -1,13 +1,15 @@
 var angular = require('angular');
-var angularRoute = require('angular-route');
-var uiMask = require('angular-ui-mask');
-var $ = require('jquery');
+require('angular-route');
+require('angular-ui-mask');
+require('./xeditable');
+require('jquery');
 
-
-// var xeditable = require('angular-xeditable');
 
 angular
-  .module('surfSup', ['ngRoute', uiMask])
+  .module('surfSup', [
+    'ngRoute',
+    'ui.mask',
+    'xeditable'])
   .config(function($routeProvider) {
     $routeProvider
       .when('/home', {
@@ -31,9 +33,9 @@ angular
         controller: "SessionController"
       });
   })
-//   .run (function(editableOptions) {
-//   editableOptions.theme = 'bs3'; // bootstrap3 theme. Can be also 'bs2', 'default'
-// });
+  .run (function(editableOptions) {
+  editableOptions.theme = 'bs3'; // bootstrap3 theme. Can be also 'bs2', 'default'
+});
 require('./services/userService.js');
 require('./services/sessionService.js');
 // require('./services/WeatherService.js');
