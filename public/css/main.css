@@ -34,7 +34,21 @@ form .btn-success {
   margin-top: 1%; }
 
 form .btn-primary {
+<<<<<<< HEAD
   text-transform: uppercase; }
 
 a:hover {
   text-decoration: none; }
+=======
+  text-transform: uppercase;
+  margin-bottom: 5px; }
+
+form .checkbox {
+  padding-left: 0; }
+
+a:hover {
+  text-decoration: none; }
+
+a.editable-click {
+  border-bottom: none; }
+>>>>>>> 15d44a41441d976781f231bdea873c22a5211c58
