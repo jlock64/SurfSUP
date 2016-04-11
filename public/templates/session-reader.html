@@ -1,9 +1,31 @@
 
 <div class="session-container" >
+<<<<<<< HEAD
   <a href="#" editable-text="activity.user.username">USERNAME: {{activity.user.username || 'empty'}}</a>
 
   <a href="#" editable-text="activity.location">LOCATION: {{activity.location || 'empty'}}</a>
   <a href="#" editable-combodate="activity.time" date-type="datetime" data-format="DD-MM">TIME: {{activity.time | date:"dd/MM/ HH:mm"}}</a>
   <button class="btn btn-xs btn-warning"type="button" ng-click="editSession(activity.user.id)" name="button">Edit</button>
   <button class="btn btn-xs btn-danger"type="button" ng-click="deleteSession(activity.id)" name="button">Delete</button>
+=======
+  <span>{{activity.user.username}} is going {{activity.isSurf ? 'Surfing' : 'Paddle Boarding'}}</span>
+  <span> at </span>
+  <a href="#" editable-text="activity.location"
+              onaftersave="editSession(activity.id, activity.location)">{{activity.location}}</a>
+  <span> at </span>
+  <a href="#" editable-combodate="activity.time"
+              onaftersave="editSession(activity.id, activity.time)"
+              date-type="datetime"
+              data-format="DD-MM">{{activity.time | date:"dd/MM/ HH:mm"}}</a>
+  <!-- <button class="btn btn-xs btn-warning"
+          type="button"
+          ng-click="editSession(activity.user.id)"
+          name="button">Edit
+  </button> -->
+  <button class="btn btn-xs btn-danger"
+          type="button"
+          ng-click="deleteSession(activity.id)"
+          name="button">Delete
+  </button>
+>>>>>>> f92bca1a8b675ad5d1673c95b3110e9a63340f8d
 </div>

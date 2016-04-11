@@ -1,8 +1,10 @@
 package com.theironyard.controllers;
 
+import com.theironyard.entities.Friend;
 import com.theironyard.entities.Join;
 import com.theironyard.entities.Sesh;
 import com.theironyard.entities.User;
+import com.theironyard.services.FriendRepository;
 import com.theironyard.services.JoinRepository;
 import com.theironyard.services.SeshRepository;
 import com.theironyard.services.UserRepository;
@@ -36,6 +38,9 @@ public class SurfSupController {
 
     @Autowired
     JoinRepository joins;
+
+//    @Autowired
+//    FriendRepository friends;
 
     Server dbui;
 
@@ -163,4 +168,32 @@ public class SurfSupController {
         seshs.delete(sesh);
     }
 
+//    //SEARCH FOR FRIENDS
+//    @RequestMapping(path = "/user", method = RequestMethod.GET)
+//    public List<User> displayUser () {
+//        List<User> userList = (List<User>) users.findAll();
+//        return userList;
+//    }
+//
+//    //SEND FRIEND INVITATION (CREATES FRIEND OBJECT)
+//    @RequestMapping(path = "/friend", method = RequestMethod.POST)
+//    public void createFriend (HttpSession session, @RequestBody String usernameB) {
+//        User userA = users.findByUsername((String) session.getAttribute("username"));
+//        User userB = users.findByUsername(usernameB);
+//        Friend friend = new Friend (userA, userB);
+//        friends.save(friend);
+//    }
+
+//    //DISPLAY FRIENDS LIST
+//    @RequestMapping(path = "/friend", method = RequestMethod.GET)
+//    public List<User> friendList (HttpSession session, @RequestBody String usernameB) {
+//        User user = users.findByUsername((String) session.getAttribute("username"));
+//        List<Friend> firstList = friends.findAllWhereUserAEquals(user);
+//        List<Friend> secondList = friends.findAllWhereUserBEquals(user);
+//        firstList.addAll(secondList);
+//
+//        return friendList;
+//
+//        }
+//    }
 }

@@ -56,14 +56,9 @@ angular
     }
 
     // editedSession
-    function editSession(editedSession) {
-      SessionService.editSession(editedSession);
-      // .success(function(res) {
-      //   console.log('session edited', res);
-      // })
-      // .error(function(err) {
-      //   console.log('edit session error', err);
-      // })
+    function editSession(id,location) {
+      console.log('location',location);
+      SessionService.editSession(id,location);
     }
 
 
