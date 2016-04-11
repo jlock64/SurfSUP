@@ -1,20 +1,38 @@
 form {
-  // background-color: #ccc;
-  // padding: 2%;
+  max-width: 330px;
+  padding: 15px;
+  margin: 0 auto;
+  color: #7d7d7d;
+  label {
+    color: #7d7d7d;
+  }
+  h1 {
+    text-align: left;
+    font-size: 30px;
+    color: #7d7d7d;
+  }
   .btn-success {
     margin-top: 1%;
   }
   .btn-primary {
     text-transform: uppercase;
     margin-bottom: 5px;
+    box-shadow: 1px 1px 8px #aaa;
   }
   .checkbox {
     padding-left: 0;
   }
+  a {
+    color: #7d7d7d;
+    cursor: pointer;
+    padding-bottom: 3px;
+    border-bottom: 1px solid #7d7d7d;
+  }
+  a:hover {
+    text-decoration: none;
+    color: #7d7d7d;
+    opacity: 0.7;
+  }
 
 
-}
-
-a:hover {
-  text-decoration: none;
-}
+} // end of form

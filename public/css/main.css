@@ -12,7 +12,8 @@ form .btn-success {
   text-transform: uppercase; }
 
 * {
-  box-sizing: border-box; }
+  box-sizing: border-box;
+  font-family: "Helvetica"; }
 
 body {
   background-color: none; }
@@ -30,6 +31,7 @@ body {
   width: 15.625em;
   /*should match the above value*/ }
 
+<<<<<<< HEAD
 form .btn-success {
   margin-top: 1%; }
 
@@ -48,6 +50,36 @@ form .checkbox {
 
 a:hover {
   text-decoration: none; }
+=======
+form {
+  max-width: 330px;
+  padding: 15px;
+  margin: 0 auto;
+  color: #7d7d7d; }
+  form label {
+    color: #7d7d7d; }
+  form h1 {
+    text-align: left;
+    font-size: 30px;
+    color: #7d7d7d; }
+  form .btn-success {
+    margin-top: 1%; }
+  form .btn-primary {
+    text-transform: uppercase;
+    margin-bottom: 5px;
+    box-shadow: 1px 1px 8px #aaa; }
+  form .checkbox {
+    padding-left: 0; }
+  form a {
+    color: #7d7d7d;
+    cursor: pointer;
+    padding-bottom: 3px;
+    border-bottom: 1px solid #7d7d7d; }
+  form a:hover {
+    text-decoration: none;
+    color: #7d7d7d;
+    opacity: 0.7; }
+>>>>>>> 0591320121daa0b1b1997cef16dba2739d3a7d32
 
 a.editable-click {
   border-bottom: none; }
