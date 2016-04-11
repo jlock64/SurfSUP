@@ -3,6 +3,7 @@ require('angular-route');
 require('angular-ui-mask');
 require('./xeditable');
 require('jquery');
+// require('moment');
 
 
 angular
