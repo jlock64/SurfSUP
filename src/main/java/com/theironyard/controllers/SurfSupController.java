@@ -184,11 +184,16 @@ public class SurfSupController {
         friends.save(friend);
     }
 
-    //DISPLAY FRIENDS LIST
-    @RequestMapping(path = "/friend", method = RequestMethod.GET)
-    public List<User> friendList (HttpSession session) {
-        User user = users.findByUsername((String) session.getAttribute("username"));
-        List<User> firstList = friends.findAllByUser()
-        return friendsList;
-    }
+//    //DISPLAY FRIENDS LIST
+//    @RequestMapping(path = "/friend", method = RequestMethod.GET)
+//    public List<User> friendList (HttpSession session, @RequestBody String usernameB) {
+//        User user = users.findByUsername((String) session.getAttribute("username"));
+//        List<Friend> firstList = friends.findAllWhereUserAEquals(user);
+//        List<Friend> secondList = friends.findAllWhereUserBEquals(user);
+//        firstList.addAll(secondList);
+//
+//        return friendList;
+//
+//        }
+//    }
 }
