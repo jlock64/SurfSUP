@@ -23,9 +23,9 @@ public class Sesh {
     @ManyToOne
     User user;
 
-//    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "sesh")
-//    @JsonIgnore
-//    private List<Sesh> sesh = new ArrayList<>();
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "sesh")
+    @JsonIgnore
+    private List<Join> joinsList;
 
     @Column(nullable = false)
     Boolean isSurf;

@@ -19,6 +19,9 @@ public class Join {
     @ManyToOne
     Sesh sesh;
 
+    public Join() {
+    }
+
     public Join(User user, Sesh sesh) {
         this.user = user;
         this.sesh = sesh;

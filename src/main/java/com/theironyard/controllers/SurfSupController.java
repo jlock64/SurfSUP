@@ -117,8 +117,8 @@ public class SurfSupController {
         seshs.save(sesh);
 
         //joins user and sesh in Joins table
-//        Join join = new Join(user, sesh);
-//        joins.save(join);
+        Join join = new Join(user, sesh);
+        joins.save(join);
         return sesh;
     }
 
