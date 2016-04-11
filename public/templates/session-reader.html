@@ -1,11 +1,7 @@
 
 <div class="session-container" >
-<<<<<<< HEAD
-
   <a href="#" editable-text="activity.user.username">USERNAME: {{activity.user.username || 'empty'}}</a>
-=======
-  <span>USERNAME: {{activity.user.username || 'empty'}}</span>
->>>>>>> cc2c1e880144a35a4416122ff452183bc977237d
+
   <a href="#" editable-text="activity.location">LOCATION: {{activity.location || 'empty'}}</a>
   <a href="#" editable-combodate="activity.time" date-type="datetime" data-format="DD-MM">TIME: {{activity.time | date:"dd/MM/ HH:mm"}}</a>
   <button class="btn btn-xs btn-warning"type="button" ng-click="editSession(activity.user.id)" name="button">Edit</button>

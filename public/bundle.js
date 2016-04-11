@@ -38,13 +38,9 @@ angular
   })
   .run (function(editableOptions) {
   editableOptions.theme = 'bs3'; // bootstrap3 theme. Can be also 'bs2', 'default'
-<<<<<<< HEAD
 
 });
 
-=======
-});
->>>>>>> cc2c1e880144a35a4416122ff452183bc977237d
 require('./services/userService.js');
 require('./services/sessionService.js');
 // require('./services/WeatherService.js');
@@ -73,7 +69,7 @@ angular
         .then(function(data) {
           CacheEngine.put('seshActivity', data);
           $scope.seshActivity = data.data;
-          window.glow = data;
+          window.glow = data.data;
           console.log('data pulling is working! seshActivity =', data);
         });
     }
@@ -121,7 +117,7 @@ angular
       //   console.log('edit session error', err);
       // })
     }
-    
+
 
 
   }); // end of AddSessionController

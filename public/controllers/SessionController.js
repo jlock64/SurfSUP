@@ -17,7 +17,7 @@ angular
         .then(function(data) {
           CacheEngine.put('seshActivity', data);
           $scope.seshActivity = data.data;
-          window.glow = data;
+          window.glow = data.data;
           console.log('data pulling is working! seshActivity =', data);
         });
     }
@@ -65,7 +65,7 @@ angular
       //   console.log('edit session error', err);
       // })
     }
-    
+
 
 
   }); // end of AddSessionController
