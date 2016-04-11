@@ -11,11 +11,11 @@ import java.util.List;
  * Created by noellemachin on 4/11/16.
  */
 public interface FriendRepository extends CrudRepository<Friend, Integer> {
-    List<User> findAllByUser (User user);
+    List<User> findAllByFriendA (User user);
 
-    @Query(value = "SELECT * FROM friends WHERE user_a = ?1", nativeQuery = true)
-    List<Friend> findAllWhereUserAEquals(User user);
-
-    @Query(value = "SELECT * FROM friends WHERE user_b = ?1", nativeQuery = true)
-    List<Friend> findAllWhereUserBEquals(User user);
+//    @Query(value = "SELECT * FROM friends WHERE user_a <> ?1", nativeQuery = true)
+//    List<Friend> findAllWhereUserAEquals(User user);
+//
+//    @Query(value = "SELECT * FROM friends WHERE user_b <> ?1", nativeQuery = true)
+//    List<Friend> findAllWhereUserBEquals(User user);
 }
