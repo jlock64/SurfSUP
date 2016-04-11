@@ -1,5 +1,6 @@
 package com.theironyard.controllers;
 
+import com.theironyard.entities.Friend;
 import com.theironyard.entities.Join;
 import com.theironyard.entities.Sesh;
 import com.theironyard.entities.User;
@@ -171,6 +172,11 @@ public class SurfSupController {
     }
 
     //SEND FRIEND INVITATION
+    @RequestMapping(path = "/friend", method = RequestMethod.POST)
+    public void createFriend (@RequestBody Friend friend) {
+
+        friends.save(friend);
+    }
 
     //ACCEPT/DENY FRIEND REQUEST
 

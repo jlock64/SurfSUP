@@ -18,4 +18,10 @@ public class Friend {
 
     @ManyToOne
     User friendB;
+
+    @Column(nullable = false)
+    boolean isFriend;
+
+    @Column(nullable = false)
+    boolean invitationStage;
 }
