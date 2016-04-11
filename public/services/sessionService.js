@@ -23,11 +23,18 @@ angular
         });
     }
 
-    function editSession (editedSession) {
-      return $http.put(sessionUrl + "/" + editedSession._id, editedSession )
-        .then (function (res) {
-          console.log(('${res} editedSession'));
-        });
+    function editSession (id,location) {
+      var editedSession = {id: id};
+      console.log('test',new Date(location).getDay());
+        if(new Date(location).getDay()) {
+          editedSession.time = location;
+        } else {
+          editedSession.location = location
+        }
+        console.log('in editSession', editedSession);
+        console.log('this is the id:', id);
+        var editUrl = sessionUrl + "/" + id;
+        return $http.put(editUrl, editedSession);
     }
 
     return {
