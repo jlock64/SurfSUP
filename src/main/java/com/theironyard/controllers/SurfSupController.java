@@ -21,6 +21,7 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -39,8 +40,8 @@ public class SurfSupController {
     @Autowired
     JoinRepository joins;
 
-//    @Autowired
-//    FriendRepository friends;
+    @Autowired
+    FriendRepository friends;
 
     Server dbui;
 
@@ -168,32 +169,40 @@ public class SurfSupController {
         seshs.delete(sesh);
     }
 
-//    //SEARCH FOR FRIENDS
-//    @RequestMapping(path = "/user", method = RequestMethod.GET)
-//    public List<User> displayUser () {
-//        List<User> userList = (List<User>) users.findAll();
-//        return userList;
-//    }
-//
-//    //SEND FRIEND INVITATION (CREATES FRIEND OBJECT)
-//    @RequestMapping(path = "/friend", method = RequestMethod.POST)
-//    public void createFriend (HttpSession session, @RequestBody String usernameB) {
-//        User userA = users.findByUsername((String) session.getAttribute("username"));
-//        User userB = users.findByUsername(usernameB);
-//        Friend friend = new Friend (userA, userB);
-//        friends.save(friend);
-//    }
+    //SEARCH FOR FRIENDS
+    @RequestMapping(path = "/user", method = RequestMethod.GET)
+    public List<User> displayUser () {
+        List<User> userList = (List<User>) users.findAll();
+        return userList;
+    }
 
-//    //DISPLAY FRIENDS LIST
-//    @RequestMapping(path = "/friend", method = RequestMethod.GET)
-//    public List<User> friendList (HttpSession session, @RequestBody String usernameB) {
-//        User user = users.findByUsername((String) session.getAttribute("username"));
-//        List<Friend> firstList = friends.findAllWhereUserAEquals(user);
-//        List<Friend> secondList = friends.findAllWhereUserBEquals(user);
-//        firstList.addAll(secondList);
-//
-//        return friendList;
-//
-//        }
-//    }
+    //SEND FRIEND INVITATION (CREATES FRIEND OBJECT)
+    @RequestMapping(path = "/friend", method = RequestMethod.POST)
+    public void createFriend (HttpSession session, @RequestBody String usernameB) {
+        User userA = users.findByUsername((String) session.getAttribute("username"));
+        User userB = users.findByUsername(usernameB);
+        Friend friend = new Friend (userA, userB);
+        friends.save(friend);
+    }
+
+    //DISPLAY FRIENDS LIST
+    @RequestMapping(path = "/friend", method = RequestMethod.GET)
+    public List<User> friendList (HttpSession session) {
+        User user = users.findByUsername((String) session.getAttribute("username"));
+        List<Friend> allList = (List<Friend>) friends.findAll();
+        List<User> listOfFriends = new ArrayList<>();
+        for (Friend a : allList) {
+            for (Friend b : allList) {
+                if(a.getFriendA()==b.getFriendB() && a.getFriendB()==b.getFriendA()) {
+                    listOfFriends.add(a.getFriendA());
+                }
+            }
+        }
+        for (User u : listOfFriends) {
+            if (u == user) {
+                listOfFriends.remove(u);
+            }
+        }
+        return listOfFriends;
+    }
 }
