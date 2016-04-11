@@ -11,6 +11,7 @@ angular
     'ngRoute',
     'ui.mask',
     'xeditable'])
+
   .config(function($routeProvider) {
     $routeProvider
       .when('/home', {
@@ -36,7 +37,9 @@ angular
   })
   .run (function(editableOptions) {
   editableOptions.theme = 'bs3'; // bootstrap3 theme. Can be also 'bs2', 'default'
+
 });
+
 require('./services/userService.js');
 require('./services/sessionService.js');
 // require('./services/WeatherService.js');
