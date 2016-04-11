@@ -177,8 +177,8 @@ public class SurfSupController {
 
     //SEND FRIEND INVITATION (CREATES FRIEND OBJECT)
     @RequestMapping(path = "/friend", method = RequestMethod.POST)
-    public void createFriend (@RequestBody String usernameA, @RequestBody String usernameB) {
-        User userA = users.findByUsername(usernameA);
+    public void createFriend (HttpSession session, @RequestBody String usernameB) {
+        User userA = (User) session.getAttribute("username");
         User userB = users.findByUsername(usernameB);
         Friend friend = new Friend (userA, userB);
         friend.setInvitationStage(true);
@@ -191,5 +191,8 @@ public class SurfSupController {
     public void acceptFriend (@RequestBody Friend friend) {
         friends.save(friend);
     }
+
+    //DISPLAY FRIENDS LIST
+    @RequestMapping(path = "/friend", method =
 
 }
