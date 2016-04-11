@@ -163,4 +163,15 @@ public class SurfSupController {
         seshs.delete(sesh);
     }
 
+    //SEARCH FOR FRIENDS
+    @RequestMapping(path = "/user", method = RequestMethod.GET)
+    public List<User> displayUser () {
+        List<User> userList = (List<User>) users.findAll();
+        return userList;
+    }
+
+    //SEND FRIEND INVITATION
+
+    //ACCEPT/DENY FRIEND REQUEST
+
 }
