@@ -9,6 +9,7 @@ import javax.persistence.*;
 @Table(name = "joins")
 public class Join {
 
+    // VARAIBLES
     @Id
     @GeneratedValue
     int id;
@@ -19,6 +20,7 @@ public class Join {
     @ManyToOne
     Sesh sesh;
 
+    //CONSTRUCTORS
     public Join() {
     }
 
@@ -27,6 +29,7 @@ public class Join {
         this.sesh = sesh;
     }
 
+    // GETTERS/SETTERS
     public Sesh getSesh() {
         return sesh;
     }
