@@ -3,12 +3,12 @@
   <span>{{activity.user.username}} is going {{activity.isSurf ? 'Surfing' : 'Paddle Boarding'}}</span>
   <span> at </span>
   <a href="#" editable-text="activity.location"
-              onaftersave="editSession(activity.id, activity.location)">{{activity.location}}</a>
-  <span> at </span>
+              onaftersave="editSession(activity)">{{activity.location}}</a>
+  <span> on </span>
   <a href="#" editable-combodate="activity.time"
-              onaftersave="editSession(activity.id, activity.time)"
+              onaftersave="editSession(activity)"
               date-type="datetime"
-              data-format="DD-MM">{{activity.time | date:"dd/MM/ HH:mm"}}</a>
+              >{{activity.time | date : 'EEEE, MMMM d, h:mm a'}}</a>
   <!-- <button class="btn btn-xs btn-warning"
           type="button"
           ng-click="editSession(activity.user.id)"
