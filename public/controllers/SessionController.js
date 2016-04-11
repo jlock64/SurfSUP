@@ -65,7 +65,7 @@ angular
       //   console.log('edit session error', err);
       // })
     }
-
+    
 
 
   }); // end of AddSessionController
