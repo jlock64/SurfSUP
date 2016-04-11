@@ -175,7 +175,7 @@ public class SurfSupController {
         return userList;
     }
 
-    //SEND FRIEND INVITATION
+    //SEND FRIEND INVITATION (CREATES FRIEND OBJECT)
     @RequestMapping(path = "/friend", method = RequestMethod.POST)
     public void createFriend (@RequestBody String usernameA, @RequestBody String usernameB) {
         User userA = users.findByUsername(usernameA);
@@ -187,5 +187,9 @@ public class SurfSupController {
     }
 
     //ACCEPT/DENY FRIEND REQUEST
+    @RequestMapping(path = "/friend", method = RequestMethod.PUT)
+    public void acceptFriend (@RequestBody Friend friend) {
+        friends.save(friend);
+    }
 
 }
