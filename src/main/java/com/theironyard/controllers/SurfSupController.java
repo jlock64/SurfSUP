@@ -144,10 +144,16 @@ public class SurfSupController {
         return list;
     }
 
-    //EDIT EXISTING SESSION
+    //EDIT EXISTING SESH
     @RequestMapping(path = "/sesh", method = RequestMethod.PUT)
     public void editSesh (@RequestBody Sesh sesh) {
         seshs.save(sesh);
+    }
+
+    //ALTERNATIVE EDIT SESH
+    @RequestMapping(path = "/sesh/{id}", method = RequestMethod.PUT)
+    public void editSesh2 (@RequestBody Sesh newSesh, @PathVariable("id") int id) {
+        seshs.save(newSesh);
     }
 
     //DELETE SESSION
