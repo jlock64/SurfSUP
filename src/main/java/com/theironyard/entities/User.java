@@ -8,6 +8,8 @@ import javax.persistence.*;
 @Entity
 @Table(name = "users")
 public class User {
+
+    //VARIABLES
     @Id
     @GeneratedValue
     int id;
@@ -36,6 +38,7 @@ public class User {
     @Column(nullable = true)
     String photoFileName;
 
+    // GETTERS / SETTERS
     public void setFirstName(String firstName) {
         this.firstName = firstName;
     }

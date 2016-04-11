@@ -16,6 +16,8 @@ import java.util.List;
 @Entity
 @Table(name = "seshs")
 public class Sesh {
+
+    //VARIABLES
     @Id
     @GeneratedValue
     int id;
@@ -37,6 +39,7 @@ public class Sesh {
     @Column(nullable = false)
     String location;
 
+    //GETTERS/SETTERS
     public String getLocation() {
         return location;
     }

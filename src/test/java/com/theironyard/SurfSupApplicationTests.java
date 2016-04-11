@@ -87,7 +87,7 @@ public class SurfSupApplicationTests {
 //    public void test3
 
     @Test
-    public void test10logout() throws Exception {
+    public void test3logout() throws Exception {
         ResultActions ra = mockMvc.perform(
                 MockMvcRequestBuilders.post("/logout")
 
