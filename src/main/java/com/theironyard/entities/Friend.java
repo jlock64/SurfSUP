@@ -19,12 +19,6 @@ public class Friend {
     @ManyToOne
     User friendB;
 
-    @Column
-    boolean isFriend;
-
-    @Column
-    boolean invitationStage;
-
     public Friend() {
     }
 
@@ -49,19 +43,19 @@ public class Friend {
         this.friendB = friendB;
     }
 
-    public boolean isFriend() {
-        return isFriend;
-    }
-
-    public void setIsFriend(boolean isFriend) {
-        this.isFriend = isFriend;
-    }
-
-    public boolean isInvitationStage() {
-        return invitationStage;
-    }
-
-    public void setInvitationStage(boolean invitationStage) {
-        this.invitationStage = invitationStage;
-    }
+//    public boolean getIsFriend() {
+//        return isFriend;
+//    }
+//
+//    public void setIsFriend(boolean isFriend) {
+//        this.isFriend = isFriend;
+//    }
+//
+//    public boolean isInvitationStage() {
+//        return invitationStage;
+//    }
+//
+//    public void setInvitationStage(boolean invitationStage) {
+//        this.invitationStage = invitationStage;
+//    }
 }

@@ -178,21 +178,17 @@ public class SurfSupController {
     //SEND FRIEND INVITATION (CREATES FRIEND OBJECT)
     @RequestMapping(path = "/friend", method = RequestMethod.POST)
     public void createFriend (HttpSession session, @RequestBody String usernameB) {
-        User userA = (User) session.getAttribute("username");
+        User userA = users.findByUsername((String) session.getAttribute("username"));
         User userB = users.findByUsername(usernameB);
         Friend friend = new Friend (userA, userB);
-        friend.setInvitationStage(true);
-        friend.setIsFriend(false);
-        friends.save(friend);
-    }
-
-    //ACCEPT/DENY FRIEND REQUEST
-    @RequestMapping(path = "/friend", method = RequestMethod.PUT)
-    public void acceptFriend (@RequestBody Friend friend) {
         friends.save(friend);
     }
 
     //DISPLAY FRIENDS LIST
-    @RequestMapping(path = "/friend", method =
-
+    @RequestMapping(path = "/friend", method = RequestMethod.GET)
+    public List<User> friendList (HttpSession session) {
+        User user = users.findByUsername((String) session.getAttribute("username"));
+        List<User> friendsList = friends.findAllByUser(user);
+        return friendsList;
+    }
 }
