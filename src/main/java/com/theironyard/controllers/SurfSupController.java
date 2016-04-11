@@ -4,6 +4,7 @@ import com.theironyard.entities.Friend;
 import com.theironyard.entities.Join;
 import com.theironyard.entities.Sesh;
 import com.theironyard.entities.User;
+import com.theironyard.services.FriendRepository;
 import com.theironyard.services.JoinRepository;
 import com.theironyard.services.SeshRepository;
 import com.theironyard.services.UserRepository;
@@ -37,6 +38,9 @@ public class SurfSupController {
 
     @Autowired
     JoinRepository joins;
+
+    @Autowired
+    FriendRepository friends;
 
     Server dbui;
 
@@ -173,8 +177,12 @@ public class SurfSupController {
 
     //SEND FRIEND INVITATION
     @RequestMapping(path = "/friend", method = RequestMethod.POST)
-    public void createFriend (@RequestBody Friend friend) {
-
+    public void createFriend (@RequestBody String usernameA, @RequestBody String usernameB) {
+        User userA = users.findByUsername(usernameA);
+        User userB = users.findByUsername(usernameB);
+        Friend friend = new Friend (userA, userB);
+        friend.setInvitationStage(true);
+        friend.setIsFriend(false);
         friends.save(friend);
     }
 
