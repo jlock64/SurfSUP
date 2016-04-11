@@ -25,7 +25,7 @@ public class Sesh {
     @ManyToOne
     User user;
 
-    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "sesh")
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "sesh", fetch = FetchType.LAZY)
     @JsonIgnore
     private List<Join> joinsList;
 

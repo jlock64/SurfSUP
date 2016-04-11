@@ -193,16 +193,14 @@ public class SurfSupController {
         List<User> listOfFriends = new ArrayList<>();
         for (Friend a : allList) {
             for (Friend b : allList) {
-                if(a.getFriendA()==b.getFriendB() && a.getFriendB()==b.getFriendA()) {
+                if(a.getFriendA().getId()==b.getFriendB().getId() &&
+                        a.getFriendB().getId()==b.getFriendA().getId() &&
+                        a.getFriendA().getId() != user.getId()) {
                     listOfFriends.add(a.getFriendA());
                 }
             }
         }
-        for (User u : listOfFriends) {
-            if (u == user) {
-                listOfFriends.remove(u);
-            }
-        }
+
         return listOfFriends;
     }
 }
