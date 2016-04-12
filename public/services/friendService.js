@@ -8,8 +8,15 @@ angular
       return $http.get(searchFriendsUrl);
     }
 
+    var friendInvitationUrl = '/friend';
+    function friendInvitation() {
+      console.log('inviting friends', friendInvitationUrl);
+      return $http.post(friendInvitationUrl);
+    }
+
     return {
       findFriends: findFriends,
+      friendInvitation: friendInvitation
     }
 
   });
