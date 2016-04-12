@@ -218,11 +218,27 @@ public class SurfSupController {
         friends.delete(friend2);
     }
 
-//    //NUMBER OF FRIEND REQUESTS
-//    @RequestMapping(path = "/requests", method = RequestMethod.GET)
-//    public int friendRequests (HttpSession session) {
-//        User user = users.findByUsername((String) session.getAttribute("username"));
-//
-//        return requests;
-//    }
+    //NUMBER OF FRIEND REQUESTS
+    @RequestMapping(path = "/requests", method = RequestMethod.GET)
+    public int friendRequestsAmt (HttpSession session) {
+        User user = users.findByUsername((String) session.getAttribute("username"));
+        List<Friend> allList = (List<Friend>) friends.findAll();
+        ArrayList<User> requestList = new ArrayList<>();
+        for (Friend f : allList) {
+
+            // populating requestList with users who "friended" current user
+            if (f.getFriendB().getId()==user.getId()) {
+                requestList.add(f.getFriendA());
+
+                // removing users from requestList who have been "friended back" by current user
+                for(Friend ff : allList) {
+                    if (ff.getFriendA().getId() == user.getId()) {
+                        requestList.remove(ff.getFriendB());
+                    }
+                }
+            }
+        }
+        // requestList.size == number of pending requests
+        return requestList.size();
+    }
 }
