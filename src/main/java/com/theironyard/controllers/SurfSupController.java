@@ -265,4 +265,18 @@ public class SurfSupController {
         // requestList.size == number of pending requests
         return requestList;
     }
+
+    //DISPLAY PROFILE
+    @RequestMapping(path = "/user/{id}", method = RequestMethod.GET)
+    public User showProfile (@PathVariable("id") int id) {
+        User user = users.findOne(id);
+        return user;
+    }
+
+    //DENY FRIEND REQUEST (THE ID = FRIEND OBJECT ID)
+    @RequestMapping(path = "/deny/{id}", method = RequestMethod.DELETE)
+    public void denyFriendRequest (@PathVariable("id") int id) {
+        Friend friend = friends.findOne(id);
+        friends.delete(id);
+    }
 }
