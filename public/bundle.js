@@ -60,7 +60,7 @@ angular
   .controller('FriendController', function($scope, $location, FriendService) {
 
     $scope.searchFriends = searchFriends;
-    $scope.sendInvite = sendInvite
+    $scope.sendInvite = sendInvite;
 
     function searchFriends(friend) {
       console.log('this is a friend', friend);
