@@ -3,4 +3,5 @@
 
 <div ng-repeat=" friend in listFriends | filter:queryFriend:strict" >
   {{friend.username}}
+  <button type="button" class="btn btn-default" ng-click = "sendInvite(friend.username)" name="button">add friend</button>
 </div>

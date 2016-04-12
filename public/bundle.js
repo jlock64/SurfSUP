@@ -60,6 +60,7 @@ angular
   .controller('FriendController', function($scope, $location, FriendService) {
 
     $scope.searchFriends = searchFriends;
+    $scope.sendInvite = sendInvite
 
     function searchFriends(friend) {
       console.log('this is a friend', friend);
@@ -73,6 +74,15 @@ angular
       window.glow = data;
       console.log('friends list is working,', data);
     });
+
+    function sendInvite (username) {
+      console.log(username);
+      FriendService.friendInvitation(username)
+      .then(function(data) {
+        console.log('invite friends is working,', data);
+      });
+    }
+
 
 
 
@@ -42571,9 +42581,16 @@ angular
       return $http.get(searchFriendsUrl);
     }
 
+    var friendInvitationUrl = '/friend';
+    function friendInvitation(username) {
+      console.log('inviting friends', friendInvitationUrl);
+      return $http.post(friendInvitationUrl, username);
+    }
+
     return {
       findFriends: findFriends,
-    }
+      friendInvitation: friendInvitation
+    };
 
   });
 
