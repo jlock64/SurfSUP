@@ -272,4 +272,11 @@ public class SurfSupController {
         User user = users.findOne(id);
         return user;
     }
+
+    //DENY FRIEND REQUEST (THE ID = FRIEND OBJECT ID)
+    @RequestMapping(path = "/deny/{id}", method = RequestMethod.DELETE)
+    public void denyFriendRequest (@PathVariable("id") int id) {
+        Friend friend = friends.findOne(id);
+        friends.delete(id);
+    }
 }
