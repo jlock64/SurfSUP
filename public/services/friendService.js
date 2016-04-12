@@ -9,14 +9,14 @@ angular
     }
 
     var friendInvitationUrl = '/friend';
-    function friendInvitation() {
+    function friendInvitation(username) {
       console.log('inviting friends', friendInvitationUrl);
-      return $http.post(friendInvitationUrl);
+      return $http.post(friendInvitationUrl, username);
     }
 
     return {
       findFriends: findFriends,
       friendInvitation: friendInvitation
-    }
+    };
 
   });
