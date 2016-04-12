@@ -33,17 +33,22 @@ angular
       .when('/sessions', {
         templateUrl: "templates/sessions.html",
         controller: "SessionController"
-      });
+      })
+      .when('/friend', {
+        templateUrl: "templates/friendsList.html",
+        controller: "FriendController"
+      })
   })
   .run (function(editableOptions) {
   editableOptions.theme = 'bs3'; // bootstrap3 theme. Can be also 'bs2', 'default'
-
 });
 
 require('./services/userService.js');
 require('./services/sessionService.js');
+require('./services/friendService.js');
 // require('./services/WeatherService.js');
 require('./services/cacheEngineService.js');
-require('./controllers/UserController.js');
-require('./controllers/SessionController.js');
+require('./controllers/userController.js');
+require('./controllers/sessionController.js');
+require('./controllers/friendController.js');
 require ('./directives/sessionDirective.js');
