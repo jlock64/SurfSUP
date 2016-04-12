@@ -13,9 +13,11 @@ public class Friend {
     @GeneratedValue
     int id;
 
+    // USER DOING THE FRIENDING
     @ManyToOne
     User friendA;
 
+    // USER BEING FRIENDED
     @ManyToOne
     User friendB;
 
