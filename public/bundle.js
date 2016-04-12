@@ -57,10 +57,33 @@ require ('./directives/sessionDirective.js');
 },{"./controllers/friendController.js":2,"./controllers/sessionController.js":3,"./controllers/userController.js":4,"./directives/sessionDirective.js":5,"./services/cacheEngineService.js":13,"./services/friendService.js":14,"./services/sessionService.js":15,"./services/userService.js":16,"./xeditable":17,"angular":11,"angular-route":7,"angular-ui-mask":9,"jquery":12}],2:[function(require,module,exports){
 angular
   .module('surfSup')
-  .controller('FriendController', function($scope, $location, FriendService) {
+  .controller('FriendController', function($scope, $location, FriendService, $rootScope) {
 
     $scope.searchFriends = searchFriends;
     $scope.sendInvite = sendInvite;
+<<<<<<< HEAD
+=======
+    $scope.getRequestList = getRequestList;
+    // $scope.requestList = requestList;
+
+    function getRequests() {
+      FriendService.requests()
+        .then(function(data) {
+          $rootScope.requests = data.data;
+          // console.log('friend request amt:', data.data);
+        })
+    }
+    getRequests();
+
+    function getRequestList() {
+      FriendService.requestList()
+        .then(function(data) {
+          $scope.requestList = data.data[0].username;
+          console.log('friend request list:', data.data[0].username);
+        })
+    }
+    getRequestList();
+>>>>>>> 64844f9f626f81725da59c2b0f0db791fade59db
 
     function searchFriends(friend) {
       console.log('this is a friend', friend);
@@ -82,9 +105,6 @@ angular
         console.log('invite friends is working,', data);
       });
     }
-
-
-
 
 
   }); // end of FriendController
@@ -160,9 +180,9 @@ angular
 },{}],4:[function(require,module,exports){
 angular
   .module('surfSup')
-  .controller('UserController', function($scope, $location, UserService) {
+  .controller('UserController', function($scope, $location, UserService, $rootScope) {
 
-    $scope.loginObj = {
+    $rootScope.loginObj = {
       username: '',
       password: ''
     };
@@ -171,6 +191,7 @@ angular
     $scope.acctObj = {};
     $scope.submitForm = submitForm;
     // $scope.getWeatherData = getWeatherData;
+
 
     function login() {
       console.log('login object:', $scope.loginObj);
@@ -42587,9 +42608,25 @@ angular
       return $http.post(friendInvitationUrl, username);
     }
 
+    var requestAmtUrl = '/requestAmt';
+    function requests() {
+      console.log('friend requests', requestAmtUrl);
+      return $http.get(requestAmtUrl);
+    }
+
+    var requestListUrl = '/requests';
+    function requestList() {
+      console.log('request list:', requestListUrl);
+      return $http.get(requestListUrl);
+    }
+
+
+
     return {
       findFriends: findFriends,
-      friendInvitation: friendInvitation
+      friendInvitation: friendInvitation,
+      requests: requests,
+      requestList: requestList
     };
 
   });
