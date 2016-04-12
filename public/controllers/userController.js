@@ -1,8 +1,8 @@
 angular
   .module('surfSup')
-  .controller('UserController', function($scope, $location, UserService) {
+  .controller('UserController', function($scope, $location, UserService, $rootScope) {
 
-    $scope.loginObj = {
+    $rootScope.loginObj = {
       username: '',
       password: ''
     };
