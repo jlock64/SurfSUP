@@ -178,11 +178,15 @@ public class SurfSupController {
 
     //SEND FRIEND INVITATION (CREATES FRIEND OBJECT)
     @RequestMapping(path = "/friend", method = RequestMethod.POST)
-    public void createFriend (HttpSession session, @RequestBody String usernameB) {
+    public void createFriend (HttpSession session, @RequestBody String usernameB) throws Exception {
         User userA = users.findByUsername((String) session.getAttribute("username"));
         User userB = users.findByUsername(usernameB);
         Friend friend = new Friend (userA, userB);
-        friends.save(friend);
+        if (friends.findFirstByFriendAAndFriendB(userA, userB) != null){
+            friends.save(friend);
+        } else {
+            throw new Exception("Friendship already requested");
+        }
     }
 
     //DISPLAY FRIENDS LIST
@@ -211,4 +215,12 @@ public class SurfSupController {
         friends.delete(friend);
         friends.delete(friend2);
     }
+
+//    //NUMBER OF FRIEND REQUESTS
+//    @RequestMapping(path = "/requests", method = RequestMethod.GET)
+//    public int friendRequests (HttpSession session) {
+//        User user = users.findByUsername((String) session.getAttribute("username"));
+//
+//        return requests;
+//    }
 }
