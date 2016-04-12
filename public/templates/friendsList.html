@@ -1,0 +1,6 @@
+<input ng-model="queryFriend" ng-change="searchFriends(queryFriend)" type="text" name="name" value="">
+
+
+<div ng-repeat=" friend in listFriends | filter:queryFriend:strict" >
+  {{friend.username}}
+</div>
