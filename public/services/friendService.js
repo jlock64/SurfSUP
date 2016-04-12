@@ -14,9 +14,25 @@ angular
       return $http.post(friendInvitationUrl, username);
     }
 
+    var requestAmtUrl = '/requestAmt';
+    function requests() {
+      console.log('friend requests', requestAmtUrl);
+      return $http.get(requestAmtUrl);
+    }
+
+    var requestListUrl = '/requests';
+    function requestList() {
+      console.log('request list:', requestListUrl);
+      return $http.get(requestListUrl);
+    }
+
+
+
     return {
       findFriends: findFriends,
-      friendInvitation: friendInvitation
+      friendInvitation: friendInvitation,
+      requests: requests,
+      requestList: requestList
     };
 
   });
