@@ -6,6 +6,20 @@ form {
   label {
     color: #7d7d7d;
   }
+  input {
+    border: 1px solid #e7e8e8;
+  }
+
+  input.form-control,input.form-control:focus {
+    // outline: 1px solid #616161;
+    outline: none;
+    -webkit-box-shadow: none !important;
+    -moz-box-shadow: none !important;
+    box-shadow: none !important;
+}
+  // input:focus {
+  //   outline: 1px solid #616161;
+  // }
   h1 {
     text-align: left;
     font-size: 30px;
@@ -17,7 +31,7 @@ form {
   .btn-primary {
     text-transform: uppercase;
     margin-bottom: 5px;
-    box-shadow: 1px 1px 8px #aaa;
+    // box-shadow: 1px 1px 8px #aaa;
   }
   .checkbox {
     padding-left: 0;

@@ -38,6 +38,13 @@ form {
   color: #7d7d7d; }
   form label {
     color: #7d7d7d; }
+  form input {
+    border: 1px solid #e7e8e8; }
+  form input.form-control, form input.form-control:focus {
+    outline: none;
+    -webkit-box-shadow: none !important;
+    -moz-box-shadow: none !important;
+    box-shadow: none !important; }
   form h1 {
     text-align: left;
     font-size: 30px;
@@ -46,8 +53,7 @@ form {
     margin-top: 1%; }
   form .btn-primary {
     text-transform: uppercase;
-    margin-bottom: 5px;
-    box-shadow: 1px 1px 8px #aaa; }
+    margin-bottom: 5px; }
   form .checkbox {
     padding-left: 0; }
   form a {
