@@ -1,9 +1,29 @@
 angular
   .module('surfSup')
-  .controller('FriendController', function($scope, $location, FriendService) {
+  .controller('FriendController', function($scope, $location, FriendService, $rootScope) {
 
     $scope.searchFriends = searchFriends;
     $scope.sendInvite = sendInvite;
+    $scope.getRequestList = getRequestList;
+    // $scope.requestList = requestList;
+
+    function getRequests() {
+      FriendService.requests()
+        .then(function(data) {
+          $rootScope.requests = data.data;
+          // console.log('friend request amt:', data.data);
+        })
+    }
+    getRequests();
+
+    function getRequestList() {
+      FriendService.requestList()
+        .then(function(data) {
+          $scope.requestList = data.data[0].username;
+          console.log('friend request list:', data.data[0].username);
+        })
+    }
+    getRequestList();
 
     function searchFriends(friend) {
       console.log('this is a friend', friend);
@@ -25,9 +45,6 @@ angular
         console.log('invite friends is working,', data);
       });
     }
-
-
-
 
 
   }); // end of FriendController

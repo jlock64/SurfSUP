@@ -45,3 +45,15 @@ a:hover {
     display: none;
   }
 }
+.friendRequestIcon {
+  position: relative;
+  top: 32px;
+  &:hover {
+    cursor: pointer;
+  }
+  .friendCircle {
+    padding: 5px;
+    border-radius: 100%;
+    background-color: #ccc;
+  }
+}
