@@ -74,6 +74,14 @@ angular
       console.log('friends list is working,', data);
     });
 
+    FriendService.friendInvitation()
+    .then(function(data) {
+      // CacheEngine.put('seshActivity', data);
+      $scope.inviteFriends = data.data;
+      window.glow = data;
+      console.log('invite friends is working,', data);
+    });
+
 
 
 
@@ -42571,8 +42579,15 @@ angular
       return $http.get(searchFriendsUrl);
     }
 
+    var friendInvitationUrl = '/friend';
+    function friendInvitation() {
+      console.log('inviting friends', friendInvitationUrl);
+      return $http.post(friendInvitationUrl);
+    }
+
     return {
       findFriends: findFriends,
+      friendInvitation: friendInvitation
     }
 
   });

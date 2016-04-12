@@ -182,7 +182,7 @@ public class SurfSupController {
         User userA = users.findByUsername((String) session.getAttribute("username"));
         User userB = users.findByUsername(usernameB);
         Friend friend = new Friend (userA, userB);
-        if (friends.findFirstByFriendAAndFriendB(userA, userB) != null){
+        if (friends.findFirstByFriendAAndFriendB(userA, userB) == null){
             friends.save(friend);
         } else {
             throw new Exception("Friendship already requested");
