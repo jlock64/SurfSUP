@@ -194,13 +194,21 @@ public class SurfSupController {
         for (Friend a : allList) {
             for (Friend b : allList) {
                 if(a.getFriendA().getId()==b.getFriendB().getId() &&
-                        a.getFriendB().getId()==b.getFriendA().getId() &&
+                        a.getFriendB().getId() == b.getFriendA().getId() &&
                         a.getFriendA().getId() != user.getId()) {
                     listOfFriends.add(a.getFriendA());
                 }
             }
         }
-
         return listOfFriends;
+    }
+
+    //REMOVE SOMEONE FROM FRIENDS LIST
+    @RequestMapping(path = "/friend/{id}", method = RequestMethod.DELETE)
+    public void removeFriend (@PathVariable("id") int id) {
+        Friend friend = friends.findOne(id);
+        Friend friend2 = friends.findFirstByFriendAAndFriendB(friend.getFriendB(), friend.getFriendA());
+        friends.delete(friend);
+        friends.delete(friend2);
     }
 }

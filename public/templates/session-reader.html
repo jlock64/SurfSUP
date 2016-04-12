@@ -1,5 +1,6 @@
 
 <div class="session-container" >
+
   <span>{{activity.user.username}} is going {{activity.isSurf ? 'Surfing' : 'Paddle Boarding'}}</span>
   <span> at </span>
   <a href="#" editable-text="activity.location"
@@ -19,4 +20,5 @@
           ng-click="deleteSession(activity.id)"
           name="button">Delete
   </button>
+
 </div>
