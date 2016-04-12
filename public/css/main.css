@@ -227,3 +227,13 @@ a:hover {
     display: inline-block; }
   .desktop-navigation {
     display: none; } }
+
+.friendRequestIcon {
+  position: relative;
+  top: 32px; }
+  .friendRequestIcon:hover {
+    cursor: pointer; }
+  .friendRequestIcon .friendCircle {
+    padding: 5px;
+    border-radius: 100%;
+    background-color: #ccc; }

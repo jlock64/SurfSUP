@@ -12,6 +12,7 @@ angular
     $scope.submitForm = submitForm;
     // $scope.getWeatherData = getWeatherData;
 
+
     function login() {
       console.log('login object:', $scope.loginObj);
       UserService.loginUser($scope.loginObj).success(function (res) {
