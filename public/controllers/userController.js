@@ -1,8 +1,8 @@
 angular
   .module('surfSup')
-  .controller('UserController', function($scope, $location, UserService) {
+  .controller('UserController', function($scope, $location, UserService, $rootScope) {
 
-    $scope.loginObj = {
+    $rootScope.loginObj = {
       username: '',
       password: ''
     };
@@ -11,6 +11,7 @@ angular
     $scope.acctObj = {};
     $scope.submitForm = submitForm;
     // $scope.getWeatherData = getWeatherData;
+
 
     function login() {
       console.log('login object:', $scope.loginObj);
