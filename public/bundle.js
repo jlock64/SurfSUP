@@ -60,6 +60,7 @@ angular
   .controller('FriendController', function($scope, $location, FriendService) {
 
     $scope.searchFriends = searchFriends;
+    $scope.sendInvite = sendInvite
 
     function searchFriends(friend) {
       console.log('this is a friend', friend);
@@ -74,13 +75,14 @@ angular
       console.log('friends list is working,', data);
     });
 
-    FriendService.friendInvitation()
-    .then(function(data) {
-      // CacheEngine.put('seshActivity', data);
-      $scope.inviteFriends = data.data;
-      window.glow = data;
-      console.log('invite friends is working,', data);
-    });
+    function sendInvite (username) {
+      console.log(username);
+      FriendService.friendInvitation(username)
+      .then(function(data) {
+        console.log('invite friends is working,', data);
+      });
+    }
+
 
 
 
@@ -1262,7 +1264,7 @@ module.exports = 'ngRoute';
  */
 
 
-(function () { 
+(function () {
 'use strict';
 /*
  Attaches input mask onto input element
@@ -42580,15 +42582,25 @@ angular
     }
 
     var friendInvitationUrl = '/friend';
+<<<<<<< HEAD
     function friendInvitation() {
       console.log('inviting friends', friendInvitationUrl);
       return $http.post(friendInvitationUrl);
+=======
+    function friendInvitation(username) {
+      console.log('inviting friends', friendInvitationUrl);
+      return $http.post(friendInvitationUrl, username);
+>>>>>>> 959864a36746a6502ca95f128979bac6fff322db
     }
 
     return {
       findFriends: findFriends,
       friendInvitation: friendInvitation
+<<<<<<< HEAD
     }
+=======
+    };
+>>>>>>> 959864a36746a6502ca95f128979bac6fff322db
 
   });
 
