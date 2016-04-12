@@ -265,4 +265,11 @@ public class SurfSupController {
         // requestList.size == number of pending requests
         return requestList;
     }
+
+    //DISPLAY PROFILE
+    @RequestMapping(path = "/user/{id}", method = RequestMethod.GET)
+    public User showProfile (@PathVariable("id") int id) {
+        User user = users.findOne(id);
+        return user;
+    }
 }
