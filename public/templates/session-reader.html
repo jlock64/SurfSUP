@@ -1,24 +1,57 @@
-
-<div class="session-container" >
-
-  <span>{{activity.user.username}} is going {{activity.isSurf ? 'Surfing' : 'Paddle Boarding'}}</span>
-  <span> at </span>
-  <a href="#" editable-text="activity.location"
-              onaftersave="editSession(activity)">{{activity.location}}</a>
-  <span> on </span>
-  <a href="#" editable-combodate="activity.time"
+  <div class="list-group">
+    <h5 class="list-group-item-heading"><span class="glyphicon glyphicon-user"
+          aria-hidden="true">
+    </span><strong>{{activity.user.username}}</strong> is going {{activity.isSurf ? 'Surfing' : 'Paddle Boarding'}}
+    </h5>
+    <p class="list-group-item-text">Where:
+      <a href="#" editable-text="activity.location"
+                  onaftersave="editSession(activity)"
+                  >{{activity.location}}
+      </a>
+    </p>
+    <p class="list-group-item-text">When:
+      <a href="#" editable-combodate="activity.time"
+                  onaftersave="editSession(activity)"
+                  date-type="datetime"
+                  >{{activity.time | date : 'EEEE, MMMM d, h:mm a'}}
+      </a>
+    </p>
+    <button class="btn btn-xs btn-danger pull-right"
+            type="button"
+            ng-click="deleteSession(activity.id)"
+            name="button"
+            data-toggle="tooltip"
+            data-placement="bottom"
+            onmouseenter="$(this).tooltip('show')"
+            title="Delete Session">
+      <span class="glyphicon glyphicon-remove"
+            aria-hidden="true">
+      </span>
+    </button>
+    <button class="btn btn-xs btn-success pull-right"
+            type="button"
+            ng-click=""
+            name="button"
+            data-toggle="tooltip"
+            onmouseenter="$(this).tooltip('show')"
+            title="Join Session">
+      <span class="glyphicon glyphicon-plus"
+            aria-hidden="true">
+      </span>
+    </button>
+  </div>
+</div>
+  <!-- <span>{{activity.user.username}} is going {{activity.isSurf ? 'Surfing' : 'Paddle Boarding'}}</span> -->
+  <!-- <span> at </span> -->
+  <!-- <a href="#" editable-text="activity.location"
+              onaftersave="editSession(activity)">{{activity.location}}</a> -->
+  <!-- <span> on </span> -->
+  <!-- <a href="#" editable-combodate="activity.time"
               onaftersave="editSession(activity)"
               date-type="datetime"
-              >{{activity.time | date : 'EEEE, MMMM d, h:mm a'}}</a>
+              >{{activity.time | date : 'EEEE, MMMM d, h:mm a'}}</a> -->
   <!-- <button class="btn btn-xs btn-warning"
           type="button"
           ng-click="editSession(activity.user.id)"
           name="button">Edit
   </button> -->
-  <button class="btn btn-xs btn-danger"
-          type="button"
-          ng-click="deleteSession(activity.id)"
-          name="button">Delete
-  </button>
-
-</div>
