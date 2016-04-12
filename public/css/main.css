@@ -13,7 +13,7 @@ form .btn-success {
 
 * {
   box-sizing: border-box;
-  font-family: "Helvetica"; }
+  font-family: 'Lato'; }
 
 body {
   background-color: none;
@@ -84,31 +84,59 @@ form {
   padding: 15px;
   margin: 0 auto;
   color: #7d7d7d; }
-  form label {
-    color: #7d7d7d; }
-  form input {
-    border: 1px solid #e7e8e8; }
+  form h1 {
+    font-family: 'Lato', sans-serif;
+    font-weight: 700;
+    text-align: center;
+    font-size: 1.6em;
+    letter-spacing: 1px;
+    color: #555555;
+    text-transform: uppercase; }
   form input.form-control, form input.form-control:focus {
     outline: none;
     -webkit-box-shadow: none !important;
     -moz-box-shadow: none !important;
-    box-shadow: none !important; }
-  form h1 {
-    text-align: left;
-    font-size: 30px;
-    color: #7d7d7d; }
-  form .btn-success {
-    margin-top: 1%; }
-  form .btn-primary {
+    box-shadow: none !important;
+    font-family: 'Lato', sans-serif; }
+  form input.form-control, form input.form-control:-webkit-autofill {
+    -webkit-box-shadow: 0 0 0 1000px white inset !important; }
+  form input[type="checkbox"] {
+    margin: -14px 0 0; }
+  form .create-form {
+    max-width: 465px;
+    font-family: 'Lato', sans-serif; }
+  form .create-form input {
+    height: 48px; }
+  form .create-form input:focus {
+    border: 1px solid #ABABAB; }
+  form .create-form label {
+    font-family: 'Lato', sans-serif;
     text-transform: uppercase;
-    margin-bottom: 5px; }
-  form .checkbox {
-    padding-left: 0; }
+    letter-spacing: 1px;
+    font-size: 1em; }
+  form .submit-button {
+    margin-right: 5px;
+    background-color: #191DA5;
+    box-shadow: none;
+    border: none;
+    color: white;
+    font-family: 'Lato', sans-serif;
+    color: white;
+    text-transform: uppercase;
+    border-radius: 4px;
+    width: 135px;
+    height: 50px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    transition: all 0.3s ease 0s; }
+  form .submit-button:hover {
+    opacity: .9; }
   form a {
+    margin-left: 3px;
     color: #7d7d7d;
     cursor: pointer;
     padding-bottom: 3px;
-    border-bottom: 1px solid #7d7d7d; }
+    border-bottom: 1px solid #ccc; }
   form a:hover {
     text-decoration: none;
     color: #7d7d7d;

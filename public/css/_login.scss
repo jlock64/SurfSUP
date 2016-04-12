@@ -3,50 +3,94 @@ form {
   padding: 15px;
   margin: 0 auto;
   color: #7d7d7d;
-  label {
-    color: #7d7d7d;
-  }
-  input {
-    border: 1px solid #e7e8e8;
-  }
+  h1 {
+    font-family: 'Lato', sans-serif;
+    font-weight: 700;
+    text-align: center;
+    font-size: 1.6em;
+    letter-spacing: 1px;
+    color: #555555;
+    text-transform: uppercase;
+    }
 
   input.form-control,input.form-control:focus {
-    // outline: 1px solid #616161;
     outline: none;
+    // border: 1px solid #E3E3E3;
     -webkit-box-shadow: none !important;
     -moz-box-shadow: none !important;
     box-shadow: none !important;
-}
-  // input:focus {
-  //   outline: 1px solid #616161;
-  // }
-  h1 {
-    text-align: left;
-    font-size: 30px;
-    color: #7d7d7d;
+    font-family: 'Lato', sans-serif;
   }
-  .btn-success {
-    margin-top: 1%;
+  input.form-control,input.form-control:-webkit-autofill {
+      -webkit-box-shadow: 0 0 0 1000px white inset !important;
   }
-  .btn-primary {
+  input[type="checkbox"] {
+    margin: -14px 0 0;
+  }
+
+  .create-form {
+    max-width: 465px;
+    font-family: 'Lato', sans-serif;
+  }
+
+  .create-form input {
+    height: 48px;
+  }
+
+  .create-form input:focus {
+    border: 1px solid #ABABAB;
+  }
+
+  .create-form label {
+    font-family: 'Lato', sans-serif;
     text-transform: uppercase;
-    margin-bottom: 5px;
-    // box-shadow: 1px 1px 8px #aaa;
+    letter-spacing: 1px;
+    font-size: 1em;
   }
-  .checkbox {
-    padding-left: 0;
+  .submit-button {
+    margin-right: 5px;
+      background-color: #191DA5;
+      box-shadow: none;
+      border: none;
+      color: white;
+      font-family: 'Lato', sans-serif;
+      color: white;
+      text-transform: uppercase;
+      border-radius: 4px;
+      width: 135px;
+      height: 50px;
+      font-weight: 700;
+      letter-spacing: 1px;
+      transition: all 0.3s ease 0s;
   }
+  .submit-button:hover {
+    opacity: .9;
+  }
+  // .btn-success {
+  //   margin-top: 1%;
+  // }
+  // .btn-primary {
+  //   text-transform: uppercase;
+  //   margin-bottom: 5px;
+  //   // box-shadow: 1px 1px 8px #aaa;
+  // }
+  //
+  // .checkbox {
+  //   padding-left: 0;
+  // }
   a {
+    margin-left: 3px;
     color: #7d7d7d;
     cursor: pointer;
     padding-bottom: 3px;
-    border-bottom: 1px solid #7d7d7d;
+    border-bottom: 1px solid #ccc;
   }
   a:hover {
     text-decoration: none;
     color: #7d7d7d;
     opacity: 0.7;
   }
+
 
 
 } // end of form
