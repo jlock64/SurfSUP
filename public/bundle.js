@@ -84,9 +84,6 @@ angular
     }
 
 
-
-
-
   }); // end of FriendController
 
 },{}],3:[function(require,module,exports){
@@ -1264,7 +1261,7 @@ module.exports = 'ngRoute';
  */
 
 
-(function () {
+(function () { 
 'use strict';
 /*
  Attaches input mask onto input element
@@ -42582,25 +42579,15 @@ angular
     }
 
     var friendInvitationUrl = '/friend';
-<<<<<<< HEAD
-    function friendInvitation() {
-      console.log('inviting friends', friendInvitationUrl);
-      return $http.post(friendInvitationUrl);
-=======
     function friendInvitation(username) {
       console.log('inviting friends', friendInvitationUrl);
       return $http.post(friendInvitationUrl, username);
->>>>>>> 959864a36746a6502ca95f128979bac6fff322db
     }
 
     return {
       findFriends: findFriends,
       friendInvitation: friendInvitation
-<<<<<<< HEAD
-    }
-=======
     };
->>>>>>> 959864a36746a6502ca95f128979bac6fff322db
 
   });
 

@@ -27,7 +27,4 @@ angular
     }
 
 
-
-
-
   }); // end of FriendController
