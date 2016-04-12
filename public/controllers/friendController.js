@@ -19,7 +19,7 @@ angular
     function getRequestList() {
       FriendService.requestList()
         .then(function(data) {
-          $scope.requestList = data.data[0].username;
+          $rootScope.requestList = data.data[0].username;
           console.log('friend request list:', data.data[0].username);
         })
     }

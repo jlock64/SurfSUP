@@ -61,8 +61,6 @@ angular
 
     $scope.searchFriends = searchFriends;
     $scope.sendInvite = sendInvite;
-<<<<<<< HEAD
-=======
     $scope.getRequestList = getRequestList;
     // $scope.requestList = requestList;
 
@@ -83,7 +81,6 @@ angular
         })
     }
     getRequestList();
->>>>>>> 64844f9f626f81725da59c2b0f0db791fade59db
 
     function searchFriends(friend) {
       console.log('this is a friend', friend);
@@ -1285,7 +1282,7 @@ module.exports = 'ngRoute';
  */
 
 
-(function () { 
+(function () {
 'use strict';
 /*
  Attaches input mask onto input element
@@ -19651,7 +19648,7 @@ function adjustMatchers(matchers) {
  *
  * - your app is hosted at url `http://myapp.example.com/`
  * - but some of your templates are hosted on other domains you control such as
- *   `http://srv01.assets.example.com/`,  `http://srv02.assets.example.com/`, etc.
+ *   `http://srv01.assets.example.com/`,  `http://srv02.assets.example.com/`, etc.
  * - and you have an open redirect at `http://myapp.example.com/clickThru?...`.
  *
  * Here is what a secure configuration for this scenario might look like:
