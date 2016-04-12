@@ -11,6 +11,33 @@ form .surfSupButton {
 form .btn-success {
   text-transform: uppercase; }
 
+h6 {
+  text-align: center;
+  color: #777; }
+
+.list-group {
+  padding-left: 0;
+  margin-bottom: 20px;
+  border-bottom: 1px solid #eee;
+  padding-bottom: 10px; }
+  .list-group button.btn.btn-xs.btn-danger.pull-right {
+    position: relative;
+    bottom: 24px; }
+  .list-group button.btn.btn-xs.btn-success.pull-right {
+    position: relative;
+    bottom: 24px;
+    margin-right: 5px; }
+  .list-group h5 {
+    color: #444;
+    text-transform: uppercase;
+    font-weight: 400; }
+  .list-group p {
+    color: #777; }
+  .list-group span.glyphicon.glyphicon-user {
+    margin-right: 6px; }
+  .list-group a.editable-click {
+    border-bottom: none; }
+
 * {
   box-sizing: border-box;
   font-family: 'Lato'; }
@@ -197,6 +224,3 @@ input.form-control, input.form-control:focus {
   border: none;
   box-shadow: none;
   color: grey; }
-
-a.editable-click {
-  border-bottom: none; }

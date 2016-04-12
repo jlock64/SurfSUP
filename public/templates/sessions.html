@@ -1,17 +1,14 @@
-<h1>Welcome to sessions!</h1>
-<a href="/#/home">
-  <button class="btn btn-primary"
-          type="button"
-          name="button">Home
-  </button>
-</a>
+<h1>WELCOME TO SESSIONS</h1>
+<h6>(edit your session by clicking links)</h6>
+<hr>
+
+<div  ng-repeat="seshActivities in seshActivity | orderBy: 'time'">
+  <session-reader activity = "seshActivities"> </session-reader>
+</div>
+
 <a href="/#/addSession">
   <button class="btn btn-success"
           type="button"
           name="button">Add Another Session
   </button>
 </a>
-
-<div  ng-repeat="seshActivities in seshActivity" class="">
-  <session-reader activity = "seshActivities"> </session-reader>
-</div>
