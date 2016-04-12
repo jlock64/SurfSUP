@@ -169,10 +169,12 @@ public class SurfSupController {
         seshs.delete(sesh);
     }
 
-    //SEARCH FOR FRIENDS
+    //DISPLAY ALL USERS
     @RequestMapping(path = "/user", method = RequestMethod.GET)
-    public List<User> displayUser () {
+    public List<User> displayUser (HttpSession session) {
         List<User> userList = (List<User>) users.findAll();
+        User user = users.findByUsername((String) session.getAttribute("username"));
+        userList.remove(user);
         return userList;
     }
 
