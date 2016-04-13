@@ -32,7 +32,7 @@ angular
       FriendService.requestList()
         .success(function(data) {
           $rootScope.requestList = data;
-          // console.log('friend request list:', data);
+          console.log('friend request list:', data);
           // window.glob = data.data;
         });
     }
@@ -71,14 +71,14 @@ angular
       });
     }
 
-    //Invite updated
-    $scope.$on('invite:added', function() {
-      FriendService.friendInvitation()
-      .then(function(data) {
-        $rootScope.requests = data;
-        console.log('invite was added!', data);
-      });
-    });
+    // //Invite updated
+    // $scope.$on('invite:added', function() {
+    //   FriendService.friendInvitation()
+    //   .then(function(data) {
+    //     $rootScope.requests = data;
+    //     console.log('invite was added!', data);
+    //   });
+    // });
 
 
   }); // end of FriendController
