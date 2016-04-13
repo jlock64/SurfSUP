@@ -5,6 +5,7 @@ angular
     $scope.searchFriends = searchFriends;
     $scope.sendInvite = sendInvite;
     $scope.getRequestList = getRequestList;
+    $scope.denyFriendRequest = denyFriendRequest;
     // $scope.requestList = requestList;
 
     function getRequests() {
@@ -25,6 +26,18 @@ angular
         });
     }
     getRequestList();
+
+    function denyFriendRequest (id) {
+      FriendService.denyRequest(id)
+        .then(function(data) {
+          var objId = id;
+          var objPlace = $rootScope.requestList.findIndex (function(el,idx,arr){
+            return el.id === objId;
+          });
+          $rootScope.requestList.splice (objPlace, 1);
+          console.log('sessions deleted', objPlace);
+      });
+    }
 
     function searchFriends(friend) {
       console.log('this is a friend', friend);
