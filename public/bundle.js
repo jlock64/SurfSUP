@@ -75,7 +75,7 @@ angular
           $scope.friendsList = data.data;
         })
     }
-    getFriendsList();
+//    getFriendsList();
 
     function getRequests() {
       FriendService.requests()
