@@ -11,28 +11,28 @@ angular
 
     function getFriendsList() {
       FriendService.friendsList()
-        .then(function(data){
+        .success(function(data){
           console.log('in getFriendsList', data);
           // window.glob = data;
           $scope.friendsList = data.data;
-        })
+        });
     }
     getFriendsList();
 
     function getRequests() {
       FriendService.requests()
-        .then(function(data) {
-          $rootScope.requests = data.data;
-          console.log('friend request amt:', data.data);
+        .success(function(data) {
+          $rootScope.requests = data;
+          console.log('friend request amt:', data);
         });
     }
     getRequests();
 
     function getRequestList() {
       FriendService.requestList()
-        .then(function(data) {
-          $rootScope.requestList = data.data;
-          console.log('friend request list:', data.data);
+        .success(function(data) {
+          $rootScope.requestList = data;
+          console.log('friend request list:', data);
           // window.glob = data.data;
         });
     }

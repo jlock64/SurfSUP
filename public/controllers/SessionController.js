@@ -7,20 +7,18 @@ angular
     $scope.editSession = editSession;
 
     // CacheEngine
-    if (CacheEngine.get('seshActivity')){
-      var cache = CacheEngine.get('seshActivity');
-      $scope.seshActivity = cache.data;
-      console.log('cache is working! seshActivity =', cache);
-    }
-    else {
+    // if (CacheEngine.get('seshActivity')){
+    //   var cache = CacheEngine.get('seshActivity');
+    //   $scope.seshActivity = cache.data;
+    //   console.log('cache is working! seshActivity =', cache);
+    // }
+    // else {
         SessionService.getSession()
         .then(function(data) {
           CacheEngine.put('seshActivity', data);
           $scope.seshActivity = data.data;
-          window.glow = data.data;
-          console.log('data pulling is working! seshActivity =', data);
         });
-    }
+    // }
 
     // addSesh
     function addSesh () {
@@ -30,16 +28,25 @@ angular
         location: $scope.location
       };
       console.log("session obj", $scope.sessionObjs);
-      SessionService.addSession($scope.sessionObjs).success(function(res){
+      SessionService.addSession($scope.sessionObjs).then(function(res){
         console.log('session created', res);
         $location.path('/sessions');
-        $scope.$apply();
+        // $scope.$apply();
       })
-      .error(function(err) {
-        console.log('doh', err);
-        $('#sessionTime').html('<div class="alert alert-danger" role="alert"><strong>Oh no!</strong> The username and password do not match. Try again.</div>');
-      });
+      // .error(function(err) {
+      //   console.log('doh', err);
+      //   $('#sessionTime').html('<div class="alert alert-danger" role="alert"><strong>Oh no!</strong> The username and password do not match. Try again.</div>');
+      // });
     }
+
+    // addSesh update
+    $scope.$on('session:added', function() {
+      SessionService.getSession()
+      .then(function(data) {
+        $scope.seshActivity = data.data;
+        console.log('it was added!', data);
+      });
+    });
 
     // deleteSession
     function deleteSession(id) {
@@ -53,8 +60,16 @@ angular
         $scope.seshActivity.splice (objPlace, 1);
         console.log('deny requests', objPlace);
       });
-
     }
+
+    //Delete session update
+    $scope.$on('session:deleted', function() {
+      SessionService.getSession()
+      .then(function(data) {
+        $scope.seshActivity = data.data;
+        console.log('it was deleted!', data);
+      });
+    });
 
     // editedSession
     function editSession(id,location) {
