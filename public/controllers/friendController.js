@@ -22,8 +22,8 @@ angular
     function getRequests() {
       FriendService.requests()
         .success(function(data) {
-          $rootScope.requests = data.data;
-          console.log('friend request amt:', data.data);
+          $rootScope.requests = data;
+          console.log('friend request amt:', data);
         });
     }
     getRequests();
@@ -31,8 +31,8 @@ angular
     function getRequestList() {
       FriendService.requestList()
         .success(function(data) {
-          $rootScope.requestList = data.data;
-          console.log('friend request list:', data.data);
+          $rootScope.requestList = data;
+          console.log('friend request list:', data);
           // window.glob = data.data;
         });
     }
