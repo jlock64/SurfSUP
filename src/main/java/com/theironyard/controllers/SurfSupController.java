@@ -290,10 +290,17 @@ public class SurfSupController {
         joins.save(join);
     }
 
-//    //DISPLAY USERS WHO JOINED A SESH (ID = SESH ID)
-//    @RequestMapping(path = "/sesh{id}", method = RequestMethod.GET)
-//    public List<User> joinedUsers (@PathVariable("id") int id) {
-//        Sesh sesh = seshs.findOne(id);
-//
-//    }
+    //DISPLAY USERS WHO JOINED A SESH (ID = SESH ID)
+    @RequestMapping(path = "/sesh{id}", method = RequestMethod.GET)
+    public List<User> joinedUsers (@PathVariable("id") int id) {
+        Sesh sesh = seshs.findOne(id);
+        List<User> joined = new ArrayList<>();
+        List<Join> all = (List<Join>) joins.findAll();
+        for (Join j : all) {
+            if (j.getSesh().getId() == id) {
+                joined.add(j.getUser());
+            }
+        }
+        return joined;
+    }
 }
