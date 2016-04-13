@@ -5,6 +5,7 @@ angular
 
     var searchFriendsUrl = '/user';
     var friendInvitationUrl = '/friend';
+    var acceptInvitationUrl = '/friend/friend';
     var requestAmtUrl = '/requestAmt';
     var requestListUrl = '/requests';
     var friendsListUrl = '/friend';
@@ -16,10 +17,10 @@ angular
 
     function friendInvitation(username) {
       return $http.post(friendInvitationUrl, username);
-      // .then(function(res) {
-      //     console.log(res);
-      //     $rootScope.$broadcast('invite:added');
-      //   });
+    }
+
+    function acceptInvitation (username) {
+      return $http.post(acceptInvitationUrl, username);
     }
 
     function requests() {
@@ -45,6 +46,7 @@ angular
     return {
       findFriends: findFriends,
       friendInvitation: friendInvitation,
+      acceptInvitation: acceptInvitation,
       requests: requests,
       requestList: requestList,
       friendsList: friendsList,
