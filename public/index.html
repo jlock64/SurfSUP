@@ -27,21 +27,23 @@
 			<a href="/#/friend"><li>Friends List</li></a>
 			<a href="#"><li>User Profile</li></a>
 		</ul>
-		<friendAcceptReader friendRequests=" request "></friendAcceptReader>
+		<!-- <friend-accept-reader></friend-accept-reader> -->
 		<div data-toggle="modal" data-target=".bs-example-modal-lg" ng-controller="FriendController" ng-click="friendAccept()" class="pull-right friendRequestIcon">
-			<span class="glyphicon glyphicon-user" aria-hidden="true"></span>
-			<span class="friendCircle">{{requests}}</span>
+		  <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
+		  <span class="friendCircle">{{requests}}</span>
 		</div>
 		<div class="modal fade bs-example-modal-lg" ng-controller="FriendController" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
 		  <div class="modal-dialog modal-lg">
 		    <div class="modal-content">
-					<h4 class="modal-title" id="gridSystemModalLabel">Friend Request</h4>
-					<p>
-						{{requestList}}
-					</p>
+		      <h4 class="modal-title" id="gridSystemModalLabel">Friend Request</h4>
+		      <p ng-repeat = "requests in requestList">
+		        {{requests.username}}
+		      </p>
+					<button class type="button" name="button"></button>
 		    </div>
 		  </div>
-	</div>
+		</div>
+
 	</nav>
 </header>
 <body>

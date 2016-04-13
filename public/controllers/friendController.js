@@ -11,17 +11,18 @@ angular
       FriendService.requests()
         .then(function(data) {
           $rootScope.requests = data.data;
-          // console.log('friend request amt:', data.data);
-        })
+          console.log('friend request amt:', data.data);
+        });
     }
     getRequests();
 
     function getRequestList() {
       FriendService.requestList()
         .then(function(data) {
-          $scope.requestList = data.data[0].username;
-          console.log('friend request list:', data.data[0].username);
-        })
+          $rootScope.requestList = data.data;
+          console.log('friend request list:', data.data);
+          window.glob = data.data;
+        });
     }
     getRequestList();
 
