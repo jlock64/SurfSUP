@@ -63,8 +63,22 @@ angular
     $scope.searchFriends = searchFriends;
     $scope.sendInvite = sendInvite;
     $scope.getRequestList = getRequestList;
+<<<<<<< HEAD
+    $scope.getFriendsList = getFriendsList;
+=======
     $scope.denyFriendRequest = denyFriendRequest;
+>>>>>>> 3af2c102c8f29dbffa44a40551a807d5a109b399
     // $scope.requestList = requestList;
+
+    function getFriendsList() {
+      FriendService.friendsList()
+        .then(function(data){
+          console.log('in getFriendsList', data);
+          // window.glob = data;
+          $scope.friendsList = data.data;
+        })
+    }
+    getFriendsList();
 
     function getRequests() {
       FriendService.requests()
@@ -80,7 +94,7 @@ angular
         .then(function(data) {
           $rootScope.requestList = data.data;
           console.log('friend request list:', data.data);
-          window.glob = data.data;
+          // window.glob = data.data;
         });
     }
     getRequestList();
@@ -105,9 +119,9 @@ angular
     FriendService.findFriends()
     .then(function(data) {
       // CacheEngine.put('seshActivity', data);
-      $scope.listFriends = data.data;
+      $scope.listUsers = data.data;
       window.glow = data;
-      console.log('friends list is working,', data);
+      console.log('users list is working,', data);
     });
 
     function sendInvite (username) {
@@ -42643,17 +42657,30 @@ angular
       return $http.get(requestListUrl);
     }
 
+<<<<<<< HEAD
+    var friendsListUrl = '/friend';
+    function friendsList() {
+      return $http.get(friendsListUrl);
+    }
+
+
+=======
     var denyRequestUrl = '/deny';
     function denyRequest (id) {
       return $http.delete(denyRequestUrl + "/" + id);
     }
+>>>>>>> 3af2c102c8f29dbffa44a40551a807d5a109b399
 
     return {
       findFriends: findFriends,
       friendInvitation: friendInvitation,
       requests: requests,
       requestList: requestList,
+<<<<<<< HEAD
+      friendsList: friendsList
+=======
       denyRequest: denyRequest
+>>>>>>> 3af2c102c8f29dbffa44a40551a807d5a109b399
     };
 
   });

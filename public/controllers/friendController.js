@@ -5,8 +5,19 @@ angular
     $scope.searchFriends = searchFriends;
     $scope.sendInvite = sendInvite;
     $scope.getRequestList = getRequestList;
+    $scope.getFriendsList = getFriendsList;
     $scope.denyFriendRequest = denyFriendRequest;
     // $scope.requestList = requestList;
+
+    function getFriendsList() {
+      FriendService.friendsList()
+        .then(function(data){
+          console.log('in getFriendsList', data);
+          // window.glob = data;
+          $scope.friendsList = data.data;
+        })
+    }
+    getFriendsList();
 
     function getRequests() {
       FriendService.requests()
@@ -22,7 +33,7 @@ angular
         .then(function(data) {
           $rootScope.requestList = data.data;
           console.log('friend request list:', data.data);
-          window.glob = data.data;
+          // window.glob = data.data;
         });
     }
     getRequestList();
@@ -47,9 +58,9 @@ angular
     FriendService.findFriends()
     .then(function(data) {
       // CacheEngine.put('seshActivity', data);
-      $scope.listFriends = data.data;
+      $scope.listUsers = data.data;
       window.glow = data;
-      console.log('friends list is working,', data);
+      console.log('users list is working,', data);
     });
 
     function sendInvite (username) {

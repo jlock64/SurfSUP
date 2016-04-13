@@ -1,7 +1,37 @@
 <input ng-model="queryFriend" ng-change="searchFriends(queryFriend)" type="text" name="name" value="">
 
 
-<div ng-repeat=" friend in listFriends | filter:queryFriend:strict" >
-  {{friend.username}}
+<div ng-repeat=" user in listUsers | filter:queryFriend:strict" >
+  {{user.username}}
   <button type="button" class="btn btn-default" ng-click = "sendInvite(friend.username)" name="button">add friend</button>
 </div>
+
+<div id="friendsListWrapper" class="list-group">
+  <a href="" ng-repeat="friend in friendsList" class="list-group-item">
+    <div class="friendsListWrapper">
+      <span id="friendsListUserIcon" class="glyphicon glyphicon-user"></span>
+      <span id="friendsListUsername">{{friend.username}}</span>
+      <!-- <span id="friendsListProfileLink"><a class="viewProfileLink" href="">View Profile</a></span> -->
+      <button class="btn btn-xs btn-danger pull-right removeFriendBtn"
+              type="button"
+              ng-click="deleteFriend(id)"
+              name="button"
+              data-toggle="tooltip"
+              data-placement="bottom"
+              onmouseenter="$(this).tooltip('show')"
+              title="Remove Friend">
+        <span class="glyphicon glyphicon-remove"
+              aria-hidden="true">
+        </span>
+      </button>
+    </div>
+  </a>
+</div>
+
+<!-- <div ng-repeat=" friend in friendsList " >
+  <span>{{friend.username}}</span>
+  <span>{{friend.firstName}}</span>
+  <span>{{friend.lastName}}</span>
+  <span>{{friend.phone}}</span>
+  <span>{{friend.email}}</span>
+</div> -->

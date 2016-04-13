@@ -22,6 +22,11 @@ angular
       return $http.get(requestListUrl);
     }
 
+    var friendsListUrl = '/friend';
+    function friendsList() {
+      return $http.get(friendsListUrl);
+    }
+
     var denyRequestUrl = '/deny';
     function denyRequest (id) {
       return $http.delete(denyRequestUrl + "/" + id);
@@ -32,6 +37,7 @@ angular
       friendInvitation: friendInvitation,
       requests: requests,
       requestList: requestList,
+      friendsList: friendsList,
       denyRequest: denyRequest
     };
 

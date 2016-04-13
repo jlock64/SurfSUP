@@ -1,3 +1,20 @@
+#friendsListWrapper {
+  max-width: 400px;
+  margin: 0 auto; }
+  #friendsListWrapper .viewProfileLink {
+    display: inline-block;
+    text-decoration: underline;
+    text-align: center; }
+  #friendsListWrapper #friendsListUserIcon {
+    font-size: 30px; }
+  #friendsListWrapper #friendsListUsername {
+    vertical-align: 8px; }
+  #friendsListWrapper .btn.btn-xs.btn-danger.pull-right.removeFriendBtn {
+    position: relative;
+    top: 8px; }
+  #friendsListWrapper #friendsListProfileLink {
+    vertical-align: 8px; }
+
 form h1 {
   text-align: center; }
 
