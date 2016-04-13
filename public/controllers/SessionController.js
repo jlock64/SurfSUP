@@ -33,6 +33,7 @@ angular
       SessionService.addSession($scope.sessionObjs).success(function(res){
         console.log('session created', res);
         $location.path('/sessions');
+        $scope.$apply();
       })
       .error(function(err) {
         console.log('doh', err);

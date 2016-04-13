@@ -53,8 +53,9 @@ require('./controllers/userController.js');
 require('./controllers/sessionController.js');
 require('./controllers/friendController.js');
 require ('./directives/sessionDirective.js');
+require ('./directives/friendAcceptDirective.js');
 
-},{"./controllers/friendController.js":2,"./controllers/sessionController.js":3,"./controllers/userController.js":4,"./directives/sessionDirective.js":5,"./services/cacheEngineService.js":13,"./services/friendService.js":14,"./services/sessionService.js":15,"./services/userService.js":16,"./xeditable":17,"angular":11,"angular-route":7,"angular-ui-mask":9,"jquery":12}],2:[function(require,module,exports){
+},{"./controllers/friendController.js":2,"./controllers/sessionController.js":3,"./controllers/userController.js":4,"./directives/friendAcceptDirective.js":5,"./directives/sessionDirective.js":6,"./services/cacheEngineService.js":14,"./services/friendService.js":15,"./services/sessionService.js":16,"./services/userService.js":17,"./xeditable":18,"angular":12,"angular-route":8,"angular-ui-mask":10,"jquery":13}],2:[function(require,module,exports){
 angular
   .module('surfSup')
   .controller('FriendController', function($scope, $location, FriendService, $rootScope) {
@@ -68,17 +69,18 @@ angular
       FriendService.requests()
         .then(function(data) {
           $rootScope.requests = data.data;
-          // console.log('friend request amt:', data.data);
-        })
+          console.log('friend request amt:', data.data);
+        });
     }
     getRequests();
 
     function getRequestList() {
       FriendService.requestList()
         .then(function(data) {
-          $scope.requestList = data.data[0].username;
-          console.log('friend request list:', data.data[0].username);
-        })
+          $rootScope.requestList = data.data;
+          console.log('friend request list:', data.data);
+          window.glob = data.data;
+        });
     }
     getRequestList();
 
@@ -142,6 +144,7 @@ angular
       SessionService.addSession($scope.sessionObjs).success(function(res){
         console.log('session created', res);
         $location.path('/sessions');
+        $scope.$apply();
       })
       .error(function(err) {
         console.log('doh', err);
@@ -234,6 +237,20 @@ angular
 },{}],5:[function(require,module,exports){
 angular
 .module ('surfSup')
+.directive ('friendAcceptReader', function (){
+  return {
+    templateUrl: '../templates/friendAccept-reader.html',
+    controller: 'FriendController',
+    restrict: 'E',
+    scope: {
+      friendRequests: '=',
+    }
+  };
+});
+
+},{}],6:[function(require,module,exports){
+angular
+.module ('surfSup')
 .directive ('sessionReader', function (){
   return {
     templateUrl: '../templates/session-reader.html',
@@ -245,7 +262,7 @@ angular
   };
 });
 
-},{}],6:[function(require,module,exports){
+},{}],7:[function(require,module,exports){
 /**
  * @license AngularJS v1.5.3
  * (c) 2010-2016 Google, Inc. http://angularjs.org
@@ -1269,11 +1286,11 @@ function ngViewFillContentFactory($compile, $controller, $route) {
 
 })(window, window.angular);
 
-},{}],7:[function(require,module,exports){
+},{}],8:[function(require,module,exports){
 require('./angular-route');
 module.exports = 'ngRoute';
 
-},{"./angular-route":6}],8:[function(require,module,exports){
+},{"./angular-route":7}],9:[function(require,module,exports){
 /*!
  * angular-ui-mask
  * https://github.com/angular-ui/ui-mask
@@ -2010,7 +2027,7 @@ angular.module('ui.mask', [])
         ]);
 
 }());
-},{}],9:[function(require,module,exports){
+},{}],10:[function(require,module,exports){
 //https://github.com/angular/angular.js/pull/10732
 
 var angular = require('angular');
@@ -2018,7 +2035,7 @@ var mask = require('./dist/mask');
 
 module.exports = 'ui.mask';
 
-},{"./dist/mask":8,"angular":11}],10:[function(require,module,exports){
+},{"./dist/mask":9,"angular":12}],11:[function(require,module,exports){
 /**
  * @license AngularJS v1.5.3
  * (c) 2010-2016 Google, Inc. http://angularjs.org
@@ -32733,11 +32750,11 @@ $provide.value("$locale", {
 })(window, document);
 
 !window.angular.$$csp().noInlineStyle && window.angular.element(document.head).prepend('<style type="text/css">@charset "UTF-8";[ng\\:cloak],[ng-cloak],[data-ng-cloak],[x-ng-cloak],.ng-cloak,.x-ng-cloak,.ng-hide:not(.ng-hide-animate){display:none !important;}ng\\:form{display:block;}.ng-animate-shim{visibility:hidden;}.ng-anchor{position:absolute;}</style>');
-},{}],11:[function(require,module,exports){
+},{}],12:[function(require,module,exports){
 require('./angular');
 module.exports = angular;
 
-},{"./angular":10}],12:[function(require,module,exports){
+},{"./angular":11}],13:[function(require,module,exports){
 /*!
  * jQuery JavaScript Library v2.2.3
  * http://jquery.com/
@@ -42581,39 +42598,35 @@ if ( !noGlobal ) {
 return jQuery;
 }));
 
-},{}],13:[function(require,module,exports){
+},{}],14:[function(require,module,exports){
 angular
 .module('surfSup')
 .service ('CacheEngine', function($cacheFactory){
   return $cacheFactory('sessionsAPI');
 });
 
-},{}],14:[function(require,module,exports){
+},{}],15:[function(require,module,exports){
 angular
   .module('surfSup')
   .service('FriendService', function($http) {
 
     var searchFriendsUrl = '/user';
     function findFriends() {
-      console.log('finding friends', searchFriendsUrl);
       return $http.get(searchFriendsUrl);
     }
 
     var friendInvitationUrl = '/friend';
     function friendInvitation(username) {
-      console.log('inviting friends', friendInvitationUrl);
       return $http.post(friendInvitationUrl, username);
     }
 
     var requestAmtUrl = '/requestAmt';
     function requests() {
-      console.log('friend requests', requestAmtUrl);
       return $http.get(requestAmtUrl);
     }
 
     var requestListUrl = '/requests';
     function requestList() {
-      console.log('request list:', requestListUrl);
       return $http.get(requestListUrl);
     }
 
@@ -42628,7 +42641,7 @@ angular
 
   });
 
-},{}],15:[function(require,module,exports){
+},{}],16:[function(require,module,exports){
 angular
   .module('surfSup')
   .service('SessionService', function($http, $q) {
@@ -42677,7 +42690,7 @@ angular
 
   });
 
-},{}],16:[function(require,module,exports){
+},{}],17:[function(require,module,exports){
 angular
   .module('surfSup')
   .service('UserService', function($http) {
@@ -42704,7 +42717,7 @@ angular
     };
   });
 
-},{}],17:[function(require,module,exports){
+},{}],18:[function(require,module,exports){
 /*!
 angular-xeditable - 0.1.11
 Edit-in-place for angular.js
