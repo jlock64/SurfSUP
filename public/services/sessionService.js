@@ -5,11 +5,11 @@ angular
     var sessionUrl = '/sesh';
 
     function addSession (info) {
-      $http.post(sessionUrl, info)
-        .then(function(res) {
-          console.log(res);
-          $rootScope.$broadcast('session:added');
-        })
+      return $http.post(sessionUrl, info);
+        // .then(function(res) {
+        //   console.log(res);
+          // $rootScope.$broadcast('session:added');
+        // })
     }
 
     function getSession () {
@@ -28,13 +28,6 @@ angular
     }
 
     function editSession (session) {
-      // var editedSession = {id: id};
-      // console.log('test',new Date(location).getDay());
-        // if(new Date(location).getDay()) {
-        //   session.time = location;
-        // } else {
-        //   session.location = location
-        // }
         console.log('in editSession', session);
         console.log('this is the id:', session.id);
         var editUrl = sessionUrl + "/" + session.id;
