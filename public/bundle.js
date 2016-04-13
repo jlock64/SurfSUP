@@ -1323,7 +1323,7 @@ module.exports = 'ngRoute';
  */
 
 
-(function () { 
+(function () {
 'use strict';
 /*
  Attaches input mask onto input element

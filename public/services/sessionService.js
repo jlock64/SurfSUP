@@ -5,11 +5,11 @@ angular
     var sessionUrl = '/sesh';
 
     function addSession (info) {
-      $http.post(sessionUrl, info)
-        .then(function(res) {
-          console.log(res);
-          $rootScope.$broadcast('session:added');
-        })
+      $http.post(sessionUrl, info);
+        // .then(function(res) {
+        //   console.log(res);
+        //   $rootScope.$broadcast('session:added');
+        // })
     }
 
     function getSession () {
