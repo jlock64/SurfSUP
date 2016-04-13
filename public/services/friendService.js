@@ -22,13 +22,19 @@ angular
       return $http.get(requestListUrl);
     }
 
+    var friendsListUrl = '/friend';
+    function friendsList() {
+      return $http.get(friendsListUrl);
+    }
+
 
 
     return {
       findFriends: findFriends,
       friendInvitation: friendInvitation,
       requests: requests,
-      requestList: requestList
+      requestList: requestList,
+      friendsList: friendsList
     };
 
   });
