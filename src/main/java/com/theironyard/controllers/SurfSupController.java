@@ -22,6 +22,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 
@@ -202,12 +203,15 @@ public class SurfSupController {
         User user = users.findByUsername((String) session.getAttribute("username"));
         List<Friend> allList = friends.findAllByRequester(user);
         allList.addAll(friends.findAllByApprover(user)); //creates a list of friend objects that contain the current user
-        for (Friend f : allList) {
+        Iterator <Friend> iter = allList.iterator();
+        while (iter.hasNext()) {
+            Friend f = iter.next();
             if (f.getIsApproved() == false) {
                 allList.remove(f);
             }
-            for (Friend f2 : allList) {
-                if (f.getRequester().getId() == user.getId()) {
+            while (iter.hasNext()) {
+                Friend f2 = iter.next();
+                if (f2.getRequester().getId() == user.getId()) {
                     friendsList.add(f2.getApprover());
                 }
                 else {
