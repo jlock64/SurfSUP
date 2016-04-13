@@ -75,7 +75,7 @@ angular
           $scope.friendsList = data.data;
         });
     }
-//    getFriendsList();
+    getFriendsList();
 
     function getRequests() {
       FriendService.requests()
@@ -175,6 +175,14 @@ angular
         $('#sessionTime').html('<div class="alert alert-danger" role="alert"><strong>Oh no!</strong> The username and password do not match. Try again.</div>');
       });
     }
+
+    // addSesh update
+    $scope.$on('session:added', function() {
+      SessionService.getSession()
+        .success(function(sessions) {
+          $scope.seshActivity = sessions;
+        })
+    })
 
     // deleteSession
     function deleteSession(id) {
@@ -42683,11 +42691,11 @@ angular
     var sessionUrl = '/sesh';
 
     function addSession (info) {
-      $http.post(sessionUrl, info)
-        .then(function(res) {
-          console.log(res);
-          $rootScope.$broadcast('session:added');
-        })
+      return $http.post(sessionUrl, info);
+        // .then(function(res) {
+        //   console.log(res);
+          // $rootScope.$broadcast('session:added');
+        // })
     }
 
     function getSession () {
@@ -42706,13 +42714,6 @@ angular
     }
 
     function editSession (session) {
-      // var editedSession = {id: id};
-      // console.log('test',new Date(location).getDay());
-        // if(new Date(location).getDay()) {
-        //   session.time = location;
-        // } else {
-        //   session.location = location
-        // }
         console.log('in editSession', session);
         console.log('this is the id:', session.id);
         var editUrl = sessionUrl + "/" + session.id;
