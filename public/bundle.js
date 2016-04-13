@@ -63,7 +63,11 @@ angular
     $scope.searchFriends = searchFriends;
     $scope.sendInvite = sendInvite;
     $scope.getRequestList = getRequestList;
+<<<<<<< HEAD
     $scope.getFriendsList = getFriendsList;
+=======
+    $scope.denyFriendRequest = denyFriendRequest;
+>>>>>>> 3af2c102c8f29dbffa44a40551a807d5a109b399
     // $scope.requestList = requestList;
 
     function getFriendsList() {
@@ -94,6 +98,18 @@ angular
         });
     }
     getRequestList();
+
+    function denyFriendRequest (id) {
+      FriendService.denyRequest(id)
+        .then(function(data) {
+          var objId = id;
+          var objPlace = $rootScope.requestList.findIndex (function(el,idx,arr){
+            return el.id === objId;
+          });
+          $rootScope.requestList.splice (objPlace, 1);
+          console.log('sessions deleted', objPlace);
+      });
+    }
 
     function searchFriends(friend) {
       console.log('this is a friend', friend);
@@ -42641,19 +42657,30 @@ angular
       return $http.get(requestListUrl);
     }
 
+<<<<<<< HEAD
     var friendsListUrl = '/friend';
     function friendsList() {
       return $http.get(friendsListUrl);
     }
 
 
+=======
+    var denyRequestUrl = '/deny';
+    function denyRequest (id) {
+      return $http.delete(denyRequestUrl + "/" + id);
+    }
+>>>>>>> 3af2c102c8f29dbffa44a40551a807d5a109b399
 
     return {
       findFriends: findFriends,
       friendInvitation: friendInvitation,
       requests: requests,
       requestList: requestList,
+<<<<<<< HEAD
       friendsList: friendsList
+=======
+      denyRequest: denyRequest
+>>>>>>> 3af2c102c8f29dbffa44a40551a807d5a109b399
     };
 
   });

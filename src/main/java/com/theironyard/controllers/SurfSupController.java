@@ -178,7 +178,7 @@ public class SurfSupController {
         return userList;
     }
 
-    //SEND FRIEND INVITATION (CREATES FRIEND OBJECT)
+    //SEND FRIEND REQUEST (CREATES FRIEND OBJECT)
     @RequestMapping(path = "/friend", method = RequestMethod.POST)
     public void createFriend (HttpSession session, @RequestBody String usernameB) throws Exception {
         User userA = users.findByUsername((String) session.getAttribute("username"));
@@ -277,6 +277,21 @@ public class SurfSupController {
     @RequestMapping(path = "/deny/{id}", method = RequestMethod.DELETE)
     public void denyFriendRequest (@PathVariable("id") int id) {
         Friend friend = friends.findOne(id);
-        friends.delete(id);
+        friends.delete(friend);
     }
+
+    //INVITE FRIENDS TO JOIN SESH (ID = USER BEING INVITED'S ID)
+    @RequestMapping(path = "/join/{id}", method = RequestMethod.POST)
+    public void inviteFriendToJoin (@PathVariable("id") int id, @RequestBody Sesh sesh) {
+        User invitedUser = users.findOne(id);
+        Join join = new Join(invitedUser, sesh);
+        joins.save(join);
+    }
+
+//    //DISPLAY USERS WHO JOINED A SESH (ID = SESH ID)
+//    @RequestMapping(path = "/sesh{id}", method = RequestMethod.GET)
+//    public List<User> joinedUsers (@PathVariable("id") int id) {
+//        Sesh sesh = seshs.findOne(id);
+//
+//    }
 }

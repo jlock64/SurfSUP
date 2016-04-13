@@ -27,14 +27,18 @@ angular
       return $http.get(friendsListUrl);
     }
 
-
+    var denyRequestUrl = '/deny';
+    function denyRequest (id) {
+      return $http.delete(denyRequestUrl + "/" + id);
+    }
 
     return {
       findFriends: findFriends,
       friendInvitation: friendInvitation,
       requests: requests,
       requestList: requestList,
-      friendsList: friendsList
+      friendsList: friendsList,
+      denyRequest: denyRequest
     };
 
   });
