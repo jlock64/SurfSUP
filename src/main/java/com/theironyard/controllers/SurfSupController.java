@@ -93,10 +93,17 @@ public class SurfSupController {
         return null;
     }
 
-    // LOGOUT
-    @RequestMapping(path = "/logout", method = RequestMethod.GET)
-    public void logout (HttpSession session) {
-        session.invalidate();
+    // CREATE SESH
+    @RequestMapping(path = "/sesh", method = RequestMethod.POST)
+    public Sesh addSesh (@RequestBody Sesh sesh, HttpSession session) {
+        User user = users.findByUsername((String) session.getAttribute("username"));
+        sesh.setUser(user);
+        seshs.save(sesh);
+
+        //joins user and sesh in Joins table
+        Join join = new Join(user, sesh);
+        joins.save(join);
+        return sesh;
     }
 
     // UPLOAD PROFILE PICTURE (WHEN ALREADY LOGGED IN)
@@ -115,17 +122,32 @@ public class SurfSupController {
         users.save(existing);
     }
 
-    // CREATE SESH
-    @RequestMapping(path = "/sesh", method = RequestMethod.POST)
-    public Sesh addSesh (@RequestBody Sesh sesh, HttpSession session) {
-        User user = users.findByUsername((String) session.getAttribute("username"));
-        sesh.setUser(user);
-        seshs.save(sesh);
+    //SEND FRIEND REQUEST (CREATES FRIEND OBJECT)
+    @RequestMapping(path = "/friend", method = RequestMethod.POST)
+    public void createFriend (HttpSession session, @RequestBody String usernameB) throws Exception {
+        User userA = users.findByUsername((String) session.getAttribute("username"));
+        User userB = users.findByUsername(usernameB);
+        Friend friend = new Friend (userA, userB);
+        if (friends.findFirstByFriendAAndFriendB(userA, userB) == null){
+            friends.save(friend);
+        } else {
+            throw new Exception("Friendship already requested");
+        }
+    }
 
-        //joins user and sesh in Joins table
-        Join join = new Join(user, sesh);
+    //INVITE FRIENDS TO JOIN SESH (ID = USER BEING INVITED'S ID)
+    @RequestMapping(path = "//join/{userId}/{seshId}", method = RequestMethod.POST)
+    public void inviteFriendToJoin (@PathVariable("userId") int userId, @PathVariable("seshId") int seshId) {
+        User invitedUser = users.findOne(userId);
+        Sesh seshToJoin = seshs.findOne(seshId);
+        Join join = new Join(invitedUser, seshToJoin);
         joins.save(join);
-        return sesh;
+    }
+
+    // LOGOUT
+    @RequestMapping(path = "/logout", method = RequestMethod.GET)
+    public void logout (HttpSession session) {
+        session.invalidate();
     }
 
     // DISPLAY ALL SESHS
@@ -150,25 +172,6 @@ public class SurfSupController {
         return list;
     }
 
-    //EDIT EXISTING SESH
-    @RequestMapping(path = "/sesh", method = RequestMethod.PUT)
-    public void editSesh (@RequestBody Sesh sesh) {
-        seshs.save(sesh);
-    }
-
-    //ALTERNATIVE EDIT SESH
-    @RequestMapping(path = "/sesh/{id}", method = RequestMethod.PUT)
-    public void editSesh2 (@RequestBody Sesh newSesh, @PathVariable("id") int id) {
-        seshs.save(newSesh);
-    }
-
-    //DELETE SESSION
-    @RequestMapping(path = "/sesh/{id}", method = RequestMethod.DELETE)
-    public void deleteSesh (@PathVariable("id") int id) {
-        Sesh sesh = seshs.findOne(id);
-        seshs.delete(sesh);
-    }
-
     //DISPLAY ALL USERS
     @RequestMapping(path = "/user", method = RequestMethod.GET)
     public List<User> displayUser (HttpSession session) {
@@ -176,19 +179,6 @@ public class SurfSupController {
         User user = users.findByUsername((String) session.getAttribute("username"));
         userList.remove(user);
         return userList;
-    }
-
-    //SEND FRIEND REQUEST (CREATES FRIEND OBJECT)
-    @RequestMapping(path = "/friend", method = RequestMethod.POST)
-    public void createFriend (HttpSession session, @RequestBody String usernameB) throws Exception {
-        User userA = users.findByUsername((String) session.getAttribute("username"));
-        User userB = users.findByUsername(usernameB);
-        Friend friend = new Friend (userA, userB);
-        if (friends.findFirstByFriendAAndFriendB(userA, userB) == null){
-            friends.save(friend);
-        } else {
-            throw new Exception("Friendship already requested");
-        }
     }
 
     //DISPLAY FRIENDS LIST
@@ -209,14 +199,23 @@ public class SurfSupController {
         return listOfFriends;
     }
 
-    //REMOVE SOMEONE FROM FRIENDS LIST
-    @RequestMapping(path = "/friend/{id}", method = RequestMethod.DELETE)
-    public void removeFriend (@PathVariable("id") int id) {
-        Friend friend = friends.findOne(id);
-        Friend friend2 = friends.findFirstByFriendAAndFriendB(friend.getFriendB(), friend.getFriendA());
-        friends.delete(friend);
-        friends.delete(friend2);
-    }
+//    @RequestMapping(path = "/friend", method = RequestMethod.GET)
+//    public List<User> friendList (HttpSession session) {
+//        User loggedIn = users.findByUsername((String) session.getAttribute("username"));
+//        List<Friend> allFriends = (List<Friend>) friends.findAll();
+//        List<User> loggedInsFriends = new ArrayList<>();
+//        for (Friend f : allFriends) {
+//            if (f.getFriendA().getId() != loggedIn.getId() &&
+//                    f.getFriendB().getId() != loggedIn.getId()) {
+//                allFriends.remove(f);
+//            }
+//            for (Friend f2: allFriends) {
+//                if (friends.findFirstByFriendAAndFriendB(f2.getFriendB(), f2.getFriendA()) == null) {
+//                    allFriends.remove()
+//                }
+//            }
+//        }
+//    }
 
     //NUMBER OF FRIEND REQUESTS
     @RequestMapping(path = "/requestAmt", method = RequestMethod.GET)
@@ -273,23 +272,6 @@ public class SurfSupController {
         return user;
     }
 
-    //DENY FRIEND REQUEST (THE ID = FRIENDING USER ID)
-    @RequestMapping(path = "/deny/{id}", method = RequestMethod.DELETE)
-    public void denyFriendRequest (@PathVariable("id") int id, HttpSession session) {
-        User loggedIn = users.findByUsername((String) session.getAttribute("username"));
-        User befriender = users.findOne(id);
-        Friend friend = friends.findFirstByFriendAAndFriendB(befriender, loggedIn);
-        friends.delete(friend);
-    }
-
-    //INVITE FRIENDS TO JOIN SESH (ID = USER BEING INVITED'S ID)
-    @RequestMapping(path = "/join/{id}", method = RequestMethod.POST)
-    public void inviteFriendToJoin (@PathVariable("id") int id, @RequestBody Sesh sesh) {
-        User invitedUser = users.findOne(id);
-        Join join = new Join(invitedUser, sesh);
-        joins.save(join);
-    }
-
     //DISPLAY USERS WHO JOINED A SESH (ID = SESH ID)
     @RequestMapping(path = "/sesh{id}", method = RequestMethod.GET)
     public List<User> joinedUsers (@PathVariable("id") int id) {
@@ -302,5 +284,42 @@ public class SurfSupController {
             }
         }
         return joined;
+    }
+
+    //EDIT EXISTING SESH
+    @RequestMapping(path = "/sesh", method = RequestMethod.PUT)
+    public void editSesh (@RequestBody Sesh sesh) {
+        seshs.save(sesh);
+    }
+
+    //ALTERNATIVE EDIT SESH
+    @RequestMapping(path = "/sesh/{id}", method = RequestMethod.PUT)
+    public void editSesh2 (@RequestBody Sesh newSesh, @PathVariable("id") int id) {
+        seshs.save(newSesh);
+    }
+
+    //DELETE SESSION
+    @RequestMapping(path = "/sesh/{id}", method = RequestMethod.DELETE)
+    public void deleteSesh (@PathVariable("id") int id) {
+        Sesh sesh = seshs.findOne(id);
+        seshs.delete(sesh);
+    }
+
+    //REMOVE SOMEONE FROM FRIENDS LIST
+    @RequestMapping(path = "/friend/{id}", method = RequestMethod.DELETE)
+    public void removeFriend (@PathVariable("id") int id) {
+        Friend friend = friends.findOne(id);
+        Friend friend2 = friends.findFirstByFriendAAndFriendB(friend.getFriendB(), friend.getFriendA());
+        friends.delete(friend);
+        friends.delete(friend2);
+    }
+
+    //DENY FRIEND REQUEST (THE ID = FRIENDING USER ID)
+    @RequestMapping(path = "/deny/{id}", method = RequestMethod.DELETE)
+    public void denyFriendRequest (@PathVariable("id") int id, HttpSession session) {
+        User loggedIn = users.findByUsername((String) session.getAttribute("username"));
+        User befriender = users.findOne(id);
+        Friend friend = friends.findFirstByFriendAAndFriendB(befriender, loggedIn);
+        friends.delete(friend);
     }
 }
