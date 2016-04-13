@@ -28,7 +28,7 @@
 			<a href="#"><li>User Profile</li></a>
 		</ul>
 		<!-- <friend-accept-reader></friend-accept-reader> -->
-		<div data-toggle="modal" data-target=".bs-example-modal-lg" ng-controller="FriendController" ng-click="friendAccept()" class="pull-right friendRequestIcon">
+		<div data-toggle="modal" data-target=".bs-example-modal-lg" ng-controller="FriendController" ng-click="friendAccept()" class="pull-right friendRequestIcon" id = "request-modal">
 		  <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
 		  <span class="friendCircle">{{requests}}</span>
 		</div>
@@ -39,8 +39,8 @@
 		      <div ng-repeat = "requests in requestList">
 		        {{requests.username}}
 		        {{requests.id}}
-						<button class='btn btn-success' ng-click ="sendInvite(requests.username)" type="button" name="button">Accept</button>
-						<button class='btn btn-danger' ng-click="denyFriendRequest(requests.id)"type="button" name="button">Deny</button>
+						<button class='btn btn-success' ng-click ="sendInvite(requests.username); " type="button" name="button" data-dismiss="modal">Accept</button>
+						<button class='btn btn-danger' ng-click="denyFriendRequest(requests.id)"type="button" name="button" data-dismiss="modal">Deny</button>
 		      </div>
 		    </div>
 		  </div>
