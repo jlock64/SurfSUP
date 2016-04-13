@@ -75,7 +75,7 @@ angular
           $scope.friendsList = data.data;
         });
     }
-    getFriendsList();
+//    getFriendsList();
 
     function getRequests() {
       FriendService.requests()
@@ -42678,12 +42678,16 @@ angular
 },{}],16:[function(require,module,exports){
 angular
   .module('surfSup')
-  .service('SessionService', function($http, $q) {
+  .service('SessionService', function($http, $q, $rootScope) {
 
     var sessionUrl = '/sesh';
 
     function addSession (info) {
-      return $http.post(sessionUrl, info);
+      $http.post(sessionUrl, info)
+        .then(function(res) {
+          console.log(res);
+          $rootScope.$broadcast('session:added');
+        })
     }
 
     function getSession () {

@@ -41,6 +41,14 @@ angular
       });
     }
 
+    // addSesh update
+    $scope.$on('session:added', function() {
+      SessionService.getSession()
+        .success(function(sessions) {
+          $scope.seshActivity = sessions;
+        })
+    })
+
     // deleteSession
     function deleteSession(id) {
       console.log('this is id', id);
