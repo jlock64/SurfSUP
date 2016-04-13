@@ -273,10 +273,12 @@ public class SurfSupController {
         return user;
     }
 
-    //DENY FRIEND REQUEST (THE ID = FRIEND OBJECT ID)
+    //DENY FRIEND REQUEST (THE ID = FRIENDING USER ID)
     @RequestMapping(path = "/deny/{id}", method = RequestMethod.DELETE)
-    public void denyFriendRequest (@PathVariable("id") int id) {
-        Friend friend = friends.findOne(id);
+    public void denyFriendRequest (@PathVariable("id") int id, HttpSession session) {
+        User loggedIn = users.findByUsername((String) session.getAttribute("username"));
+        User befriender = users.findOne(id);
+        Friend friend = friends.findFirstByFriendAAndFriendB(befriender, loggedIn);
         friends.delete(friend);
     }
 
