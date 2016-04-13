@@ -38,7 +38,7 @@
 		      <h4 class="modal-title" id="gridSystemModalLabel">Friend Request</h4>
 		      <div ng-repeat = "requests in requestList">
 		        {{requests.username}}
-						<button class='btn btn-success' ng-click ="sendInvite(requests.username); " type="button" name="button" data-dismiss="modal">Accept</button>
+						<button class='btn btn-success' ng-click ="acceptInvite(requests.username); " type="button" name="button" data-dismiss="modal">Accept</button>
 						<button class='btn btn-danger' ng-click="denyFriendRequest(requests.id)"type="button" name="button" data-dismiss="modal">Deny</button>
 		      </div>
 		    </div>

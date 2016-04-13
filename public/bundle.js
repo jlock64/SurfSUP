@@ -65,12 +65,13 @@ angular
     $scope.getRequestList = getRequestList;
     $scope.getFriendsList = getFriendsList;
     $scope.denyFriendRequest = denyFriendRequest;
+    $scope.acceptInvite = acceptInvite;
     // $scope.requestList = requestList;
 
     function getFriendsList() {
       FriendService.friendsList()
         .success(function(data){
-          console.log('in getFriendsList', data);
+          // console.log('in getFriendsList', data);
           // window.glob = data;
           $scope.friendsList = data.data;
         });
@@ -90,7 +91,7 @@ angular
       FriendService.requestList()
         .success(function(data) {
           $rootScope.requestList = data;
-          console.log('friend request list:', data);
+          // console.log('friend request list:', data);
           // window.glob = data.data;
         });
     }
@@ -104,7 +105,7 @@ angular
             return el.id === objId;
           });
           $rootScope.requestList.splice (objPlace, 1);
-          console.log('sessions deleted', objPlace);
+          // console.log('sessions deleted', objPlace);
       });
     }
 
@@ -118,14 +119,14 @@ angular
       // CacheEngine.put('seshActivity', data);
       $scope.listUsers = data.data;
       window.glow = data;
-      console.log('users list is working,', data);
+      // console.log('users list is working,', data);
     });
 
     function sendInvite (username) {
-      console.log(username);
+      // console.log(username);
       FriendService.friendInvitation(username)
       .then(function(data) {
-        console.log('invite friends is working,', data);
+        // console.log('invite friends is working,', data);
       });
     }
 
@@ -138,6 +139,13 @@ angular
     //   });
     // });
 
+    function acceptInvite (username) {
+      console.log(username);
+      FriendService.acceptInvitation(username)
+      .then(function(data) {
+        console.log('accept friends is working,', data);
+      });
+    }
 
   }); // end of FriendController
 
@@ -42661,6 +42669,7 @@ angular
 
     var searchFriendsUrl = '/user';
     var friendInvitationUrl = '/friend';
+    var acceptInvitationUrl = '/friend/friend';
     var requestAmtUrl = '/requestAmt';
     var requestListUrl = '/requests';
     var friendsListUrl = '/friend';
@@ -42672,10 +42681,10 @@ angular
 
     function friendInvitation(username) {
       return $http.post(friendInvitationUrl, username);
-      // .then(function(res) {
-      //     console.log(res);
-      //     $rootScope.$broadcast('invite:added');
-      //   });
+    }
+
+    function acceptInvitation (username) {
+      return $http.post(acceptInvitationUrl, username);
     }
 
     function requests() {
@@ -42701,6 +42710,7 @@ angular
     return {
       findFriends: findFriends,
       friendInvitation: friendInvitation,
+      acceptInvitation: acceptInvitation,
       requests: requests,
       requestList: requestList,
       friendsList: friendsList,
