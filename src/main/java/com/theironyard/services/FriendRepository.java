@@ -11,7 +11,8 @@ import java.util.List;
  * Created by noellemachin on 4/11/16.
  */
 public interface FriendRepository extends CrudRepository<Friend, Integer> {
-    List <Friend> findAllByFriendA (User user);
-    Friend findFirstByFriendAAndFriendB (User userA, User userB);
-    Friend findFirstByFriendBAndFriendA (User userA, User userB);
+    List <Friend> findAllByRequester (User requester);
+    List <Friend> findAllByApprover (User approver);
+    Friend findFirstByRequesterAndApprover (User requester, User approver);
+    Friend findFirstByApproverAndRequester (User approver, User requester);
 }
