@@ -181,41 +181,50 @@ public class SurfSupController {
         return userList;
     }
 
-    //DISPLAY FRIENDS LIST
-    @RequestMapping(path = "/friend", method = RequestMethod.GET)
-    public List<User> friendList (HttpSession session) {
-        User user = users.findByUsername((String) session.getAttribute("username"));
-        List<Friend> allList = (List<Friend>) friends.findAll();
-        List<User> listOfFriends = new ArrayList<>();
-        for (Friend a : allList) {
-            for (Friend b : allList) {
-                if(a.getFriendA().getId()==b.getFriendB().getId() &&
-                        a.getFriendB().getId() == b.getFriendA().getId() &&
-                        a.getFriendA().getId() != user.getId()) {
-                    listOfFriends.add(a.getFriendA());
-                }
-            }
-        }
-        return listOfFriends;
-    }
-
+//    //DISPLAY FRIENDS LIST
 //    @RequestMapping(path = "/friend", method = RequestMethod.GET)
 //    public List<User> friendList (HttpSession session) {
-//        User loggedIn = users.findByUsername((String) session.getAttribute("username"));
-//        List<Friend> allFriends = (List<Friend>) friends.findAll();
-//        List<User> loggedInsFriends = new ArrayList<>();
-//        for (Friend f : allFriends) {
-//            if (f.getFriendA().getId() != loggedIn.getId() &&
-//                    f.getFriendB().getId() != loggedIn.getId()) {
-//                allFriends.remove(f);
-//            }
-//            for (Friend f2: allFriends) {
-//                if (friends.findFirstByFriendAAndFriendB(f2.getFriendB(), f2.getFriendA()) == null) {
-//                    allFriends.remove()
+//        User user = users.findByUsername((String) session.getAttribute("username"));
+//        List<Friend> allList = (List<Friend>) friends.findAll();
+//        List<User> listOfFriends = new ArrayList<>();
+//        for (Friend a : allList) {
+//            for (Friend b : allList) {
+//                if(a.getFriendA().getId()==b.getFriendB().getId() &&
+//                        a.getFriendB().getId() == b.getFriendA().getId() &&
+//                        a.getFriendA().getId() != user.getId()) {
+//                    listOfFriends.add(a.getFriendA());
 //                }
 //            }
 //        }
+//        return listOfFriends;
 //    }
+    // DISPLAY FRIENDS LIST
+    @RequestMapping(path = "/friend", method = RequestMethod.GET)
+    public List<User> friendList (HttpSession session) {
+        User loggedIn = users.findByUsername((String) session.getAttribute("username"));
+        List<Friend> allFriends = (List<Friend>) friends.findAll();
+        List<User> loggedInsFriends = new ArrayList<>();
+        for (Friend f : allFriends) {
+            if (f.getFriendA().getId() != loggedIn.getId() &&
+                    f.getFriendB().getId() != loggedIn.getId()) {
+                allFriends.remove(f); // removes friend objects that don't include loggedIn
+            }
+            for (Friend f2: allFriends) {
+                if (friends.findFirstByFriendAAndFriendB(f2.getFriendB(), f2.getFriendA()) == null) {
+                    allFriends.remove(f2); // removes friend objects if the reciprocal doesn't exist (meaning not a friend yet)
+                }
+                for (Friend f3 : allFriends) {
+                    if (f3.getFriendA().getId() == loggedIn.getId()) {
+                        allFriends.remove(f3); // removes reciprocal friend objects
+                    }
+                    else {
+                        loggedInsFriends.add(f3.getFriendA());
+                    }
+                }
+            }
+        }
+        return loggedInsFriends;
+    }
 
     //NUMBER OF FRIEND REQUESTS
     @RequestMapping(path = "/requestAmt", method = RequestMethod.GET)
