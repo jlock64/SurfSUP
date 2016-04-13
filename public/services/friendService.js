@@ -15,11 +15,11 @@ angular
     }
 
     function friendInvitation(username) {
-      return $http.post(friendInvitationUrl, username)
-      .then(function(res) {
-          console.log(res);
-          $rootScope.$broadcast('invite:added');
-        });
+      return $http.post(friendInvitationUrl, username);
+      // .then(function(res) {
+      //     console.log(res);
+      //     $rootScope.$broadcast('invite:added');
+      //   });
     }
 
     function requests() {
