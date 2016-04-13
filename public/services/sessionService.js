@@ -5,11 +5,13 @@ angular
     var sessionUrl = '/sesh';
 
     function addSession (info) {
-      return $http.post(sessionUrl, info);
-        // .then(function(res) {
-        //   console.log(res);
-          // $rootScope.$broadcast('session:added');
-        // })
+
+      return $http.post(sessionUrl, info)
+        .then(function(res) {
+          console.log(res);
+          $rootScope.$broadcast('session:added');
+
+        });
     }
 
     function getSession () {
@@ -23,6 +25,7 @@ angular
     function deleteSesh(id) {
       return $http.delete(sessionUrl + "/" + id)
         .then(function (res) {
+          $rootScope.$broadcast('session:deleted');
           console.log(res, 'deleted');
         });
     }

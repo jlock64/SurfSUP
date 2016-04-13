@@ -69,28 +69,28 @@ angular
 
     function getFriendsList() {
       FriendService.friendsList()
-        .then(function(data){
+        .success(function(data){
           console.log('in getFriendsList', data);
           // window.glob = data;
           $scope.friendsList = data.data;
-        })
+        });
     }
     getFriendsList();
 
     function getRequests() {
       FriendService.requests()
-        .then(function(data) {
-          $rootScope.requests = data.data;
-          console.log('friend request amt:', data.data);
+        .success(function(data) {
+          $rootScope.requests = data;
+          console.log('friend request amt:', data);
         });
     }
     getRequests();
 
     function getRequestList() {
       FriendService.requestList()
-        .then(function(data) {
-          $rootScope.requestList = data.data;
-          console.log('friend request list:', data.data);
+        .success(function(data) {
+          $rootScope.requestList = data;
+          console.log('friend request list:', data);
           // window.glob = data.data;
         });
     }
@@ -142,20 +142,18 @@ angular
     $scope.editSession = editSession;
 
     // CacheEngine
-    if (CacheEngine.get('seshActivity')){
-      var cache = CacheEngine.get('seshActivity');
-      $scope.seshActivity = cache.data;
-      console.log('cache is working! seshActivity =', cache);
-    }
-    else {
+    // if (CacheEngine.get('seshActivity')){
+    //   var cache = CacheEngine.get('seshActivity');
+    //   $scope.seshActivity = cache.data;
+    //   console.log('cache is working! seshActivity =', cache);
+    // }
+    // else {
         SessionService.getSession()
         .then(function(data) {
           CacheEngine.put('seshActivity', data);
           $scope.seshActivity = data.data;
-          window.glow = data.data;
-          console.log('data pulling is working! seshActivity =', data);
         });
-    }
+    // }
 
     // addSesh
     function addSesh () {
@@ -165,24 +163,25 @@ angular
         location: $scope.location
       };
       console.log("session obj", $scope.sessionObjs);
-      SessionService.addSession($scope.sessionObjs).success(function(res){
+      SessionService.addSession($scope.sessionObjs).then(function(res){
         console.log('session created', res);
         $location.path('/sessions');
-        $scope.$apply();
+        // $scope.$apply();
       })
-      .error(function(err) {
-        console.log('doh', err);
-        $('#sessionTime').html('<div class="alert alert-danger" role="alert"><strong>Oh no!</strong> The username and password do not match. Try again.</div>');
-      });
+      // .error(function(err) {
+      //   console.log('doh', err);
+      //   $('#sessionTime').html('<div class="alert alert-danger" role="alert"><strong>Oh no!</strong> The username and password do not match. Try again.</div>');
+      // });
     }
 
     // addSesh update
     $scope.$on('session:added', function() {
       SessionService.getSession()
-        .success(function(sessions) {
-          $scope.seshActivity = sessions;
-        })
-    })
+      .then(function(data) {
+        $scope.seshActivity = data.data;
+        console.log('it was added!', data);
+      });
+    });
 
     // deleteSession
     function deleteSession(id) {
@@ -196,8 +195,16 @@ angular
         $scope.seshActivity.splice (objPlace, 1);
         console.log('deny requests', objPlace);
       });
-
     }
+
+    //Delete session update
+    $scope.$on('session:deleted', function() {
+      SessionService.getSession()
+      .then(function(data) {
+        $scope.seshActivity = data.data;
+        console.log('it was deleted!', data);
+      });
+    });
 
     // editedSession
     function editSession(id,location) {
@@ -42691,11 +42698,13 @@ angular
     var sessionUrl = '/sesh';
 
     function addSession (info) {
-      return $http.post(sessionUrl, info);
-        // .then(function(res) {
-        //   console.log(res);
-          // $rootScope.$broadcast('session:added');
-        // })
+
+      return $http.post(sessionUrl, info)
+        .then(function(res) {
+          console.log(res);
+          $rootScope.$broadcast('session:added');
+
+        });
     }
 
     function getSession () {
@@ -42709,6 +42718,7 @@ angular
     function deleteSesh(id) {
       return $http.delete(sessionUrl + "/" + id)
         .then(function (res) {
+          $rootScope.$broadcast('session:deleted');
           console.log(res, 'deleted');
         });
     }
