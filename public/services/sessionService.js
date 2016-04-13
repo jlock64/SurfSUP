@@ -10,7 +10,6 @@ angular
         .then(function(res) {
           console.log(res);
           $rootScope.$broadcast('session:added');
-
         });
     }
 

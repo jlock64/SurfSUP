@@ -1,35 +1,45 @@
 angular
   .module('surfSup')
-  .service('FriendService', function($http) {
+  .service('FriendService', function($http, $rootScope) {
+
 
     var searchFriendsUrl = '/user';
+    var friendInvitationUrl = '/friend';
+    var requestAmtUrl = '/requestAmt';
+    var requestListUrl = '/requests';
+    var friendsListUrl = '/friend';
+    var denyRequestUrl = '/deny';
+
     function findFriends() {
       return $http.get(searchFriendsUrl);
     }
 
-    var friendInvitationUrl = '/friend';
     function friendInvitation(username) {
-      return $http.post(friendInvitationUrl, username);
+      return $http.post(friendInvitationUrl, username)
+      .then(function(res) {
+          console.log(res);
+          $rootScope.$broadcast('invite:added');
+        });
     }
 
-    var requestAmtUrl = '/requestAmt';
     function requests() {
       return $http.get(requestAmtUrl);
     }
 
-    var requestListUrl = '/requests';
     function requestList() {
       return $http.get(requestListUrl);
     }
 
-    var friendsListUrl = '/friend';
     function friendsList() {
       return $http.get(friendsListUrl);
     }
 
-    var denyRequestUrl = '/deny';
     function denyRequest (id) {
-      return $http.delete(denyRequestUrl + "/" + id);
+      return $http.delete(denyRequestUrl + "/" + id)
+      .then(function(res) {
+          console.log(res);
+          $rootScope.$broadcast('invite:deleted');
+        });
     }
 
     return {

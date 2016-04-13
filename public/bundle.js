@@ -81,7 +81,7 @@ angular
       FriendService.requests()
         .success(function(data) {
           $rootScope.requests = data;
-          console.log('friend request amt:', data);
+          // console.log('friend request amt:', data);
         });
     }
     getRequests();
@@ -90,7 +90,7 @@ angular
       FriendService.requestList()
         .success(function(data) {
           $rootScope.requestList = data;
-          console.log('friend request list:', data);
+          // console.log('friend request list:', data);
           // window.glob = data.data;
         });
     }
@@ -128,6 +128,15 @@ angular
         console.log('invite friends is working,', data);
       });
     }
+
+    //Invite updated
+    $scope.$on('invite:added', function() {
+      FriendService.friendInvitation()
+      .then(function(data) {
+        $rootScope.requests = data;
+        console.log('invite was added!', data);
+      });
+    });
 
 
   }); // end of FriendController
@@ -42647,36 +42656,46 @@ angular
 },{}],15:[function(require,module,exports){
 angular
   .module('surfSup')
-  .service('FriendService', function($http) {
+  .service('FriendService', function($http, $rootScope) {
+
 
     var searchFriendsUrl = '/user';
+    var friendInvitationUrl = '/friend';
+    var requestAmtUrl = '/requestAmt';
+    var requestListUrl = '/requests';
+    var friendsListUrl = '/friend';
+    var denyRequestUrl = '/deny';
+
     function findFriends() {
       return $http.get(searchFriendsUrl);
     }
 
-    var friendInvitationUrl = '/friend';
     function friendInvitation(username) {
-      return $http.post(friendInvitationUrl, username);
+      return $http.post(friendInvitationUrl, username)
+      .then(function(res) {
+          console.log(res);
+          $rootScope.$broadcast('invite:added');
+        });
     }
 
-    var requestAmtUrl = '/requestAmt';
     function requests() {
       return $http.get(requestAmtUrl);
     }
 
-    var requestListUrl = '/requests';
     function requestList() {
       return $http.get(requestListUrl);
     }
 
-    var friendsListUrl = '/friend';
     function friendsList() {
       return $http.get(friendsListUrl);
     }
 
-    var denyRequestUrl = '/deny';
     function denyRequest (id) {
-      return $http.delete(denyRequestUrl + "/" + id);
+      return $http.delete(denyRequestUrl + "/" + id)
+      .then(function(res) {
+          console.log(res);
+          $rootScope.$broadcast('invite:deleted');
+        });
     }
 
     return {
@@ -42703,7 +42722,6 @@ angular
         .then(function(res) {
           console.log(res);
           $rootScope.$broadcast('session:added');
-
         });
     }
 
