@@ -15,37 +15,48 @@ public class Friend {
 
     // USER DOING THE FRIENDING
     @ManyToOne
-    User friendA;
+    User requester;
 
     // USER BEING FRIENDED
     @ManyToOne
-    User friendB;
+    User approver;
+
+    @Column(nullable = true)
+    boolean isApproved;
 
     public Friend() {
     }
 
-    public Friend(User friendA, User friendB) {
-        this.friendA = friendA;
-        this.friendB = friendB;
+    public Friend(User requester, User approver) {
+        this.requester = requester;
+        this.approver = approver;
     }
 
-    public User getFriendA() {
-        return friendA;
+    public User getRequester() {
+        return requester;
     }
 
-    public void setFriendA(User friendA) {
-        this.friendA = friendA;
+    public void setRequester(User requester) {
+        this.requester = requester;
     }
 
-    public User getFriendB() {
-        return friendB;
+    public User getApprover() {
+        return approver;
     }
 
-    public void setFriendB(User friendB) {
-        this.friendB = friendB;
+    public void setApprover(User approver) {
+        this.approver = approver;
     }
 
-//    public boolean getIsFriend() {
+    public boolean getIsApproved() {
+        return isApproved;
+    }
+
+    public void setIsApproved(boolean isApproved) {
+        this.isApproved = isApproved;
+    }
+
+    //    public boolean getIsFriend() {
 //        return isFriend;
 //    }
 //
