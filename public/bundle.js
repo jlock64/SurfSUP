@@ -66,24 +66,31 @@ angular
     $scope.getFriendsList = getFriendsList;
     $scope.denyFriendRequest = denyFriendRequest;
     $scope.acceptInvite = acceptInvite;
+    $scope.deleteFriendFromList = deleteFriendFromList;
     // $scope.requestList = requestList;
 
     function getFriendsList() {
       FriendService.friendsList()
         .success(function(data){
-          // console.log('in getFriendsList', data);
+          console.log('in getFriendsList', data);
           // window.glob = data;
-          $scope.friendsList = data.data;
-        });
+          $scope.friendsList = data;
+        })
+        .error (function(err) {
+          console.log(err);
+        })
     }
     getFriendsList();
 
     function getRequests() {
-      FriendService.requests()
+      FriendService.requestAmt()
         .success(function(data) {
           $rootScope.requests = data;
-          // console.log('friend request amt:', data);
-        });
+          console.log('friend request amt:', data);
+        })
+        .error (function(err) {
+          console.log(err);
+        })
     }
     getRequests();
 
@@ -93,7 +100,10 @@ angular
           $rootScope.requestList = data;
           // console.log('friend request list:', data);
           // window.glob = data.data;
-        });
+        })
+        .error (function(err) {
+          console.log(err);
+        })
     }
     getRequestList();
 
@@ -146,6 +156,21 @@ angular
         console.log('accept friends is working,', data);
       });
     }
+
+    // DELETE FRIEND FROM FRIEND LIST
+    function deleteFriendFromList(id) {
+        console.log('id of friend to be deleted', id);
+        FriendService.deleteFriend(id)
+        .then(function(data) {
+          console.log(data);
+        //   var objId = id;
+        //   var objPlace = $scope.seshActivity.findIndex (function(el,idx,arr){
+        //     return el.id === objId;
+        //   });
+        //   $scope.seshActivity.splice (objPlace, 1);
+        //   console.log('deny requests', objPlace);
+        });
+      }
 
   }); // end of FriendController
 
@@ -238,7 +263,7 @@ angular
   .module('surfSup')
   .controller('UserController', function($scope, $location, UserService, $rootScope) {
 
-    $rootScope.loginObj = {
+    $scope.loginObj = {
       username: '',
       password: ''
     };
@@ -257,7 +282,7 @@ angular
       })
       .error(function (err) {
         console.log('doh');
-        $('#usernameAlert').html('<div class="alert alert-danger" role="alert"><strong>Oh no!</strong> The username and password do not match. Try again.</div>');
+        $('#userNameAlert').html('<div class="alert alert-danger" role="alert"><strong>Oh no!</strong> The username and password do not match. Try again.</div>');
       });
     }
 
@@ -42674,6 +42699,7 @@ angular
     var requestListUrl = '/requests';
     var friendsListUrl = '/friend';
     var denyRequestUrl = '/deny';
+    var deleteFriendUrl = '/friend'
 
     function findFriends() {
       return $http.get(searchFriendsUrl);
@@ -42687,7 +42713,7 @@ angular
       return $http.post(acceptInvitationUrl, username);
     }
 
-    function requests() {
+    function requestAmt() {
       return $http.get(requestAmtUrl);
     }
 
@@ -42707,14 +42733,23 @@ angular
         });
     }
 
+    function deleteFriend(id) {
+      return $http.delete(deleteFriendUrl + "/" + id)
+        .then(function (res) {
+          $rootScope.$broadcast('friend:deleted');
+          console.log(res, 'friend deleted from list');
+        });
+    }
+
     return {
       findFriends: findFriends,
       friendInvitation: friendInvitation,
       acceptInvitation: acceptInvitation,
-      requests: requests,
+      requestAmt: requestAmt,
       requestList: requestList,
       friendsList: friendsList,
-      denyRequest: denyRequest
+      denyRequest: denyRequest,
+      deleteFriend: deleteFriend
     };
 
   });
