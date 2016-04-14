@@ -5,6 +5,8 @@ angular
     $scope.addSesh = addSesh;
     $scope.deleteSession = deleteSession;
     $scope.editSession = editSession;
+    $scope.activeButtonSurf = activeButtonSurf;
+    $scope.activeButtonSUP = activeButtonSUP;
 
     // CacheEngine
     // if (CacheEngine.get('seshActivity')){
@@ -77,6 +79,16 @@ angular
       SessionService.editSession(id,location);
     }
 
+	$scope.isActiveSurf = false;
+  function activeButtonSurf () {
+    console.log('clicky surf');
+    $scope.isActiveSurf = !$scope.isActiveSurf;
+  }
+	$scope.isActiveSUP = false;
+  function activeButtonSUP () {
+    console.log('clicky SUP');
+    $scope.isActiveSUP = !$scope.isActiveSUP;
+  }
 
 
-  }); // end of AddSessionController
+  }); // end of SessionController

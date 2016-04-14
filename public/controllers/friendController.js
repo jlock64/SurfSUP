@@ -20,7 +20,7 @@ angular
         })
         .error (function(err) {
           console.log(err);
-        })
+        });
     }
     getFriendsList();
 
@@ -32,7 +32,7 @@ angular
         })
         .error (function(err) {
           console.log(err);
-        })
+        });
     }
     getRequests();
 
@@ -45,7 +45,7 @@ angular
         })
         .error (function(err) {
           console.log(err);
-        })
+        });
     }
     getRequestList();
 
@@ -77,8 +77,12 @@ angular
     function sendInvite (username) {
       // console.log(username);
       FriendService.friendInvitation(username)
-      .then(function(data) {
-        // console.log('invite friends is working,', data);
+      .success(function(data) {
+        console.log('send invite is working,', data);
+      })
+      .error (function(err) {
+        console.log('this friend has already been invited', err);
+        $('#requestFriendAlert').html('<div class="alert alert-danger" role="alert">You have already sent this friend a request.</div>');
       });
     }
 
@@ -94,8 +98,11 @@ angular
     function acceptInvite (username) {
       console.log(username);
       FriendService.acceptInvitation(username)
-      .then(function(data) {
+      .success(function(data) {
         console.log('accept friends is working,', data);
+      })
+      .error (function(err) {
+        console.log(err);
       });
     }
 
@@ -104,14 +111,14 @@ angular
         console.log('id of friend to be deleted', id);
         FriendService.deleteFriend(id)
         .then(function(data) {
-          console.log(data);
-        //   var objId = id;
-        //   var objPlace = $scope.seshActivity.findIndex (function(el,idx,arr){
-        //     return el.id === objId;
-        //   });
-        //   $scope.seshActivity.splice (objPlace, 1);
-        //   console.log('deny requests', objPlace);
-        });
+          console.log('data from delete friend', data);
+          var objId = id;
+          var objPlace = $scope.friendsList.findIndex (function(el,idx,arr){
+            return el.id === objId;
+          });
+          $rootScope.friendsList.splice (objPlace, 1);
+          // console.log('sessions deleted', objPlace);
+      });
       }
 
   }); // end of FriendController

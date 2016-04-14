@@ -21,10 +21,11 @@
     <input ng-model="loginObj.password"
            type="password"
            name="password"
-           class="form-control" />
+           class="form-control"
+           required />
   </div>
   <div ng-show="submitted && form.$invalid" >
-    <div ng-show="form.username.$error.required" class="alert alert-danger">
+    <div ng-show="form.password.$error.required" class="alert alert-danger">
       password is Required
     </div>
   </div>
