@@ -34,7 +34,7 @@
 
 
 			<!-- <friend-accept-reader></friend-accept-reader> -->
-			<div data-toggle="modal" data-target=".bs-example-modal-lg" ng-click="friendAccept()" class="pull-right friendRequestIcon" id = "request-modal">
+			<div data-toggle="modal" ng-controller="FriendController" data-target=".bs-example-modal-lg" ng-click="friendAccept()" class="pull-right friendRequestIcon" id = "request-modal">
 			  <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
 			  <span class="friendCircle">{{requests}}</span>
 			</div>
