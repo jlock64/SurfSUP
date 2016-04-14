@@ -16,10 +16,7 @@ angular
     function getFriendsList() {
       FriendService.friendsList()
         .success(function(data){
-          console.log('in getFriendsList', data);
-          // window.glob = data;
           $rootScope.$broadcast('friendList:added', data.data);
-          // $scope.friendsList = data;
         });
     }
     getFriendsList();
@@ -29,8 +26,6 @@ angular
       FriendService.friendsList()
       .then(function(data) {
         $scope.friendsList = data.data;
-        // $rootScope.$apply();
-        console.log('friend list updated:', data.data);
       });
     });
 
@@ -50,7 +45,6 @@ angular
       FriendService.requestList()
         .success(function(data) {
           $rootScope.requestList = data;
-          console.log('friend request list:', data);
           // window.glob = data.data;
         })
         .error (function(err) {
@@ -132,7 +126,6 @@ angular
         .then(function(data) {
           $scope.friendsList = data.data;
           // $rootScope.$apply();
-          console.log('friend list updated:', data.data);
         });
       });
 
