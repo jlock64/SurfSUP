@@ -78,7 +78,7 @@ angular
         })
         .error (function(err) {
           console.log(err);
-        })
+        });
     }
     getFriendsList();
 
@@ -90,7 +90,7 @@ angular
         })
         .error (function(err) {
           console.log(err);
-        })
+        });
     }
     getRequests();
 
@@ -103,7 +103,7 @@ angular
         })
         .error (function(err) {
           console.log(err);
-        })
+        });
     }
     getRequestList();
 
@@ -141,7 +141,7 @@ angular
       .error (function(err) {
         console.log('this friend has already been invited', err);
         $('#requestFriendAlert').html('<div class="alert alert-danger" role="alert">You have already sent this friend a request.</div>');
-      })
+      });
     }
 
     // //Invite updated
@@ -161,7 +161,7 @@ angular
       })
       .error (function(err) {
         console.log(err);
-      })
+      });
     }
 
     // DELETE FRIEND FROM FRIEND LIST
@@ -189,6 +189,8 @@ angular
     $scope.addSesh = addSesh;
     $scope.deleteSession = deleteSession;
     $scope.editSession = editSession;
+    $scope.activeButtonSurf = activeButtonSurf;
+    $scope.activeButtonSUP = activeButtonSUP;
 
     // CacheEngine
     // if (CacheEngine.get('seshActivity')){
@@ -261,9 +263,19 @@ angular
       SessionService.editSession(id,location);
     }
 
+	$scope.isActiveSurf = false;
+  function activeButtonSurf () {
+    console.log('clicky surf');
+    $scope.isActiveSurf = !$scope.isActiveSurf;
+  }
+	$scope.isActiveSUP = false;
+  function activeButtonSUP () {
+    console.log('clicky SUP');
+    $scope.isActiveSUP = !$scope.isActiveSUP;
+  }
 
 
-  }); // end of AddSessionController
+  }); // end of SessionController
 
 },{}],4:[function(require,module,exports){
 angular
