@@ -209,14 +209,14 @@ public class SurfSupController {
             if (f.getIsApproved() == false) {
                 allList.remove(f);
             }
-            while (iter.hasNext()) {
-                Friend f2 = iter.next();
-                if (f2.getRequester().getId() == user.getId()) {
-                    friendsList.add(f2.getApprover());
-                }
-                else {
-                    friendsList.add(f2.getRequester());
-                }
+        }
+        while (iter.hasNext()) {
+            Friend f = iter.next();
+            if (f.getRequester().getId() == user.getId()) {
+                friendsList.add(f.getApprover());
+            }
+            else {
+                friendsList.add(f.getRequester());
             }
         }
         return friendsList;
