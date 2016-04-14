@@ -1,13 +1,13 @@
 angular
   .module('surfSup')
-  .controller('SessionController', function($scope, $location, SessionService, CacheEngine) {
-
+  .controller('SessionController', function($scope, $location, SessionService, CacheEngine, $rootScope) {
+    $location.path() === "/login" || $location.path() === "/create" ? $rootScope.showBar = false : $rootScope.showBar = true;
     $scope.addSesh = addSesh;
     $scope.deleteSession = deleteSession;
     $scope.editSession = editSession;
     $scope.activeButtonSurf = activeButtonSurf;
     $scope.activeButtonSUP = activeButtonSUP;
-
+    $scope.buttonsClicked = false;
     // CacheEngine
     // if (CacheEngine.get('seshActivity')){
     //   var cache = CacheEngine.get('seshActivity');
@@ -25,7 +25,7 @@ angular
     // addSesh
     function addSesh () {
       $scope.sessionObjs = {
-        time: $scope.time.toISOString().slice(0,19),
+        time: $scope.time ? $scope.time.toISOString().slice(0,19) : "",
         isSurf: $scope.suppy,
         location: $scope.location
       };
@@ -81,11 +81,13 @@ angular
 
 	$scope.isActiveSurf = false;
   function activeButtonSurf () {
+    $scope.buttonsClicked = true;
     console.log('clicky surf');
     $scope.isActiveSurf = !$scope.isActiveSurf;
   }
 	$scope.isActiveSUP = false;
   function activeButtonSUP () {
+    $scope.buttonsClicked = true;
     console.log('clicky SUP');
     $scope.isActiveSUP = !$scope.isActiveSUP;
   }

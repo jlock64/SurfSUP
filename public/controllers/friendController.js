@@ -1,6 +1,7 @@
 angular
   .module('surfSup')
   .controller('FriendController', function($scope, $location, FriendService, $rootScope) {
+    $location.path() === "/login" || $location.path() === "/create" ? $rootScope.showBar = false : $rootScope.showBar = true;
 
     $scope.searchFriends = searchFriends;
     $scope.sendInvite = sendInvite;
@@ -24,7 +25,7 @@ angular
     }
     getFriendsList();
 
-    function getRequests() {
+    function getRequestAmt() {
       FriendService.requestAmt()
         .success(function(data) {
           $rootScope.requests = data;
@@ -34,7 +35,7 @@ angular
           console.log(err);
         });
     }
-    getRequests();
+    getRequestAmt();
 
     function getRequestList() {
       FriendService.requestList()
