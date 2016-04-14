@@ -24,6 +24,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 
 /**
@@ -199,25 +200,35 @@ public class SurfSupController {
     //DISPLAY FRIENDS LIST
     @RequestMapping(path = "/friend", method = RequestMethod.GET)
     public List<User> friendList (HttpSession session) {
-        List<User> friendsList = new ArrayList<>();
         User user = users.findByUsername((String) session.getAttribute("username"));
         List<Friend> allList = friends.findAllByRequester(user);
         allList.addAll(friends.findAllByApprover(user)); //creates a list of friend objects that contain the current user
-        for (Iterator <Friend> iter = allList.iterator(); iter.hasNext();) {
-            Friend f = iter.next();
-            if (f.getIsApproved() == false) {
-                iter.remove();
-            }
-            for (Iterator <Friend> iter2 = allList.iterator(); iter2.hasNext();) {
-                Friend f2 = iter2.next();
-                if (f2.getRequester().getId() == user.getId()) {
-                    friendsList.add(f.getApprover());
-                }
-                else {
-                    friendsList.add(f.getRequester());
-                }
-            }
-        }
+//        for (Iterator <Friend> iter = allList.iterator(); iter.hasNext();) {
+//            Friend f = iter.next();
+//            if (f.getIsApproved() == false) {
+//                iter.remove();
+//            }
+//            for (Friend f2 : allList) {
+//                if (f2.getRequester().getId() == user.getId()) {
+//                    friendsList.add(f2.getApprover());
+//                }
+//                else {
+//                    friendsList.add(f2.getRequester());
+//                }
+//            }
+//        }
+        ArrayList<User> friendsList = allList.parallelStream()
+                .filter(Friend::getIsApproved)
+                .map(friend -> {
+                    if (friend.getRequester().getId() == user.getId()) {
+                        return friend.getApprover();
+                    }
+                    else if (friend.getApprover().getId() == user.getId()) {
+                        return friend.getRequester();
+                    }
+                    else return null;
+                })
+                .collect(Collectors.toCollection(ArrayList<User>::new));
         return friendsList;
     }
 
@@ -311,9 +322,11 @@ public class SurfSupController {
 
     //REMOVE SOMEONE FROM FRIENDS LIST
     @RequestMapping(path = "/friend/{id}", method = RequestMethod.DELETE)
-    public void removeFriend (@PathVariable("id") int id) {
-        Friend friend = friends.findOne(id);
-        Friend friend2 = friends.findFirstByRequesterAndApprover(friend.getApprover(), friend.getRequester());
+    public void removeFriend (@PathVariable("id") int id, HttpSession session) {
+        User loggedInUser = users.findByUsername((String) session.getAttribute("username"));
+        User friendToRemove = users.findOne(id);
+        Friend friend = new Friend (loggedInUser, friendToRemove);
+        Friend friend2 = new Friend (friendToRemove, loggedInUser);
         friends.delete(friend);
         friends.delete(friend2);
     }
