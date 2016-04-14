@@ -5,7 +5,6 @@ angular
     var sessionUrl = '/sesh';
 
     function addSession (info) {
-
       return $http.post(sessionUrl, info)
         .then(function(res) {
           console.log(res);
