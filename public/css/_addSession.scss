@@ -12,4 +12,41 @@ form {
   .btn-success {
     text-transform: uppercase;
   }
+  .surf-sup-button {
+  border: none;
+  padding: 14px;
+  color: #fff;
+  margin: 0 10px;
+  background: blue;
+  font-weight: 700;
+  border-radius: 4px;
 }
+.isActiveSup {
+  background: yellow;
+}
+.disabled {
+  background: #eee;
+  color: green;
+}
+
+
+.button {
+  border: none;
+  padding: 14px;
+  color: #fff;
+  margin: 0 10px;
+  background: green;
+  font-weight: 700;
+  border-radius: 4px;
+}
+.active {
+  background: orange;
+}
+.disabled {
+  background: #eee;
+  color: #aaa;
+}
+
+
+
+  }
