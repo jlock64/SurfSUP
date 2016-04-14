@@ -203,20 +203,19 @@ public class SurfSupController {
         User user = users.findByUsername((String) session.getAttribute("username"));
         List<Friend> allList = friends.findAllByRequester(user);
         allList.addAll(friends.findAllByApprover(user)); //creates a list of friend objects that contain the current user
-        Iterator <Friend> iter = allList.iterator();
-        while (iter.hasNext()) {
+        for (Iterator <Friend> iter = allList.iterator(); iter.hasNext();) {
             Friend f = iter.next();
             if (f.getIsApproved() == false) {
-                allList.remove(f);
+                iter.remove();
             }
-        }
-        while (iter.hasNext()) {
-            Friend f = iter.next();
-            if (f.getRequester().getId() == user.getId()) {
-                friendsList.add(f.getApprover());
-            }
-            else {
-                friendsList.add(f.getRequester());
+            for (Iterator <Friend> iter2 = allList.iterator(); iter2.hasNext();) {
+                Friend f2 = iter2.next();
+                if (f2.getRequester().getId() == user.getId()) {
+                    friendsList.add(f.getApprover());
+                }
+                else {
+                    friendsList.add(f.getRequester());
+                }
             }
         }
         return friendsList;
