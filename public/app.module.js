@@ -43,14 +43,14 @@ angular
   editableOptions.theme = 'bs3'; // bootstrap3 theme. Can be also 'bs2', 'default'
 });
 
-require('./services/userService.js');
-require('./services/sessionService.js');
-require('./services/friendService.js');
-require('./services/weatherService.js');
-require('./services/cacheEngineService.js');
-require('./controllers/userController.js');
-require('./controllers/sessionController.js');
-require('./controllers/friendController.js');
-require ('./directives/sessionDirective.js');
-require ('./directives/friendAcceptDirective.js');
+require('./services/userService');
+require('./services/sessionService');
+require('./services/friendService');
+require('./services/weatherService');
+require('./services/cacheEngineService');
+require('./controllers/userController');
+require('./controllers/sessionController');
+require('./controllers/friendController');
+require ('./directives/sessionDirective');
+require ('./directives/friendAcceptDirective');
 require('./controllers/navbar.controller')

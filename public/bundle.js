@@ -44,23 +44,23 @@ angular
   editableOptions.theme = 'bs3'; // bootstrap3 theme. Can be also 'bs2', 'default'
 });
 
-require('./services/userService.js');
-require('./services/sessionService.js');
-require('./services/friendService.js');
-require('./services/weatherService.js');
-require('./services/cacheEngineService.js');
-require('./controllers/userController.js');
-require('./controllers/sessionController.js');
-require('./controllers/friendController.js');
-require ('./directives/sessionDirective.js');
-require ('./directives/friendAcceptDirective.js');
+require('./services/userService');
+require('./services/sessionService');
+require('./services/friendService');
+require('./services/weatherService');
+require('./services/cacheEngineService');
+require('./controllers/userController');
+require('./controllers/sessionController');
+require('./controllers/friendController');
+require ('./directives/sessionDirective');
+require ('./directives/friendAcceptDirective');
 require('./controllers/navbar.controller')
 
-},{"./controllers/friendController.js":2,"./controllers/navbar.controller":3,"./controllers/sessionController.js":4,"./controllers/userController.js":5,"./directives/friendAcceptDirective.js":6,"./directives/sessionDirective.js":7,"./services/cacheEngineService.js":15,"./services/friendService.js":16,"./services/sessionService.js":17,"./services/userService.js":18,"./services/weatherService.js":19,"./xeditable":20,"angular":13,"angular-route":9,"angular-ui-mask":11,"jquery":14}],2:[function(require,module,exports){
+},{"./controllers/friendController":2,"./controllers/navbar.controller":3,"./controllers/sessionController":4,"./controllers/userController":5,"./directives/friendAcceptDirective":6,"./directives/sessionDirective":7,"./services/cacheEngineService":15,"./services/friendService":16,"./services/sessionService":17,"./services/userService":18,"./services/weatherService":19,"./xeditable":20,"angular":13,"angular-route":9,"angular-ui-mask":11,"jquery":14}],2:[function(require,module,exports){
 angular
   .module('surfSup')
   .controller('FriendController', function($scope, $location, FriendService, $rootScope) {
-    $location.path() === "/login" ? $rootScope.showBar = false : $rootScope.showBar = true;
+    $location.path() === "/login" || $location.path() === "/create" ? $rootScope.showBar = false : $rootScope.showBar = true;
 
     $scope.searchFriends = searchFriends;
     $scope.sendInvite = sendInvite;
@@ -84,7 +84,7 @@ angular
     }
     getFriendsList();
 
-    function getRequests() {
+    function getRequestAmt() {
       FriendService.requestAmt()
         .success(function(data) {
           $rootScope.requests = data;
@@ -94,7 +94,7 @@ angular
           console.log(err);
         });
     }
-    getRequests();
+    getRequestAmt();
 
     function getRequestList() {
       FriendService.requestList()
@@ -186,7 +186,7 @@ angular
 },{}],3:[function(require,module,exports){
 angular
   .module('surfSup')
-  .controller('NavbarController', function($scope,$location) {
+  .controller('NavbarController', function($scope,$location, $rootScope) {
 
     // console.log("LOCATION", $location.path());
     // $scope.showBar = true
@@ -206,14 +206,14 @@ angular
 },{}],4:[function(require,module,exports){
 angular
   .module('surfSup')
-  .controller('SessionController', function($scope, $location, SessionService, CacheEngine) {
-
+  .controller('SessionController', function($scope, $location, SessionService, CacheEngine, $rootScope) {
+    $location.path() === "/login" || $location.path() === "/create" ? $rootScope.showBar = false : $rootScope.showBar = true;
     $scope.addSesh = addSesh;
     $scope.deleteSession = deleteSession;
     $scope.editSession = editSession;
     $scope.activeButtonSurf = activeButtonSurf;
     $scope.activeButtonSUP = activeButtonSUP;
-
+    $scope.buttonsClicked = false;
     // CacheEngine
     // if (CacheEngine.get('seshActivity')){
     //   var cache = CacheEngine.get('seshActivity');
@@ -287,11 +287,13 @@ angular
 
 	$scope.isActiveSurf = false;
   function activeButtonSurf () {
+    $scope.buttonsClicked = true;
     console.log('clicky surf');
     $scope.isActiveSurf = !$scope.isActiveSurf;
   }
 	$scope.isActiveSUP = false;
   function activeButtonSUP () {
+    $scope.buttonsClicked = true;
     console.log('clicky SUP');
     $scope.isActiveSUP = !$scope.isActiveSUP;
   }
@@ -303,7 +305,7 @@ angular
 angular
   .module('surfSup')
   .controller('UserController', function($scope, $location, UserService, $rootScope, WeatherService) {
-    $location.path() === "/login" ? $rootScope.showBar = false : $rootScope.showBar = true;
+    $location.path() === "/login" || $location.path() === "/create" ? $rootScope.showBar = false : $rootScope.showBar = true;
     $scope.loginObj = {
       username: '',
       password: ''
