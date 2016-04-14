@@ -24,7 +24,7 @@ angular
       return $http.post(acceptInvitationUrl, username);
     }
 
-    function requests() {
+    function requestAmt() {
       return $http.get(requestAmtUrl);
     }
 
@@ -45,18 +45,18 @@ angular
     }
 
     function deleteFriend(id) {
-      return $http.delete(deleteFriendUrl + "/" + id);
-        // .then(function (res) {
-        //   $rootScope.$broadcast('friend:deleted');
-        //   console.log(res, 'friend deleted from list');
-        // });
+      return $http.delete(deleteFriendUrl + "/" + id)
+        .then(function (res) {
+          $rootScope.$broadcast('friend:deleted');
+          console.log(res, 'friend deleted from list');
+        });
     }
 
     return {
       findFriends: findFriends,
       friendInvitation: friendInvitation,
       acceptInvitation: acceptInvitation,
-      requests: requests,
+      requestAmt: requestAmt,
       requestList: requestList,
       friendsList: friendsList,
       denyRequest: denyRequest,

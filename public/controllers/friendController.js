@@ -17,16 +17,22 @@ angular
           console.log('in getFriendsList', data);
           // window.glob = data;
           $scope.friendsList = data;
-        });
+        })
+        .error (function(err) {
+          console.log(err);
+        })
     }
     getFriendsList();
 
     function getRequests() {
-      FriendService.requests()
+      FriendService.requestAmt()
         .success(function(data) {
           $rootScope.requests = data;
-          // console.log('friend request amt:', data);
-        });
+          console.log('friend request amt:', data);
+        })
+        .error (function(err) {
+          console.log(err);
+        })
     }
     getRequests();
 
@@ -36,7 +42,10 @@ angular
           $rootScope.requestList = data;
           // console.log('friend request list:', data);
           // window.glob = data.data;
-        });
+        })
+        .error (function(err) {
+          console.log(err);
+        })
     }
     getRequestList();
 

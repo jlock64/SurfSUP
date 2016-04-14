@@ -2,7 +2,7 @@ angular
   .module('surfSup')
   .controller('UserController', function($scope, $location, UserService, $rootScope) {
 
-    $rootScope.loginObj = {
+    $scope.loginObj = {
       username: '',
       password: ''
     };
@@ -21,7 +21,7 @@ angular
       })
       .error(function (err) {
         console.log('doh');
-        $('#usernameAlert').html('<div class="alert alert-danger" role="alert"><strong>Oh no!</strong> The username and password do not match. Try again.</div>');
+        $('#userNameAlert').html('<div class="alert alert-danger" role="alert"><strong>Oh no!</strong> The username and password do not match. Try again.</div>');
       });
     }
 
