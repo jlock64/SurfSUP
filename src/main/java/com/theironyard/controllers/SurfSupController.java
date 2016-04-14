@@ -325,8 +325,8 @@ public class SurfSupController {
     public void removeFriend (@PathVariable("id") int id, HttpSession session) {
         User loggedInUser = users.findByUsername((String) session.getAttribute("username"));
         User friendToRemove = users.findOne(id);
-        Friend friend = new Friend (loggedInUser, friendToRemove);
-        Friend friend2 = new Friend (friendToRemove, loggedInUser);
+        Friend friend = friends.findFirstByRequesterAndApprover(loggedInUser, friendToRemove);
+        Friend friend2 = friends.findFirstByRequesterAndApprover(friendToRemove, loggedInUser);
         friends.delete(friend);
         friends.delete(friend2);
     }
