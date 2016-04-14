@@ -229,6 +229,7 @@ angular
 angular
   .module('surfSup')
   .controller('SessionController', function($scope, $location, SessionService, CacheEngine, $rootScope) {
+    
     $location.path() === "/login" || $location.path() === "/create" ? $rootScope.showBar = false : $rootScope.showBar = true;
     $scope.addSesh = addSesh;
     $scope.deleteSession = deleteSession;
@@ -42828,6 +42829,7 @@ angular
   .service('SessionService', function($http, $q, $rootScope) {
 
     var sessionUrl = '/sesh';
+    var friendSeshUrl = '/user/friend/sesh';
 
     function addSession (info) {
       return $http.post(sessionUrl, info)
@@ -42839,7 +42841,7 @@ angular
 
     function getSession () {
       var defer = $q.defer();
-      $http.get(sessionUrl).then(function(data){
+      $http.get(friendSeshUrl).then(function(data){
         defer.resolve(data);
       });
       return defer.promise;
