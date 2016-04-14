@@ -1,6 +1,7 @@
 angular
   .module('surfSup')
   .controller('FriendController', function($scope, $location, FriendService, $rootScope) {
+    $location.path() === "/login" ? $rootScope.showBar = false : $rootScope.showBar = true;
 
     $scope.searchFriends = searchFriends;
     $scope.sendInvite = sendInvite;

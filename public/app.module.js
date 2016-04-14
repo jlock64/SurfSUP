@@ -53,3 +53,4 @@ require('./controllers/sessionController.js');
 require('./controllers/friendController.js');
 require ('./directives/sessionDirective.js');
 require ('./directives/friendAcceptDirective.js');
+require('./controllers/navbar.controller')

@@ -1,7 +1,7 @@
 angular
   .module('surfSup')
   .controller('UserController', function($scope, $location, UserService, $rootScope, WeatherService) {
-
+    $location.path() === "/login" ? $rootScope.showBar = false : $rootScope.showBar = true;
     $scope.loginObj = {
       username: '',
       password: ''
