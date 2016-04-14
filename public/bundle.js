@@ -355,7 +355,7 @@ angular
           $scope.weatherData = data.data;
         })
     }
-    getWeatherData();
+    // getWeatherData();
 
 
   }); // end of LoginController
