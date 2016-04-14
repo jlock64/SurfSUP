@@ -122,7 +122,6 @@ angular
     }
 
     function searchFriends(friend) {
-      console.log('this is a friend', friend);
       FriendService.findFriends(friend);
     }
 
