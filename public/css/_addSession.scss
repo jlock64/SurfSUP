@@ -1,52 +1,39 @@
 form {
-  h1 {
-    text-align: center;
-  }
-  .btn-group, .form-group {
-    width: 100%;
-  }
-  .surfSupButton {
-    width: 49.5%;
-    display: inline-block;
-  }
-  .btn-success {
-    text-transform: uppercase;
-  }
-  .surf-sup-button {
-  border: none;
-  padding: 14px;
-  color: #fff;
-  margin: 0 10px;
-  background: blue;
-  font-weight: 700;
-  border-radius: 4px;
+        h1 {
+          text-align: center;
+        }
+        .btn-group, .form-group {
+          width: 100%;
+        }
+        .surfSupButton {
+          width: 49.5%;
+          display: inline-block;
+        }
+        .btn-success {
+          text-transform: uppercase;
+        }
+        .surf-sup-button {
+        border: none;
+        padding: 14px;
+        color: #fff;
+        margin: 0 10px;
+        background: blue;
+        font-weight: 700;
+        border-radius: 4px;
+        width: 42.5%;
+      }
+      .isActiveSup {
+        background: yellow;
+      }
+      .disabled {
+        background: #eee;
+        color: green;
+      }
+      .active {
+        background: orange;
+      }
+      .disabled {
+        background: #eee;
+        color: #aaa;
+      }
 }
-.isActiveSup {
-  background: yellow;
-}
-.disabled {
-  background: #eee;
-  color: green;
-}
-
-
-.button {
-  border: none;
-  padding: 14px;
-  color: #fff;
-  margin: 0 10px;
-  background: green;
-  font-weight: 700;
-  border-radius: 4px;
-}
-.active {
-  background: orange;
-}
-.disabled {
-  background: #eee;
-  color: #aaa;
-}
-
-
-
-  }

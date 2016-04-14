@@ -1,18 +1,17 @@
 angular
   .module('surfSup')
-  .controller('NavbarController', function($scope,$location, $rootScope) {
+  .controller('NavbarController', function($scope,$location, $rootScope, FriendService) {
 
-    // console.log("LOCATION", $location.path());
-    // $scope.showBar = true
-    // if($location.path() === '/login') {
-    //   $scope.showBar = false;
-    //   console.log("SET THIS TO FALSE", $scope.showBar);
-    // }
-    //
-    // $scope.$watch('showBar', function() {
-    //   $scope.showBar = true;
-    // })
+    $scope.$on('requestAmt:added', function(data) {
+      console.log("request amount broadcast",data);
 
+      FriendService.requestAmt()
+      .then(function(data) {
+        $rootScope.requests = data.data;
+        // $rootScope.$apply();
+        console.log('friend request amt:', data);
+      });
+    });
 
 
   }); // end of NavbarControler

@@ -10,7 +10,7 @@ angular
     var requestListUrl = '/requests';
     var friendsListUrl = '/friend';
     var denyRequestUrl = '/deny';
-    var deleteFriendUrl = '/friend'
+    var deleteFriendUrl = '/friend';
 
     function findFriends() {
       return $http.get(searchFriendsUrl);
@@ -25,11 +25,19 @@ angular
     }
 
     function requestAmt() {
-      return $http.get(requestAmtUrl);
+      return $http.get(requestAmtUrl)
+      // .then(function(res) {
+      //   console.log(res);
+      //   $rootScope.$broadcast('requestAmt:added');
+      // });
     }
 
     function requestList() {
-      return $http.get(requestListUrl);
+      return $http.get(requestListUrl)
+      // .then(function(res) {
+      //   console.log(res);
+      //   $rootScope.$broadcast('requestList:added');
+      // });
     }
 
     function friendsList() {

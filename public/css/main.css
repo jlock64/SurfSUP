@@ -35,7 +35,8 @@ form .surf-sup-button {
   margin: 0 10px;
   background: blue;
   font-weight: 700;
-  border-radius: 4px; }
+  border-radius: 4px;
+  width: 42.5%; }
 
 form .isActiveSup {
   background: yellow; }
@@ -43,15 +44,6 @@ form .isActiveSup {
 form .disabled {
   background: #eee;
   color: green; }
-
-form .button {
-  border: none;
-  padding: 14px;
-  color: #fff;
-  margin: 0 10px;
-  background: green;
-  font-weight: 700;
-  border-radius: 4px; }
 
 form .active {
   background: orange; }

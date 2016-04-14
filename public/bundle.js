@@ -17,7 +17,16 @@ angular
     $routeProvider
       .when('/home', {
         templateUrl: "templates/homepage.html",
-        controller: "UserController"
+        controller: "UserController",
+        resolve: {
+          requestAmount: function ($q, FriendService) {
+            var dfd = $q.defer();
+          FriendService.requestAmt().then(function (amt) {
+              dfd.resolve(amt);
+            });
+            return dfd.promise;
+          }
+        }
       })
       .when('/login', {
         templateUrl: "templates/login.html",
@@ -59,7 +68,7 @@ require('./controllers/navbar.controller')
 },{"./controllers/friendController":2,"./controllers/navbar.controller":3,"./controllers/sessionController":4,"./controllers/userController":5,"./directives/friendAcceptDirective":6,"./directives/sessionDirective":7,"./services/cacheEngineService":15,"./services/friendService":16,"./services/sessionService":17,"./services/userService":18,"./services/weatherService":19,"./xeditable":20,"angular":13,"angular-route":9,"angular-ui-mask":11,"jquery":14}],2:[function(require,module,exports){
 angular
   .module('surfSup')
-  .controller('FriendController', function($scope, $location, FriendService, $rootScope) {
+  .controller('FriendController', function($scope,$q, $location, FriendService, $rootScope,SessionService) {
     $location.path() === "/login" || $location.path() === "/create" ? $rootScope.showBar = false : $rootScope.showBar = true;
 
     $scope.searchFriends = searchFriends;
@@ -77,21 +86,17 @@ angular
           console.log('in getFriendsList', data);
           // window.glob = data;
           $scope.friendsList = data;
-        })
-        .error (function(err) {
-          console.log(err);
         });
+
     }
     getFriendsList();
 
-    function getRequestAmt() {
+  function getRequestAmt() {
       FriendService.requestAmt()
-        .success(function(data) {
-          $rootScope.requests = data;
+        .then(function(data) {
+          $rootScope.requests = data.data;
+          // $rootScope.$apply();
           console.log('friend request amt:', data);
-        })
-        .error (function(err) {
-          console.log(err);
         });
     }
     getRequestAmt();
@@ -100,7 +105,7 @@ angular
       FriendService.requestList()
         .success(function(data) {
           $rootScope.requestList = data;
-          // console.log('friend request list:', data);
+          console.log('friend request list:', data);
           // window.glob = data.data;
         })
         .error (function(err) {
@@ -122,7 +127,6 @@ angular
     }
 
     function searchFriends(friend) {
-      console.log('this is a friend', friend);
       FriendService.findFriends(friend);
     }
 
@@ -160,6 +164,7 @@ angular
       FriendService.acceptInvitation(username)
       .success(function(data) {
         console.log('accept friends is working,', data);
+        $rootScope.$broadcast('requestAmt:added',data.data);
       })
       .error (function(err) {
         console.log(err);
@@ -186,19 +191,18 @@ angular
 },{}],3:[function(require,module,exports){
 angular
   .module('surfSup')
-  .controller('NavbarController', function($scope,$location, $rootScope) {
+  .controller('NavbarController', function($scope,$location, $rootScope, FriendService) {
 
-    // console.log("LOCATION", $location.path());
-    // $scope.showBar = true
-    // if($location.path() === '/login') {
-    //   $scope.showBar = false;
-    //   console.log("SET THIS TO FALSE", $scope.showBar);
-    // }
-    //
-    // $scope.$watch('showBar', function() {
-    //   $scope.showBar = true;
-    // })
+    $scope.$on('requestAmt:added', function(data) {
+      console.log("request amount broadcast",data);
 
+      FriendService.requestAmt()
+      .then(function(data) {
+        $rootScope.requests = data.data;
+        // $rootScope.$apply();
+        console.log('friend request amt:', data);
+      });
+    });
 
 
   }); // end of NavbarControler
@@ -42744,7 +42748,7 @@ angular
     var requestListUrl = '/requests';
     var friendsListUrl = '/friend';
     var denyRequestUrl = '/deny';
-    var deleteFriendUrl = '/friend'
+    var deleteFriendUrl = '/friend';
 
     function findFriends() {
       return $http.get(searchFriendsUrl);
@@ -42759,11 +42763,19 @@ angular
     }
 
     function requestAmt() {
-      return $http.get(requestAmtUrl);
+      return $http.get(requestAmtUrl)
+      // .then(function(res) {
+      //   console.log(res);
+      //   $rootScope.$broadcast('requestAmt:added');
+      // });
     }
 
     function requestList() {
-      return $http.get(requestListUrl);
+      return $http.get(requestListUrl)
+      // .then(function(res) {
+      //   console.log(res);
+      //   $rootScope.$broadcast('requestList:added');
+      // });
     }
 
     function friendsList() {

@@ -1,6 +1,6 @@
 angular
   .module('surfSup')
-  .controller('FriendController', function($scope, $location, FriendService, $rootScope) {
+  .controller('FriendController', function($scope,$q, $location, FriendService, $rootScope,SessionService) {
     $location.path() === "/login" || $location.path() === "/create" ? $rootScope.showBar = false : $rootScope.showBar = true;
 
     $scope.searchFriends = searchFriends;
@@ -18,21 +18,17 @@ angular
           console.log('in getFriendsList', data);
           // window.glob = data;
           $scope.friendsList = data;
-        })
-        .error (function(err) {
-          console.log(err);
         });
+
     }
     getFriendsList();
 
-    function getRequestAmt() {
+  function getRequestAmt() {
       FriendService.requestAmt()
-        .success(function(data) {
-          $rootScope.requests = data;
+        .then(function(data) {
+          $rootScope.requests = data.data;
+          // $rootScope.$apply();
           console.log('friend request amt:', data);
-        })
-        .error (function(err) {
-          console.log(err);
         });
     }
     getRequestAmt();
@@ -41,7 +37,7 @@ angular
       FriendService.requestList()
         .success(function(data) {
           $rootScope.requestList = data;
-          // console.log('friend request list:', data);
+          console.log('friend request list:', data);
           // window.glob = data.data;
         })
         .error (function(err) {
@@ -63,7 +59,6 @@ angular
     }
 
     function searchFriends(friend) {
-      console.log('this is a friend', friend);
       FriendService.findFriends(friend);
     }
 
@@ -101,6 +96,7 @@ angular
       FriendService.acceptInvitation(username)
       .success(function(data) {
         console.log('accept friends is working,', data);
+        $rootScope.$broadcast('requestAmt:added',data.data);
       })
       .error (function(err) {
         console.log(err);
