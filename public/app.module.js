@@ -46,7 +46,7 @@ angular
 require('./services/userService.js');
 require('./services/sessionService.js');
 require('./services/friendService.js');
-// require('./services/WeatherService.js');
+require('./services/weatherService.js');
 require('./services/cacheEngineService.js');
 require('./controllers/userController.js');
 require('./controllers/sessionController.js');

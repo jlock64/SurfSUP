@@ -6,8 +6,13 @@
   <button ng-click="logout()" class="btn btn-md btn-danger pull-right" type="button" name="button">Logout</button>
 </div>
 <div class="jumbotron">
-  <h1>Weather or Google Map</h1>
-  <p>could go here</p>
   <a href="/#/addSession"><button class="btn btn-warning" type="button" name="button">Add Session</button></a>
   <a href="/#/sessions"><button class="btn btn-success" type="button" name="button">Go To Sessions</button></a>
+  <h1>Weather or Google Map</h1>
+  <p>could go here</p>
+  <div class="">
+    <span ng-repeat="weather in weatherData" >Wave Height: {{weather.swell.maxBreakingHeight}}feet, Temp: {{weather.condition.temperature}} |||</span>
+      {{weather.charts.swell}}
+  </div>
+
 </div>
