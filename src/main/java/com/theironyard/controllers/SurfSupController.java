@@ -166,7 +166,7 @@ public class SurfSupController {
         session.invalidate();
     }
 
-    // DISPLAY ALL SESHS
+    // DISPLAY ALL SESHS (PUBLIC SESH LIST)
     @RequestMapping(path = "/sesh", method = RequestMethod.GET)
     public List<Sesh> displayAllSesh () {
         return (List<Sesh>) seshs.findAll();
@@ -188,6 +188,39 @@ public class SurfSupController {
         return list;
     }
 
+    //DISPLAY SESHS BY THE CURRENT USER AND HIS/HER FRIENDS
+    @RequestMapping(path = "/user/friend/sesh", method = RequestMethod.GET)
+    public List<Sesh> displayUserAndFriendsSeshs (HttpSession session) {
+        User loggedIn = users.findByUsername((String) session.getAttribute("username"));
+        List <Sesh> usersSeshs = seshs.findAllByUser(loggedIn);
+        List <Sesh> friendsSeshs = new ArrayList<>();
+        // friendsSesh is to be returned product
+
+        List<Friend> allList = friends.findAllByRequester(loggedIn);
+        allList.addAll(friends.findAllByApprover(loggedIn));
+        //creates a list of friend objects that contain the current user
+
+        //Credit Alex Hughes for Parallel Stream help
+        ArrayList<User> friendsList = allList.parallelStream()
+                .filter(Friend::getIsApproved)
+                .map(friend -> {
+                    if (friend.getRequester().getId() == loggedIn.getId()) {
+                        return friend.getApprover();
+                    }
+                    else if (friend.getApprover().getId() == loggedIn.getId()) {
+                        return friend.getRequester();
+                    }
+                    else return null;
+                })
+                .collect(Collectors.toCollection(ArrayList<User>::new));
+
+        for (User user : friendsList) {
+            friendsSeshs.addAll(seshs.findAllByUser(user));
+        }
+        friendsSeshs.addAll(usersSeshs);
+        return friendsSeshs;
+    }
+
     //DISPLAY ALL USERS
     @RequestMapping(path = "/user", method = RequestMethod.GET)
     public List<User> displayUser (HttpSession session) {
@@ -202,21 +235,10 @@ public class SurfSupController {
     public List<User> friendList (HttpSession session) {
         User user = users.findByUsername((String) session.getAttribute("username"));
         List<Friend> allList = friends.findAllByRequester(user);
-        allList.addAll(friends.findAllByApprover(user)); //creates a list of friend objects that contain the current user
-//        for (Iterator <Friend> iter = allList.iterator(); iter.hasNext();) {
-//            Friend f = iter.next();
-//            if (f.getIsApproved() == false) {
-//                iter.remove();
-//            }
-//            for (Friend f2 : allList) {
-//                if (f2.getRequester().getId() == user.getId()) {
-//                    friendsList.add(f2.getApprover());
-//                }
-//                else {
-//                    friendsList.add(f2.getRequester());
-//                }
-//            }
-//        }
+        allList.addAll(friends.findAllByApprover(user));
+        //creates a list of friend objects that contain the current user
+
+        //Credit Alex Hughes for Parallel Stream help
         ArrayList<User> friendsList = allList.parallelStream()
                 .filter(Friend::getIsApproved)
                 .map(friend -> {
@@ -258,26 +280,32 @@ public class SurfSupController {
 
     //LIST OF ACTUAL FRIEND REQUESTS
     @RequestMapping(path = "/requests", method = RequestMethod.GET)
-    public List<User> friendRequests (HttpSession session) {
+    public List<User> friendRequests (HttpSession session) throws Exception {
         User user = users.findByUsername((String) session.getAttribute("username"));
         List<Friend> allList = (List<Friend>) friends.findAll();
         List<User> requestList = new ArrayList<>();
-        for (Friend f : allList) {
+        if (allList != null) {
+            for (Friend f : allList) {
 
-            // populating requestList with users who "friended" current user
-            if (f.getApprover().getId()==user.getId()) {
-                requestList.add(f.getRequester());
+                // populating requestList with users who "friended" current user
+                if (f.getApprover().getId() == user.getId()) {
+                    requestList.add(f.getRequester());
 
-                // removing users from requestList who have been "friended back" by current user
-                for(Friend ff : allList) {
-                    if (ff.getRequester().getId() == user.getId()) {
-                        requestList.remove(ff.getApprover());
+                    // removing users from requestList who have been "friended back" by current user
+                    for (Friend ff : allList) {
+                        if (ff.getRequester().getId() == user.getId()) {
+                            requestList.remove(ff.getApprover());
+                        }
                     }
                 }
             }
         }
-        // requestList.size == number of pending requests
-        return requestList;
+        if (requestList != null) {
+            return requestList;
+        }
+        else {
+            throw new Exception("No friend requests have been made for this user");
+        }
     }
 
     //DISPLAY PROFILE
@@ -288,7 +316,7 @@ public class SurfSupController {
     }
 
     //DISPLAY USERS WHO JOINED A SESH (ID = SESH ID)
-    @RequestMapping(path = "/sesh{id}", method = RequestMethod.GET)
+    @RequestMapping(path = "/sesh/{id}", method = RequestMethod.GET)
     public List<User> joinedUsers (@PathVariable("id") int id) {
         Sesh sesh = seshs.findOne(id);
         List<User> joined = new ArrayList<>();
