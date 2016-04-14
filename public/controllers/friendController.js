@@ -8,14 +8,15 @@ angular
     $scope.getFriendsList = getFriendsList;
     $scope.denyFriendRequest = denyFriendRequest;
     $scope.acceptInvite = acceptInvite;
+    $scope.deleteFriendFromList = deleteFriendFromList;
     // $scope.requestList = requestList;
 
     function getFriendsList() {
       FriendService.friendsList()
         .success(function(data){
-          // console.log('in getFriendsList', data);
+          console.log('in getFriendsList', data);
           // window.glob = data;
-          $scope.friendsList = data.data;
+          $scope.friendsList = data;
         });
     }
     getFriendsList();
@@ -88,5 +89,20 @@ angular
         console.log('accept friends is working,', data);
       });
     }
+
+    // DELETE FRIEND FROM FRIEND LIST
+    function deleteFriendFromList(id) {
+        console.log('id of friend to be deleted', id);
+        FriendService.deleteFriend(id)
+        .then(function(data) {
+          console.log(data);
+        //   var objId = id;
+        //   var objPlace = $scope.seshActivity.findIndex (function(el,idx,arr){
+        //     return el.id === objId;
+        //   });
+        //   $scope.seshActivity.splice (objPlace, 1);
+        //   console.log('deny requests', objPlace);
+        });
+      }
 
   }); // end of FriendController

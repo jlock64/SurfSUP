@@ -10,6 +10,7 @@ angular
     var requestListUrl = '/requests';
     var friendsListUrl = '/friend';
     var denyRequestUrl = '/deny';
+    var deleteFriendUrl = '/friend'
 
     function findFriends() {
       return $http.get(searchFriendsUrl);
@@ -43,6 +44,14 @@ angular
         });
     }
 
+    function deleteFriend(id) {
+      return $http.delete(deleteFriendUrl + "/" + id);
+        // .then(function (res) {
+        //   $rootScope.$broadcast('friend:deleted');
+        //   console.log(res, 'friend deleted from list');
+        // });
+    }
+
     return {
       findFriends: findFriends,
       friendInvitation: friendInvitation,
@@ -50,7 +59,8 @@ angular
       requests: requests,
       requestList: requestList,
       friendsList: friendsList,
-      denyRequest: denyRequest
+      denyRequest: denyRequest,
+      deleteFriend: deleteFriend
     };
 
   });
