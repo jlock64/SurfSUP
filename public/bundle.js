@@ -47,7 +47,7 @@ angular
 require('./services/userService.js');
 require('./services/sessionService.js');
 require('./services/friendService.js');
-// require('./services/WeatherService.js');
+require('./services/weatherService.js');
 require('./services/cacheEngineService.js');
 require('./controllers/userController.js');
 require('./controllers/sessionController.js');
@@ -55,7 +55,7 @@ require('./controllers/friendController.js');
 require ('./directives/sessionDirective.js');
 require ('./directives/friendAcceptDirective.js');
 
-},{"./controllers/friendController.js":2,"./controllers/sessionController.js":3,"./controllers/userController.js":4,"./directives/friendAcceptDirective.js":5,"./directives/sessionDirective.js":6,"./services/cacheEngineService.js":14,"./services/friendService.js":15,"./services/sessionService.js":16,"./services/userService.js":17,"./xeditable":18,"angular":12,"angular-route":8,"angular-ui-mask":10,"jquery":13}],2:[function(require,module,exports){
+},{"./controllers/friendController.js":2,"./controllers/sessionController.js":3,"./controllers/userController.js":4,"./directives/friendAcceptDirective.js":5,"./directives/sessionDirective.js":6,"./services/cacheEngineService.js":14,"./services/friendService.js":15,"./services/sessionService.js":16,"./services/userService.js":17,"./services/weatherService.js":18,"./xeditable":19,"angular":12,"angular-route":8,"angular-ui-mask":10,"jquery":13}],2:[function(require,module,exports){
 angular
   .module('surfSup')
   .controller('FriendController', function($scope, $location, FriendService, $rootScope) {
@@ -268,7 +268,7 @@ angular
 },{}],4:[function(require,module,exports){
 angular
   .module('surfSup')
-  .controller('UserController', function($scope, $location, UserService, $rootScope) {
+  .controller('UserController', function($scope, $location, UserService, $rootScope, WeatherService) {
 
     $scope.loginObj = {
       username: '',
@@ -278,7 +278,7 @@ angular
     $scope.logout = logout;
     $scope.acctObj = {};
     $scope.submitForm = submitForm;
-    // $scope.getWeatherData = getWeatherData;
+    $scope.getWeatherData = getWeatherData;
 
 
     function login() {
@@ -310,14 +310,16 @@ angular
       });
     }
 
-    // function getWeatherData() {
-    //   console.log('in getWeatherData function');
-    //   WeatherService.getWeather()
-    //     .success(function(data) {
-    //       console.log(data);
-    //     })
-    // }
-    // getWeatherData();
+    function getWeatherData() {
+      console.log('in getWeatherData function');
+      WeatherService.getWeather()
+        .then(function(data) {
+          console.log(data);
+          window.glob = data.data;
+          $scope.weatherData = data.data;
+        })
+    }
+    getWeatherData();
 
 
   }); // end of LoginController
@@ -42836,6 +42838,34 @@ angular
   });
 
 },{}],18:[function(require,module,exports){
+angular
+  .module('surfSup')
+  .service('WeatherService', function($http) {
+
+    var key = '05b02278d73272e0e716626de5b875e4';
+    var weatherUrl = 'http://magicseaweed.com/api/' + key + '/forecast/?spot_id=760';
+
+    function getWeather() {
+      return $http.get(weatherUrl);
+    };
+
+    return {
+      getWeather: getWeather
+    };
+  });
+
+   /* Your API details are below:
+
+   IOP id 760
+
+  Key: 05b02278d73272e0e716626de5b875e4
+  Secret: 8248d895c72901217ebffc525c305533
+
+  Documentation can be found here: http://magicseaweed.com/developer/forecast-api
+
+  Here's an example URL showing the forecast for Newquay: http://magicseaweed.com/api/05b02278d73272e0e716626de5b875e4/forecast/?spot_id=1 */
+
+},{}],19:[function(require,module,exports){
 /*!
 angular-xeditable - 0.1.11
 Edit-in-place for angular.js

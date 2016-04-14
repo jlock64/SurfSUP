@@ -1,19 +1,18 @@
-// angular
-//   .module('surfSup')
-//   .service('WeatherService', function($http) {
-//
-//     var key = '05b02278d73272e0e716626de5b875e4';
-//     var weatherUrl = 'http://magicseaweed.com/api/Y' + key + '/forecast/?spot_id=760';
-//
-//     function getWeather (weatherUrl) {
-//       return $http.get(weatherUrl);
-//       // console.log(weatherUrl);
-//     };
-//
-//     return {
-//       getWeather: getWeather
-//     };
-//   });
+angular
+  .module('surfSup')
+  .service('WeatherService', function($http) {
+
+    var key = '05b02278d73272e0e716626de5b875e4';
+    var weatherUrl = 'http://magicseaweed.com/api/' + key + '/forecast/?spot_id=760';
+
+    function getWeather() {
+      return $http.get(weatherUrl);
+    };
+
+    return {
+      getWeather: getWeather
+    };
+  });
 
    /* Your API details are below:
 
