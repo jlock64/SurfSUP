@@ -80,27 +80,40 @@ angular
     $scope.deleteFriendFromList = deleteFriendFromList;
     // $scope.requestList = requestList;
 
+    // GET FRIENDS LIST
     function getFriendsList() {
       FriendService.friendsList()
         .success(function(data){
           console.log('in getFriendsList', data);
           // window.glob = data;
-          $scope.friendsList = data;
+          $rootScope.$broadcast('friendList:added', data.data);
+          // $scope.friendsList = data;
         });
-
     }
     getFriendsList();
 
-  function getRequestAmt() {
+    // FRIENDS LIST AUTO UPDATE
+    $scope.$on('friendList:added', function(data) {
+      FriendService.friendsList()
+      .then(function(data) {
+        $scope.friendsList = data.data;
+        // $rootScope.$apply();
+        console.log('friend list updated:', data.data);
+      });
+    });
+
+    // GET REQUEST AMOUNT
+    function getRequestAmt() {
       FriendService.requestAmt()
         .then(function(data) {
           $rootScope.requests = data.data;
           // $rootScope.$apply();
-          console.log('friend request amt:', data);
+          // console.log('friend request amt:', data);
         });
     }
     getRequestAmt();
 
+    // GET REQUEST LIST
     function getRequestList() {
       FriendService.requestList()
         .success(function(data) {
@@ -114,6 +127,7 @@ angular
     }
     getRequestList();
 
+    // DENY FRIEND REQUEST
     function denyFriendRequest (id) {
       FriendService.denyRequest(id)
         .then(function(data) {
@@ -126,10 +140,12 @@ angular
       });
     }
 
+    // SEARCH FRIENDS
     function searchFriends(friend) {
       FriendService.findFriends(friend);
     }
 
+    // FIND FRIENDS (USERS)
     FriendService.findFriends()
     .then(function(data) {
       // CacheEngine.put('seshActivity', data);
@@ -138,6 +154,7 @@ angular
       // console.log('users list is working,', data);
     });
 
+    // SEND INVITATION TO FRIEND
     function sendInvite (username) {
       // console.log(username);
       FriendService.friendInvitation(username)
@@ -150,20 +167,12 @@ angular
       });
     }
 
-    // //Invite updated
-    // $scope.$on('invite:added', function() {
-    //   FriendService.friendInvitation()
-    //   .then(function(data) {
-    //     $rootScope.requests = data;
-    //     console.log('invite was added!', data);
-    //   });
-    // });
-
+    // ACCEPT FRIEND INVITE
     function acceptInvite (username) {
       console.log(username);
       FriendService.acceptInvitation(username)
       .success(function(data) {
-        console.log('accept friends is working,', data);
+        // console.log('accept friends is working,', data);
         $rootScope.$broadcast('requestAmt:added',data.data);
       })
       .error (function(err) {
@@ -181,10 +190,19 @@ angular
           var objPlace = $scope.friendsList.findIndex (function(el,idx,arr){
             return el.id === objId;
           });
-          $rootScope.friendsList.splice (objPlace, 1);
+          // $rootScope.friendsList.splice (objPlace, 1);
           // console.log('sessions deleted', objPlace);
       });
       }
+
+      $scope.$on('friend:deleted', function() {
+        FriendService.friendsList()
+        .then(function(data) {
+          $scope.friendsList = data.data;
+          // $rootScope.$apply();
+          console.log('friend list updated:', data.data);
+        });
+      });
 
   }); // end of FriendController
 
@@ -289,18 +307,19 @@ angular
       SessionService.editSession(id,location);
     }
 
-	$scope.isActiveSurf = false;
-  function activeButtonSurf () {
-    $scope.buttonsClicked = true;
-    console.log('clicky surf');
-    $scope.isActiveSurf = !$scope.isActiveSurf;
-  }
-	$scope.isActiveSUP = false;
-  function activeButtonSUP () {
-    $scope.buttonsClicked = true;
-    console.log('clicky SUP');
-    $scope.isActiveSUP = !$scope.isActiveSUP;
-  }
+    //Changing Color when SUP/SURF is clicked
+  	$scope.isActiveSurf = false;
+    function activeButtonSurf () {
+      $scope.buttonsClicked = true;
+      console.log('clicky surf');
+      $scope.isActiveSurf = !$scope.isActiveSurf;
+    }
+  	$scope.isActiveSUP = false;
+    function activeButtonSUP () {
+      $scope.buttonsClicked = true;
+      console.log('clicky SUP');
+      $scope.isActiveSUP = !$scope.isActiveSUP;
+    }
 
 
   }); // end of SessionController
@@ -42763,19 +42782,11 @@ angular
     }
 
     function requestAmt() {
-      return $http.get(requestAmtUrl)
-      // .then(function(res) {
-      //   console.log(res);
-      //   $rootScope.$broadcast('requestAmt:added');
-      // });
+      return $http.get(requestAmtUrl);
     }
 
     function requestList() {
-      return $http.get(requestListUrl)
-      // .then(function(res) {
-      //   console.log(res);
-      //   $rootScope.$broadcast('requestList:added');
-      // });
+      return $http.get(requestListUrl);
     }
 
     function friendsList() {

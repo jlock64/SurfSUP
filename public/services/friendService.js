@@ -25,19 +25,11 @@ angular
     }
 
     function requestAmt() {
-      return $http.get(requestAmtUrl)
-      // .then(function(res) {
-      //   console.log(res);
-      //   $rootScope.$broadcast('requestAmt:added');
-      // });
+      return $http.get(requestAmtUrl);
     }
 
     function requestList() {
-      return $http.get(requestListUrl)
-      // .then(function(res) {
-      //   console.log(res);
-      //   $rootScope.$broadcast('requestList:added');
-      // });
+      return $http.get(requestListUrl);
     }
 
     function friendsList() {
