@@ -202,21 +202,10 @@ public class SurfSupController {
     public List<User> friendList (HttpSession session) {
         User user = users.findByUsername((String) session.getAttribute("username"));
         List<Friend> allList = friends.findAllByRequester(user);
-        allList.addAll(friends.findAllByApprover(user)); //creates a list of friend objects that contain the current user
-//        for (Iterator <Friend> iter = allList.iterator(); iter.hasNext();) {
-//            Friend f = iter.next();
-//            if (f.getIsApproved() == false) {
-//                iter.remove();
-//            }
-//            for (Friend f2 : allList) {
-//                if (f2.getRequester().getId() == user.getId()) {
-//                    friendsList.add(f2.getApprover());
-//                }
-//                else {
-//                    friendsList.add(f2.getRequester());
-//                }
-//            }
-//        }
+        allList.addAll(friends.findAllByApprover(user));
+        //creates a list of friend objects that contain the current user
+
+        //Credit Alex Hughes for Parallel Stream help
         ArrayList<User> friendsList = allList.parallelStream()
                 .filter(Friend::getIsApproved)
                 .map(friend -> {
@@ -258,26 +247,32 @@ public class SurfSupController {
 
     //LIST OF ACTUAL FRIEND REQUESTS
     @RequestMapping(path = "/requests", method = RequestMethod.GET)
-    public List<User> friendRequests (HttpSession session) {
+    public List<User> friendRequests (HttpSession session) throws Exception {
         User user = users.findByUsername((String) session.getAttribute("username"));
         List<Friend> allList = (List<Friend>) friends.findAll();
         List<User> requestList = new ArrayList<>();
-        for (Friend f : allList) {
+        if (allList != null) {
+            for (Friend f : allList) {
 
-            // populating requestList with users who "friended" current user
-            if (f.getApprover().getId()==user.getId()) {
-                requestList.add(f.getRequester());
+                // populating requestList with users who "friended" current user
+                if (f.getApprover().getId() == user.getId()) {
+                    requestList.add(f.getRequester());
 
-                // removing users from requestList who have been "friended back" by current user
-                for(Friend ff : allList) {
-                    if (ff.getRequester().getId() == user.getId()) {
-                        requestList.remove(ff.getApprover());
+                    // removing users from requestList who have been "friended back" by current user
+                    for (Friend ff : allList) {
+                        if (ff.getRequester().getId() == user.getId()) {
+                            requestList.remove(ff.getApprover());
+                        }
                     }
                 }
             }
         }
-        // requestList.size == number of pending requests
-        return requestList;
+        if (requestList != null) {
+            return requestList;
+        }
+        else {
+            throw new Exception("No friend requests have been made for this user");
+        }
     }
 
     //DISPLAY PROFILE
