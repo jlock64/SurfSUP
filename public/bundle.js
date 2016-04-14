@@ -84,10 +84,7 @@ angular
     function getFriendsList() {
       FriendService.friendsList()
         .success(function(data){
-          console.log('in getFriendsList', data);
-          // window.glob = data;
           $rootScope.$broadcast('friendList:added', data.data);
-          // $scope.friendsList = data;
         });
     }
     getFriendsList();
@@ -97,8 +94,6 @@ angular
       FriendService.friendsList()
       .then(function(data) {
         $scope.friendsList = data.data;
-        // $rootScope.$apply();
-        console.log('friend list updated:', data.data);
       });
     });
 
@@ -118,7 +113,6 @@ angular
       FriendService.requestList()
         .success(function(data) {
           $rootScope.requestList = data;
-          console.log('friend request list:', data);
           // window.glob = data.data;
         })
         .error (function(err) {
@@ -200,7 +194,6 @@ angular
         .then(function(data) {
           $scope.friendsList = data.data;
           // $rootScope.$apply();
-          console.log('friend list updated:', data.data);
         });
       });
 
@@ -212,13 +205,10 @@ angular
   .controller('NavbarController', function($scope,$location, $rootScope, FriendService) {
 
     $scope.$on('requestAmt:added', function(data) {
-      console.log("request amount broadcast",data);
-
       FriendService.requestAmt()
       .then(function(data) {
         $rootScope.requests = data.data;
         // $rootScope.$apply();
-        console.log('friend request amt:', data);
       });
     });
 
@@ -344,6 +334,7 @@ angular
     function login() {
       console.log('login object:', $scope.loginObj);
       UserService.loginUser($scope.loginObj).success(function (res) {
+        $rootScope.$broadcast('requestAmt:added');
         console.log('we can redirect here if so', res);
         $location.path('/home');
       })

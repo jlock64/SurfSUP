@@ -16,6 +16,7 @@ angular
     function login() {
       console.log('login object:', $scope.loginObj);
       UserService.loginUser($scope.loginObj).success(function (res) {
+        $rootScope.$broadcast('requestAmt:added');
         console.log('we can redirect here if so', res);
         $location.path('/home');
       })
