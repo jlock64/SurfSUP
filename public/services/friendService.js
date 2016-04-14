@@ -5,10 +5,12 @@ angular
 
     var searchFriendsUrl = '/user';
     var friendInvitationUrl = '/friend';
+    var acceptInvitationUrl = '/friend/friend';
     var requestAmtUrl = '/requestAmt';
     var requestListUrl = '/requests';
     var friendsListUrl = '/friend';
     var denyRequestUrl = '/deny';
+    var deleteFriendUrl = '/friend'
 
     function findFriends() {
       return $http.get(searchFriendsUrl);
@@ -16,13 +18,13 @@ angular
 
     function friendInvitation(username) {
       return $http.post(friendInvitationUrl, username);
-      // .then(function(res) {
-      //     console.log(res);
-      //     $rootScope.$broadcast('invite:added');
-      //   });
     }
 
-    function requests() {
+    function acceptInvitation (username) {
+      return $http.post(acceptInvitationUrl, username);
+    }
+
+    function requestAmt() {
       return $http.get(requestAmtUrl);
     }
 
@@ -42,13 +44,23 @@ angular
         });
     }
 
+    function deleteFriend(id) {
+      return $http.delete(deleteFriendUrl + "/" + id)
+        .then(function (res) {
+          $rootScope.$broadcast('friend:deleted');
+          console.log(res, 'friend deleted from list');
+        });
+    }
+
     return {
       findFriends: findFriends,
       friendInvitation: friendInvitation,
-      requests: requests,
+      acceptInvitation: acceptInvitation,
+      requestAmt: requestAmt,
       requestList: requestList,
       friendsList: friendsList,
-      denyRequest: denyRequest
+      denyRequest: denyRequest,
+      deleteFriend: deleteFriend
     };
 
   });

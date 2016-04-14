@@ -7,6 +7,8 @@ angular
     $scope.getRequestList = getRequestList;
     $scope.getFriendsList = getFriendsList;
     $scope.denyFriendRequest = denyFriendRequest;
+    $scope.acceptInvite = acceptInvite;
+    $scope.deleteFriendFromList = deleteFriendFromList;
     // $scope.requestList = requestList;
 
     function getFriendsList() {
@@ -14,17 +16,23 @@ angular
         .success(function(data){
           console.log('in getFriendsList', data);
           // window.glob = data;
-          $scope.friendsList = data.data;
-        });
+          $scope.friendsList = data;
+        })
+        .error (function(err) {
+          console.log(err);
+        })
     }
     getFriendsList();
 
     function getRequests() {
-      FriendService.requests()
+      FriendService.requestAmt()
         .success(function(data) {
           $rootScope.requests = data;
-          // console.log('friend request amt:', data);
-        });
+          console.log('friend request amt:', data);
+        })
+        .error (function(err) {
+          console.log(err);
+        })
     }
     getRequests();
 
@@ -32,9 +40,12 @@ angular
       FriendService.requestList()
         .success(function(data) {
           $rootScope.requestList = data;
-          console.log('friend request list:', data);
+          // console.log('friend request list:', data);
           // window.glob = data.data;
-        });
+        })
+        .error (function(err) {
+          console.log(err);
+        })
     }
     getRequestList();
 
@@ -46,7 +57,7 @@ angular
             return el.id === objId;
           });
           $rootScope.requestList.splice (objPlace, 1);
-          console.log('sessions deleted', objPlace);
+          // console.log('sessions deleted', objPlace);
       });
     }
 
@@ -60,14 +71,14 @@ angular
       // CacheEngine.put('seshActivity', data);
       $scope.listUsers = data.data;
       window.glow = data;
-      console.log('users list is working,', data);
+      // console.log('users list is working,', data);
     });
 
     function sendInvite (username) {
-      console.log(username);
+      // console.log(username);
       FriendService.friendInvitation(username)
       .then(function(data) {
-        console.log('invite friends is working,', data);
+        // console.log('invite friends is working,', data);
       });
     }
 
@@ -80,5 +91,27 @@ angular
     //   });
     // });
 
+    function acceptInvite (username) {
+      console.log(username);
+      FriendService.acceptInvitation(username)
+      .then(function(data) {
+        console.log('accept friends is working,', data);
+      });
+    }
+
+    // DELETE FRIEND FROM FRIEND LIST
+    function deleteFriendFromList(id) {
+        console.log('id of friend to be deleted', id);
+        FriendService.deleteFriend(id)
+        .then(function(data) {
+          console.log(data);
+        //   var objId = id;
+        //   var objPlace = $scope.seshActivity.findIndex (function(el,idx,arr){
+        //     return el.id === objId;
+        //   });
+        //   $scope.seshActivity.splice (objPlace, 1);
+        //   console.log('deny requests', objPlace);
+        });
+      }
 
   }); // end of FriendController
