@@ -1,6 +1,6 @@
 angular
   .module('surfSup')
-  .controller('NavbarController', function($scope,$location) {
+  .controller('NavbarController', function($scope,$location, $rootScope) {
 
     // console.log("LOCATION", $location.path());
     // $scope.showBar = true
