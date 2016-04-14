@@ -166,7 +166,7 @@ public class SurfSupController {
         session.invalidate();
     }
 
-    // DISPLAY ALL SESHS
+    // DISPLAY ALL SESHS (PUBLIC SESH LIST)
     @RequestMapping(path = "/sesh", method = RequestMethod.GET)
     public List<Sesh> displayAllSesh () {
         return (List<Sesh>) seshs.findAll();
@@ -186,6 +186,39 @@ public class SurfSupController {
         Sesh sesh = seshs.findOne(id);
         List<User> list = joins.findAllBySesh(sesh);
         return list;
+    }
+
+    //DISPLAY SESHS BY THE CURRENT USER AND HIS/HER FRIENDS
+    @RequestMapping(path = "/user/friend/sesh", method = RequestMethod.GET)
+    public List<Sesh> displayUserAndFriendsSeshs (HttpSession session) {
+        User loggedIn = users.findByUsername((String) session.getAttribute("username"));
+        List <Sesh> usersSeshs = seshs.findAllByUser(loggedIn);
+        List <Sesh> friendsSeshs = new ArrayList<>();
+        // friendsSesh is to be returned product
+
+        List<Friend> allList = friends.findAllByRequester(loggedIn);
+        allList.addAll(friends.findAllByApprover(loggedIn));
+        //creates a list of friend objects that contain the current user
+
+        //Credit Alex Hughes for Parallel Stream help
+        ArrayList<User> friendsList = allList.parallelStream()
+                .filter(Friend::getIsApproved)
+                .map(friend -> {
+                    if (friend.getRequester().getId() == loggedIn.getId()) {
+                        return friend.getApprover();
+                    }
+                    else if (friend.getApprover().getId() == loggedIn.getId()) {
+                        return friend.getRequester();
+                    }
+                    else return null;
+                })
+                .collect(Collectors.toCollection(ArrayList<User>::new));
+
+        for (User user : friendsList) {
+            friendsSeshs.addAll(seshs.findAllByUser(user));
+        }
+        friendsSeshs.addAll(usersSeshs);
+        return friendsSeshs;
     }
 
     //DISPLAY ALL USERS
@@ -283,7 +316,7 @@ public class SurfSupController {
     }
 
     //DISPLAY USERS WHO JOINED A SESH (ID = SESH ID)
-    @RequestMapping(path = "/sesh{id}", method = RequestMethod.GET)
+    @RequestMapping(path = "/sesh/{id}", method = RequestMethod.GET)
     public List<User> joinedUsers (@PathVariable("id") int id) {
         Sesh sesh = seshs.findOne(id);
         List<User> joined = new ArrayList<>();
