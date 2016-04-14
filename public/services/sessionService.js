@@ -3,6 +3,7 @@ angular
   .service('SessionService', function($http, $q, $rootScope) {
 
     var sessionUrl = '/sesh';
+    var friendSeshUrl = '/user/friend/sesh';
 
     function addSession (info) {
       return $http.post(sessionUrl, info)
@@ -14,7 +15,7 @@ angular
 
     function getSession () {
       var defer = $q.defer();
-      $http.get(sessionUrl).then(function(data){
+      $http.get(friendSeshUrl).then(function(data){
         defer.resolve(data);
       });
       return defer.promise;
