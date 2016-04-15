@@ -10,8 +10,10 @@ import com.theironyard.services.SeshRepository;
 import com.theironyard.services.UserRepository;
 import com.theironyard.utilities.PasswordStorage;
 import org.h2.tools.Server;
+import org.omg.CORBA.Request;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.client.RestTemplate;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.PostConstruct;
@@ -22,6 +24,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -32,6 +35,8 @@ import java.util.stream.Collectors;
  */
 @RestController
 public class SurfSupController {
+
+    static final String IOP_URL = "http://magicseaweed.com/api/05b02278d73272e0e716626de5b875e4/forecast/?spot_id=760";
 
     @Autowired
     UserRepository users;
@@ -160,6 +165,26 @@ public class SurfSupController {
         joins.save(join);
     }
 
+    //JOIN A SESH (ID = SESH ID)
+    @RequestMapping(path = "/join/{id}", method = RequestMethod.POST)
+    public void joinSesh (@PathVariable("seshId") int seshId, HttpSession session) {
+        User user = users.findByUsername((String) session.getAttribute("username"));
+        Sesh sesh = seshs.findOne(seshId);
+        Join join = new Join (user, sesh);
+        joins.save(join);
+    }
+
+    //WEATHER AT IOP
+    @RequestMapping(path = "/weather", method = RequestMethod.GET)
+    public List weather () {
+        RestTemplate query = new RestTemplate();
+        List result = query.getForObject(IOP_URL, List.class);
+        if (result != null) {
+            return result;
+        }
+        return null;
+    }
+
     // CURRENT USER USERNAME
     @RequestMapping(path = "/currentUsername", method = RequestMethod.GET)
     public String loggedInUsername (HttpSession session) {
@@ -199,8 +224,12 @@ public class SurfSupController {
     @RequestMapping(path = "/join/sesh/{id}", method = RequestMethod.GET)
     public List<User> displayUserBySesh (@PathVariable("id") int id) {
         Sesh sesh = seshs.findOne(id);
-        List<User> list = joins.findAllBySesh(sesh);
-        return list;
+        List<Join> joinList = joins.findAllBySesh(sesh);
+        List<User> joinedUsers = new ArrayList<>();
+        for (Join j : joinList) {
+            joinedUsers.add(j.getUser());
+        }
+        return joinedUsers;
     }
 
     //DISPLAY SESHS BY THE CURRENT USER AND HIS/HER FRIENDS

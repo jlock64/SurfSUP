@@ -7,7 +7,6 @@ angular
       password: ''
     };
     $scope.login = login;
-    $scope.logout = logout;
     $scope.acctObj = {};
     $scope.submitForm = submitForm;
     $scope.getWeatherData = getWeatherData;
@@ -27,11 +26,11 @@ angular
       });
     }
 
-    function logout() {
-      UserService.logoutUser();
-      console.log('logging out');
-      $location.path('/login');
-    }
+    // function logout() {
+    //   UserService.logoutUser();
+    //   console.log('logging out');
+    //   $location.path('/login');
+    // }
 
     function submitForm() {
       console.log('account object:', $scope.acctObj);
@@ -46,7 +45,9 @@ angular
 
     function getCurrentUser() {
       UserService.currentUser().then(function(data) {
-        $scope.currentUser = data.data;
+
+        $rootScope.currentUser = data.data;
+        console.log("Current User: ", data.data);
       });
     }
     getCurrentUser();

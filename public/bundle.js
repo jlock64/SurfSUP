@@ -51,10 +51,14 @@ angular
         templateUrl: "templates/friendsList.html",
         controller: "FriendController"
       })
-      .when('/profile', {
+      .when('/profile/:id/', {
         templateUrl: "templates/profilePage.html",
-        controller: "FriendController"
-      });
+        controller: "ProfileController"
+      })
+      .when('/profile', {
+        templateUrl: "templates/userProfilePage.html",
+        controller: "ProfileController"
+      })
   })
   .run (function(editableOptions) {
   editableOptions.theme = 'bs3'; // bootstrap3 theme. Can be also 'bs2', 'default'
@@ -71,12 +75,16 @@ require('./controllers/friendController');
 require('./controllers/navbar.controller');
 require ('./directives/sessionDirective');
 require ('./directives/friendAcceptDirective');
+require('./controllers/profile.controller');
 
-},{"./controllers/friendController":2,"./controllers/navbar.controller":3,"./controllers/sessionController":4,"./controllers/userController":5,"./directives/friendAcceptDirective":6,"./directives/sessionDirective":7,"./services/cacheEngineService":15,"./services/friendService":16,"./services/sessionService":17,"./services/userService":18,"./services/weatherService":19,"./xeditable":20,"angular":13,"angular-route":9,"angular-ui-mask":11,"jquery":14}],2:[function(require,module,exports){
+},{"./controllers/friendController":2,"./controllers/navbar.controller":3,"./controllers/profile.controller":4,"./controllers/sessionController":5,"./controllers/userController":6,"./directives/friendAcceptDirective":7,"./directives/sessionDirective":8,"./services/cacheEngineService":16,"./services/friendService":17,"./services/sessionService":18,"./services/userService":19,"./services/weatherService":20,"./xeditable":21,"angular":14,"angular-route":10,"angular-ui-mask":12,"jquery":15}],2:[function(require,module,exports){
 angular
   .module('surfSup')
   .controller('FriendController', function($scope,$q, $location, FriendService, $rootScope,SessionService) {
     $location.path() === "/login" || $location.path() === "/create" ? $rootScope.showBar = false : $rootScope.showBar = true;
+
+    console.log("WE ARE IN FRIEND CONTROLLER");
+
 
     $scope.searchFriends = searchFriends;
     $scope.sendInvite = sendInvite;
@@ -92,6 +100,8 @@ angular
     function getFriendsList() {
       FriendService.friendsList()
         .success(function(data){
+          console.log("FRINEDS LIST", data);
+          $rootScope.myFriends = data.data;
           $rootScope.$broadcast('friendList:added', data.data);
         });
     }
@@ -208,13 +218,8 @@ angular
 
       // GET USER PROFILE FOR PROFILE PAGE
       function profilePage(id) {
-        console.log('user has been clicked, id:', id);
-        $location.path('/profile');
-        FriendService.getProfile(id)
-          .then(function (data) {
-            $rootScope.profiles = data;
-            console.log("scope.profiles =", $rootScope.profiles);
-          });
+        console.log('ID', id);
+        $location.path('/profile/' + id);  
       }
 
   }); // end of FriendController
@@ -222,7 +227,9 @@ angular
 },{}],3:[function(require,module,exports){
 angular
   .module('surfSup')
-  .controller('NavbarController', function($scope,$location, $rootScope, FriendService) {
+  .controller('NavbarController', function($scope,$location, $rootScope, FriendService, UserService) {
+    $scope.profilePage = profilePage;
+    $scope.logout = logout;
 
     $scope.$on('requestAmt:added', function(data) {
       FriendService.requestAmt()
@@ -231,11 +238,37 @@ angular
         // $rootScope.$apply();
       });
     });
+    function profilePage(id) {
+      console.log('ID', id);
+      $location.path('/profile/' + id);
+    }
+    function logout() {
+      UserService.logoutUser();
+      console.log('logging out');
+      $location.path('/login');
+    }
 
 
   }); // end of NavbarControler
 
 },{}],4:[function(require,module,exports){
+angular
+  .module('surfSup')
+  .controller('ProfileController', function($scope,$location, FriendService, $routeParams,$rootScope) {
+    $location.path() === "/login" || $location.path() === "/create" ? $rootScope.showBar = false : $rootScope.showBar = true;
+
+      FriendService.getProfile($routeParams.id)
+      .then(function(data) {
+        $scope.profiles = data.data
+      },function(err) {
+        console.log("THIS IS AN ERROR",err);
+      })
+
+
+
+  }); // end of FriendController
+
+},{}],5:[function(require,module,exports){
 angular
   .module('surfSup')
   .controller('SessionController', function($scope, $location, SessionService, CacheEngine, $rootScope) {
@@ -328,20 +361,18 @@ angular
   	$scope.isActiveSurf = false;
     function activeButtonSurf () {
       $scope.buttonsClicked = true;
-      console.log('clicky surf');
       $scope.isActiveSurf = !$scope.isActiveSurf;
     }
   	$scope.isActiveSUP = false;
     function activeButtonSUP () {
       $scope.buttonsClicked = true;
-      console.log('clicky SUP');
       $scope.isActiveSUP = !$scope.isActiveSUP;
     }
 
 
   }); // end of SessionController
 
-},{}],5:[function(require,module,exports){
+},{}],6:[function(require,module,exports){
 angular
   .module('surfSup')
   .controller('UserController', function($scope, $location, UserService, $rootScope, WeatherService) {
@@ -351,7 +382,6 @@ angular
       password: ''
     };
     $scope.login = login;
-    $scope.logout = logout;
     $scope.acctObj = {};
     $scope.submitForm = submitForm;
     $scope.getWeatherData = getWeatherData;
@@ -371,11 +401,11 @@ angular
       });
     }
 
-    function logout() {
-      UserService.logoutUser();
-      console.log('logging out');
-      $location.path('/login');
-    }
+    // function logout() {
+    //   UserService.logoutUser();
+    //   console.log('logging out');
+    //   $location.path('/login');
+    // }
 
     function submitForm() {
       console.log('account object:', $scope.acctObj);
@@ -390,7 +420,9 @@ angular
 
     function getCurrentUser() {
       UserService.currentUser().then(function(data) {
-        $scope.currentUser = data.data;
+
+        $rootScope.currentUser = data.data;
+        console.log("Current User: ", data.data);
       });
     }
     getCurrentUser();
@@ -409,7 +441,7 @@ angular
 
   }); // end of LoginController
 
-},{}],6:[function(require,module,exports){
+},{}],7:[function(require,module,exports){
 angular
 .module ('surfSup')
 .directive ('friendAcceptReader', function (){
@@ -423,7 +455,7 @@ angular
   };
 });
 
-},{}],7:[function(require,module,exports){
+},{}],8:[function(require,module,exports){
 angular
 .module ('surfSup')
 .directive ('sessionReader', function (){
@@ -437,7 +469,7 @@ angular
   };
 });
 
-},{}],8:[function(require,module,exports){
+},{}],9:[function(require,module,exports){
 /**
  * @license AngularJS v1.5.3
  * (c) 2010-2016 Google, Inc. http://angularjs.org
@@ -1461,11 +1493,11 @@ function ngViewFillContentFactory($compile, $controller, $route) {
 
 })(window, window.angular);
 
-},{}],9:[function(require,module,exports){
+},{}],10:[function(require,module,exports){
 require('./angular-route');
 module.exports = 'ngRoute';
 
-},{"./angular-route":8}],10:[function(require,module,exports){
+},{"./angular-route":9}],11:[function(require,module,exports){
 /*!
  * angular-ui-mask
  * https://github.com/angular-ui/ui-mask
@@ -2202,7 +2234,7 @@ angular.module('ui.mask', [])
         ]);
 
 }());
-},{}],11:[function(require,module,exports){
+},{}],12:[function(require,module,exports){
 //https://github.com/angular/angular.js/pull/10732
 
 var angular = require('angular');
@@ -2210,7 +2242,7 @@ var mask = require('./dist/mask');
 
 module.exports = 'ui.mask';
 
-},{"./dist/mask":10,"angular":13}],12:[function(require,module,exports){
+},{"./dist/mask":11,"angular":14}],13:[function(require,module,exports){
 /**
  * @license AngularJS v1.5.3
  * (c) 2010-2016 Google, Inc. http://angularjs.org
@@ -32925,11 +32957,11 @@ $provide.value("$locale", {
 })(window, document);
 
 !window.angular.$$csp().noInlineStyle && window.angular.element(document.head).prepend('<style type="text/css">@charset "UTF-8";[ng\\:cloak],[ng-cloak],[data-ng-cloak],[x-ng-cloak],.ng-cloak,.x-ng-cloak,.ng-hide:not(.ng-hide-animate){display:none !important;}ng\\:form{display:block;}.ng-animate-shim{visibility:hidden;}.ng-anchor{position:absolute;}</style>');
-},{}],13:[function(require,module,exports){
+},{}],14:[function(require,module,exports){
 require('./angular');
 module.exports = angular;
 
-},{"./angular":12}],14:[function(require,module,exports){
+},{"./angular":13}],15:[function(require,module,exports){
 /*!
  * jQuery JavaScript Library v2.2.3
  * http://jquery.com/
@@ -42773,14 +42805,14 @@ if ( !noGlobal ) {
 return jQuery;
 }));
 
-},{}],15:[function(require,module,exports){
+},{}],16:[function(require,module,exports){
 angular
 .module('surfSup')
 .service ('CacheEngine', function($cacheFactory){
   return $cacheFactory('sessionsAPI');
 });
 
-},{}],16:[function(require,module,exports){
+},{}],17:[function(require,module,exports){
 angular
   .module('surfSup')
   .service('FriendService', function($http, $rootScope) {
@@ -42854,7 +42886,7 @@ angular
 
   });
 
-},{}],17:[function(require,module,exports){
+},{}],18:[function(require,module,exports){
 angular
   .module('surfSup')
   .service('SessionService', function($http, $q, $rootScope) {
@@ -42902,7 +42934,7 @@ angular
 
   });
 
-},{}],18:[function(require,module,exports){
+},{}],19:[function(require,module,exports){
 angular
   .module('surfSup')
   .service('UserService', function($http) {
@@ -42937,7 +42969,7 @@ angular
     };
   });
 
-},{}],19:[function(require,module,exports){
+},{}],20:[function(require,module,exports){
 angular
   .module('surfSup')
   .service('WeatherService', function($http) {
@@ -42965,7 +42997,7 @@ angular
 
   Here's an example URL showing the forecast for Newquay: http://magicseaweed.com/api/05b02278d73272e0e716626de5b875e4/forecast/?spot_id=1 */
 
-},{}],20:[function(require,module,exports){
+},{}],21:[function(require,module,exports){
 /*!
 angular-xeditable - 0.1.11
 Edit-in-place for angular.js

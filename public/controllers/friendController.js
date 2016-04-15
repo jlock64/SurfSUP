@@ -3,6 +3,9 @@ angular
   .controller('FriendController', function($scope,$q, $location, FriendService, $rootScope,SessionService) {
     $location.path() === "/login" || $location.path() === "/create" ? $rootScope.showBar = false : $rootScope.showBar = true;
 
+    console.log("WE ARE IN FRIEND CONTROLLER");
+
+
     $scope.searchFriends = searchFriends;
     $scope.sendInvite = sendInvite;
     $scope.getRequestList = getRequestList;
@@ -17,6 +20,8 @@ angular
     function getFriendsList() {
       FriendService.friendsList()
         .success(function(data){
+          console.log("FRINEDS LIST", data);
+          $rootScope.myFriends = data.data;
           $rootScope.$broadcast('friendList:added', data.data);
         });
     }
@@ -133,13 +138,8 @@ angular
 
       // GET USER PROFILE FOR PROFILE PAGE
       function profilePage(id) {
-        console.log('user has been clicked, id:', id);
-        $location.path('/profile');
-        FriendService.getProfile(id)
-          .then(function (data) {
-            $rootScope.profiles = data;
-            console.log("scope.profiles =", $rootScope.profiles);
-          });
+        console.log('ID', id);
+        $location.path('/profile/' + id);  
       }
 
   }); // end of FriendController

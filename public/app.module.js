@@ -50,10 +50,14 @@ angular
         templateUrl: "templates/friendsList.html",
         controller: "FriendController"
       })
-      .when('/profile', {
+      .when('/profile/:id/', {
         templateUrl: "templates/profilePage.html",
-        controller: "FriendController"
-      });
+        controller: "ProfileController"
+      })
+      .when('/profile', {
+        templateUrl: "templates/userProfilePage.html",
+        controller: "ProfileController"
+      })
   })
   .run (function(editableOptions) {
   editableOptions.theme = 'bs3'; // bootstrap3 theme. Can be also 'bs2', 'default'
@@ -70,3 +74,4 @@ require('./controllers/friendController');
 require('./controllers/navbar.controller');
 require ('./directives/sessionDirective');
 require ('./directives/friendAcceptDirective');
+require('./controllers/profile.controller');
