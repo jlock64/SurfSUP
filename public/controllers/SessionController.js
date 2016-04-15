@@ -98,7 +98,7 @@ angular
 
     function joinSession(id) {
       console.log('this is joinsession id:', id);
-      SessionService.joinSesh(id);
+      SessionService.joinSesh(id)
         .then(function() {
           SessionService.getSession()
           .then(function(data) {
