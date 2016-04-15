@@ -9,7 +9,8 @@ angular
     $scope.activeButtonSurf = activeButtonSurf;
     $scope.activeButtonSUP = activeButtonSUP;
     $scope.buttonsClicked = false;
-    $scope.todayOrFutureDate = todayOrFutureSession;
+    $scope.joinSession = joinSession;
+
     // CacheEngine
     // if (CacheEngine.get('seshActivity')){
     //   var cache = CacheEngine.get('seshActivity');
@@ -18,9 +19,6 @@ angular
     // }
     // else {
 
-    function todayOrFutureSession() {
-      console.log('today or future');
-    }
         SessionService.getSession()
         .then(function(data) {
           CacheEngine.put('seshActivity', data);
@@ -96,6 +94,19 @@ angular
     function activeButtonSUP () {
       $scope.buttonsClicked = true;
       $scope.isActiveSUP = !$scope.isActiveSUP;
+    }
+
+    function joinSession(id) {
+      console.log('this is joinsession id:', id);
+      SessionService.joinSesh(id);
+        .then(function() {
+          SessionService.getSession()
+          .then(function(data) {
+            CacheEngine.put('seshActivity', data);
+            $scope.seshActivity = data.data;
+            window.glow = $scope.seshActivity;
+          });
+        })
     }
 
 

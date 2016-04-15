@@ -31,7 +31,8 @@
     </button>
     <button class="btn btn-xs btn-success pull-right"
             type="button"
-            ng-click=""
+            ng-controller="SessionController"
+            ng-click="joinSession(activity.id)"
             name="button"
             data-toggle="tooltip"
             onmouseenter="$(this).tooltip('show')"
