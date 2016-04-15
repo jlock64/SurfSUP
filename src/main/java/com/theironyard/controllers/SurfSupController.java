@@ -167,11 +167,16 @@ public class SurfSupController {
 
     //JOIN A SESH (ID = SESH ID)
     @RequestMapping(path = "/join/{id}", method = RequestMethod.POST)
-    public void joinSesh (@PathVariable("id") int seshId, HttpSession session) {
+    public void joinSesh (@PathVariable("id") int seshId, HttpSession session) throws Exception {
         User user = users.findByUsername((String) session.getAttribute("username"));
         Sesh sesh = seshs.findOne(seshId);
         Join join = new Join (user, sesh);
-        joins.save(join);
+        if (joins.findFirstByUserAndSesh(user, sesh) == null) {
+            joins.save(join);
+        }
+        else {
+            throw new Exception ("User already joined sesh");
+        }
     }
 
     //WEATHER AT IOP
@@ -218,18 +223,6 @@ public class SurfSupController {
         User user = users.findOne(id);
         List<Sesh> list = seshs.findAllByUser(user);
         return list;
-    }
-
-    //DISPLAY ALL USERS GOING TO SPECIFIC SESH
-    @RequestMapping(path = "/join/sesh/{id}", method = RequestMethod.GET)
-    public List<User> displayUserBySesh (@PathVariable("id") int id) {
-        Sesh sesh = seshs.findOne(id);
-        List<Join> joinList = joins.findAllBySesh(sesh);
-        List<User> joinedUsers = new ArrayList<>();
-        for (Join j : joinList) {
-            joinedUsers.add(j.getUser());
-        }
-        return joinedUsers;
     }
 
     //DISPLAY SESHS BY THE CURRENT USER AND HIS/HER FRIENDS
@@ -370,6 +363,7 @@ public class SurfSupController {
                 joined.add(j.getUser());
             }
         }
+        joined.remove(sesh.getUser()); // removes the sesh creator from the list
         return joined;
     }
 
