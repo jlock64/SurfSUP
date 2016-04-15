@@ -152,7 +152,7 @@ public class SurfSupController {
     }
 
     //INVITE FRIENDS TO JOIN SESH (ID = USER BEING INVITED'S ID)
-    @RequestMapping(path = "//join/{userId}/{seshId}", method = RequestMethod.POST)
+    @RequestMapping(path = "/join/{userId}/{seshId}", method = RequestMethod.POST)
     public void inviteFriendToJoin (@PathVariable("userId") int userId, @PathVariable("seshId") int seshId) {
         User invitedUser = users.findOne(userId);
         Sesh seshToJoin = seshs.findOne(seshId);
