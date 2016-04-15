@@ -13,6 +13,7 @@ import org.h2.tools.Server;
 import org.omg.CORBA.Request;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.client.RestTemplate;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.PostConstruct;
@@ -23,6 +24,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -33,6 +35,8 @@ import java.util.stream.Collectors;
  */
 @RestController
 public class SurfSupController {
+
+    static final String IOP_URL = "http://magicseaweed.com/api/05b02278d73272e0e716626de5b875e4/forecast/?spot_id=760";
 
     @Autowired
     UserRepository users;
@@ -168,6 +172,17 @@ public class SurfSupController {
         Sesh sesh = seshs.findOne(seshId);
         Join join = new Join (user, sesh);
         joins.save(join);
+    }
+
+    //WEATHER AT IOP
+    @RequestMapping(path = "/weather", method = RequestMethod.GET)
+    public List weather () {
+        RestTemplate query = new RestTemplate();
+        List result = query.getForObject(IOP_URL, List.class);
+        if (result != null) {
+            return result;
+        }
+        return null;
     }
 
     // CURRENT USER USERNAME
