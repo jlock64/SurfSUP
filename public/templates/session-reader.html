@@ -16,10 +16,11 @@
                   >{{activity.time | date : 'EEEE, MMMM d, h:mm a'}}
       </a>
     </p>
-    <button ng-controller="UserController" class="btn btn-xs btn-danger pull-right"
+    <button class="btn btn-xs btn-danger pull-right"
             type="button"
             ng-click="deleteSession(activity.id)"
-            ng-show="currentUser.username===activity.user.username"
+            ng-controller= "UserController"
+            ng-show="currentUser===activity.user.username"
             name="button"
             data-toggle="tooltip"
             data-placement="bottom"
