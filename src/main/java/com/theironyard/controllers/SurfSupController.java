@@ -160,13 +160,28 @@ public class SurfSupController {
         joins.save(join);
     }
 
+    // CURRENT USER USERNAME
+    @RequestMapping(path = "/currentUsername", method = RequestMethod.GET)
+    public String loggedInUsername (HttpSession session) {
+        String username = (String) session.getAttribute("username");
+        return username;
+    }
+
+    //CURRENT USER
+    @RequestMapping(path = "/currentUser", method = RequestMethod.GET)
+    public User loggedInUser (HttpSession session) {
+        User user = users.findByUsername((String) session.getAttribute("username"));
+        return user;
+    }
+
     // LOGOUT
     @RequestMapping(path = "/logout", method = RequestMethod.GET)
     public void logout (HttpSession session) {
         session.invalidate();
     }
 
-    // DISPLAY ALL SESHS (PUBLIC SESH LIST)
+    // DISPLAY ALL SESHS (PUBLIC SESH LIST. THIS WOULD BE HUGE,
+    // AND I DONT KNOW WHY YOUD WANT TO USE IT, BUT HERE IT IS IN CASE)
     @RequestMapping(path = "/sesh", method = RequestMethod.GET)
     public List<Sesh> displayAllSesh () {
         return (List<Sesh>) seshs.findAll();
