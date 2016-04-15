@@ -40,8 +40,14 @@ angular
 
     function getCurrentUser() {
       UserService.currentUser().then(function(data) {
+<<<<<<< HEAD
         $scope.currentUser = data.data.username;
         console.log("Current User: ", $scope.currentUser);
+=======
+
+        $scope.currentUser = data.data;
+        console.log("Current User: ", data.data);
+>>>>>>> 22d0de350aa303c68bc24a30bfa41056babecec8
       });
     }
     getCurrentUser();
