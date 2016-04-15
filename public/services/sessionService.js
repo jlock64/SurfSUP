@@ -4,6 +4,7 @@ angular
 
     var sessionUrl = '/sesh';
     var friendSeshUrl = '/user/friend/sesh';
+    var joinSessionUrl = '/join'
 
     function addSession (info) {
       return $http.post(sessionUrl, info)
@@ -36,11 +37,20 @@ angular
         return $http.put(editUrl, session);
     }
 
+    function joinSesh (id) {
+      return $http.post(joinSessionUrl + '/' + id)
+        .then(function (res) {
+          $rootScope.$broadcast('session:joined');
+          log('you joined this session bitch', res );
+        })
+    }
+
     return {
       addSession: addSession,
       getSession: getSession,
       deleteSesh: deleteSesh,
-      editSession: editSession
+      editSession: editSession,
+      joinSesh: joinSesh
     };
 
   });

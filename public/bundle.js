@@ -18,15 +18,6 @@ angular
       .when('/home', {
         templateUrl: "templates/homepage.html",
         controller: "UserController",
-        resolve: {
-          requestAmount: function ($q, FriendService) {
-            var dfd = $q.defer();
-          FriendService.requestAmt().then(function (amt) {
-              dfd.resolve(amt);
-            });
-            return dfd.promise;
-          }
-        }
       })
       .when('/', {
         redirectTo: '/login'
@@ -280,7 +271,8 @@ angular
     $scope.activeButtonSurf = activeButtonSurf;
     $scope.activeButtonSUP = activeButtonSUP;
     $scope.buttonsClicked = false;
-    $scope.todayOrFutureDate = todayOrFutureSession;
+    $scope.joinSession = joinSession;
+
     // CacheEngine
     // if (CacheEngine.get('seshActivity')){
     //   var cache = CacheEngine.get('seshActivity');
@@ -289,9 +281,6 @@ angular
     // }
     // else {
 
-    function todayOrFutureSession() {
-      console.log('today or future');
-    }
         SessionService.getSession()
         .then(function(data) {
           CacheEngine.put('seshActivity', data);
@@ -369,6 +358,19 @@ angular
       $scope.isActiveSUP = !$scope.isActiveSUP;
     }
 
+    function joinSession(id) {
+      console.log('this is joinsession id:', id);
+      SessionService.joinSesh(id)
+        .then(function() {
+          SessionService.getSession()
+          .then(function(data) {
+            CacheEngine.put('seshActivity', data);
+            $scope.seshActivity = data.data;
+            window.glow = $scope.seshActivity;
+          });
+        })
+    }
+
 
   }); // end of SessionController
 
@@ -387,7 +389,7 @@ angular
     $scope.getWeatherData = getWeatherData;
     $scope.getCurrentUser = getCurrentUser;
 
-
+    // LOGIN PAGE
     function login() {
       console.log('login object:', $scope.loginObj);
       UserService.loginUser($scope.loginObj).success(function (res) {
@@ -401,12 +403,7 @@ angular
       });
     }
 
-    // function logout() {
-    //   UserService.logoutUser();
-    //   console.log('logging out');
-    //   $location.path('/login');
-    // }
-
+    // CREATE USER FORM
     function submitForm() {
       console.log('account object:', $scope.acctObj);
       UserService.addAcct($scope.acctObj).success(function(res){
@@ -420,6 +417,7 @@ angular
 
     function getCurrentUser() {
       UserService.currentUser().then(function(data) {
+
         $rootScope.currentUser = data.data;
         console.log("Current User: ", data.data);
       });
@@ -435,7 +433,7 @@ angular
           $scope.weatherData = data.data;
         });
     }
-    // getWeatherData();
+    getWeatherData();
 
 
   }); // end of LoginController
@@ -42892,6 +42890,7 @@ angular
 
     var sessionUrl = '/sesh';
     var friendSeshUrl = '/user/friend/sesh';
+    var joinSessionUrl = '/join'
 
     function addSession (info) {
       return $http.post(sessionUrl, info)
@@ -42924,11 +42923,20 @@ angular
         return $http.put(editUrl, session);
     }
 
+    function joinSesh (id) {
+      return $http.post(joinSessionUrl + '/' + id)
+        .then(function (res) {
+          $rootScope.$broadcast('session:joined');
+          log('you joined this session bitch', res );
+        })
+    }
+
     return {
       addSession: addSession,
       getSession: getSession,
       deleteSesh: deleteSesh,
-      editSession: editSession
+      editSession: editSession,
+      joinSesh: joinSesh
     };
 
   });
@@ -42973,8 +42981,9 @@ angular
   .module('surfSup')
   .service('WeatherService', function($http) {
 
-    var key = '05b02278d73272e0e716626de5b875e4';
-    var weatherUrl = 'http://magicseaweed.com/api/' + key + '/forecast/?spot_id=760';
+    // var key = '05b02278d73272e0e716626de5b875e4';
+    // var weatherUrl = 'http://magicseaweed.com/api/' + key + '/forecast/?spot_id=760';
+    var weatherUrl = '/weather';
 
     function getWeather() {
       return $http.get(weatherUrl);

@@ -17,15 +17,6 @@ angular
       .when('/home', {
         templateUrl: "templates/homepage.html",
         controller: "UserController",
-        resolve: {
-          requestAmount: function ($q, FriendService) {
-            var dfd = $q.defer();
-          FriendService.requestAmt().then(function (amt) {
-              dfd.resolve(amt);
-            });
-            return dfd.promise;
-          }
-        }
       })
       .when('/', {
         redirectTo: '/login'
