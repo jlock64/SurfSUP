@@ -11,6 +11,7 @@ angular
     $scope.acctObj = {};
     $scope.submitForm = submitForm;
     $scope.getWeatherData = getWeatherData;
+    $scope.getCurrentUser = getCurrentUser;
 
 
     function login() {
@@ -43,6 +44,14 @@ angular
       });
     }
 
+    function getCurrentUser() {
+      UserService.currentUser().then(function(data) {
+        $scope.currentUser = data.data;
+        console.log("Current User: ", data.data);
+      });
+    }
+    getCurrentUser();
+
     function getWeatherData() {
       console.log('in getWeatherData function');
       WeatherService.getWeather()
@@ -50,7 +59,7 @@ angular
           console.log(data);
           window.glob = data.data;
           $scope.weatherData = data.data;
-        })
+        });
     }
     // getWeatherData();
 
