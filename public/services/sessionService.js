@@ -3,6 +3,7 @@ angular
   .service('SessionService', function($http, $q, $rootScope) {
 
     var sessionUrl = '/sesh';
+    var allGoingToSeshUrl = '/sesh';
     var friendSeshUrl = '/user/friend/sesh';
     var joinSessionUrl = '/join'
 
@@ -41,7 +42,15 @@ angular
       return $http.post(joinSessionUrl + '/' + id)
         .then(function (res) {
           $rootScope.$broadcast('session:joined');
-          log('you joined this session bitch', res );
+          console.log('you joined this session bitch', res );
+        })
+    }
+
+    function getAllGoingToSesh (id) {
+      return $http.get(allGoingToSeshUrl + '/' + id)
+        .then(function (res) {
+          $rootScope.$broadcast('session:allGoing');
+          console.log('all friends going to this sesh', res );
         })
     }
 

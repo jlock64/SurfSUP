@@ -210,7 +210,7 @@ angular
       // GET USER PROFILE FOR PROFILE PAGE
       function profilePage(id) {
         console.log('ID', id);
-        $location.path('/profile/' + id);
+        $location.path('/profile/' + id);  
       }
 
   }); // end of FriendController
@@ -1503,7 +1503,7 @@ module.exports = 'ngRoute';
  */
 
 
-(function () {
+(function () { 
 'use strict';
 /*
  Attaches input mask onto input element
@@ -42889,6 +42889,7 @@ angular
   .service('SessionService', function($http, $q, $rootScope) {
 
     var sessionUrl = '/sesh';
+    var allGoingToSeshUrl = '/sesh';
     var friendSeshUrl = '/user/friend/sesh';
     var joinSessionUrl = '/join'
 
@@ -42927,7 +42928,15 @@ angular
       return $http.post(joinSessionUrl + '/' + id)
         .then(function (res) {
           $rootScope.$broadcast('session:joined');
-          log('you joined this session bitch', res );
+          console.log('you joined this session bitch', res );
+        })
+    }
+
+    function getAllGoingToSesh (id) {
+      return $http.get(allGoingToSeshUrl + '/' + id)
+        .then(function (res) {
+          $rootScope.$broadcast('session:allGoing');
+          console.log('all friends going to this sesh', res );
         })
     }
 
