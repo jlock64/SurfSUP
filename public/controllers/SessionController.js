@@ -21,12 +21,11 @@ angular
     function todayOrFutureSession() {
       console.log('today or future');
     }
-
-
         SessionService.getSession()
         .then(function(data) {
           CacheEngine.put('seshActivity', data);
           $scope.seshActivity = data.data;
+          window.glow = $scope.seshActivity;
         });
     // }
 
