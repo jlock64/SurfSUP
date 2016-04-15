@@ -136,10 +136,11 @@ angular
         FriendService.getProfile(id)
           .then(function (data) {
             console.log('profilePage function', data);
-            $scope.profiles = data.data;
-            window.glob = data.data;
+            $rootScope.profiles = data;
+            console.log("scope.profiles =", $rootScope.profiles);
+            window.glob = data;
             $location.path('/profile');
-          })
+          });
       }
 
   }); // end of FriendController
