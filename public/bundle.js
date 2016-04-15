@@ -210,7 +210,7 @@ angular
       // GET USER PROFILE FOR PROFILE PAGE
       function profilePage(id) {
         console.log('ID', id);
-        $location.path('/profile/' + id);  
+        $location.path('/profile/' + id);
       }
 
   }); // end of FriendController
@@ -1503,7 +1503,7 @@ module.exports = 'ngRoute';
  */
 
 
-(function () { 
+(function () {
 'use strict';
 /*
  Attaches input mask onto input element

@@ -167,7 +167,7 @@ public class SurfSupController {
 
     //JOIN A SESH (ID = SESH ID)
     @RequestMapping(path = "/join/{id}", method = RequestMethod.POST)
-    public void joinSesh (@PathVariable("seshId") int seshId, HttpSession session) {
+    public void joinSesh (@PathVariable("id") int seshId, HttpSession session) {
         User user = users.findByUsername((String) session.getAttribute("username"));
         Sesh sesh = seshs.findOne(seshId);
         Join join = new Join (user, sesh);
