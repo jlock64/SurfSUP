@@ -8,7 +8,7 @@
 </div>
 
 <div id="friendsListWrapper" class="list-group">
-  <a href="" ng-repeat="friend in friendsList" class="list-group-item">
+  <a href="" ng-click="profilePage(friend.id)" ng-repeat="friend in friendsList" class="list-group-item">
     <div class="friendsListWrapper">
       <span id="friendsListUserIcon" class="glyphicon glyphicon-user"></span>
       <span id="friendsListUsername">{{friend.username}}</span>

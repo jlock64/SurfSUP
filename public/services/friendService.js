@@ -11,6 +11,7 @@ angular
     var friendsListUrl = '/friend';
     var denyRequestUrl = '/deny';
     var deleteFriendUrl = '/friend';
+    var profileUrl = '/user';
 
     function findFriends() {
       return $http.get(searchFriendsUrl);
@@ -52,6 +53,10 @@ angular
         });
     }
 
+    function getProfile(id) {
+      return $http.get(profileUrl + "/" + id);
+    }
+
     return {
       findFriends: findFriends,
       friendInvitation: friendInvitation,
@@ -60,7 +65,8 @@ angular
       requestList: requestList,
       friendsList: friendsList,
       denyRequest: denyRequest,
-      deleteFriend: deleteFriend
+      deleteFriend: deleteFriend,
+      getProfile: getProfile
     };
 
   });
