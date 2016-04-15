@@ -12,4 +12,5 @@ import java.util.List;
  */
 public interface JoinRepository extends CrudRepository<Join, Integer> {
     List<Join> findAllBySesh(Sesh sesh);
+    Join findFirstByUserAndSesh (User user, Sesh sesh);
 }
