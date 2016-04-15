@@ -53,7 +53,11 @@ angular
       .when('/profile/:id/', {
         templateUrl: "templates/profilePage.html",
         controller: "ProfileController"
-      });
+      })
+      .when('/profile', {
+        templateUrl: "templates/userProfilePage.html",
+        controller: "ProfileController"
+      })
   })
   .run (function(editableOptions) {
   editableOptions.theme = 'bs3'; // bootstrap3 theme. Can be also 'bs2', 'default'
