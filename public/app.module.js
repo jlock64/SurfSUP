@@ -50,9 +50,9 @@ angular
         templateUrl: "templates/friendsList.html",
         controller: "FriendController"
       })
-      .when('/profile', {
+      .when('/profile/:id/', {
         templateUrl: "templates/profilePage.html",
-        controller: "FriendController"
+        controller: "ProfileController"
       });
   })
   .run (function(editableOptions) {
@@ -70,3 +70,4 @@ require('./controllers/friendController');
 require('./controllers/navbar.controller');
 require ('./directives/sessionDirective');
 require ('./directives/friendAcceptDirective');
+require('./controllers/profile.controller');
