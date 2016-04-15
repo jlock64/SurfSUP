@@ -10,6 +10,7 @@ angular
     $scope.denyFriendRequest = denyFriendRequest;
     $scope.acceptInvite = acceptInvite;
     $scope.deleteFriendFromList = deleteFriendFromList;
+    $scope.profilePage = profilePage;
     // $scope.requestList = requestList;
 
     // GET FRIENDS LIST
@@ -121,6 +122,7 @@ angular
       });
       }
 
+      // DELETE FRIEND AUTO UPDATE
       $scope.$on('friend:deleted', function() {
         FriendService.friendsList()
         .then(function(data) {
@@ -128,5 +130,16 @@ angular
           // $rootScope.$apply();
         });
       });
+
+      function profilePage(id) {
+        console.log('user has been clicked, id:', id);
+        FriendService.getProfile(id)
+          .then(function (data) {
+            console.log('profilePage function', data);
+            $scope.profiles = data.data;
+            window.glob = data.data;
+            $location.path('/profile');
+          })
+      }
 
   }); // end of FriendController

@@ -27,6 +27,9 @@ angular
           }
         }
       })
+      .when('/', {
+        redirectTo: '/login'
+      })
       .when('/login', {
         templateUrl: "templates/login.html",
         controller: "UserController"
@@ -47,6 +50,10 @@ angular
         templateUrl: "templates/friendsList.html",
         controller: "FriendController"
       })
+      .when('/profile', {
+        templateUrl: "templates/profilePage.html",
+        controller: "FriendController"
+      })
   })
   .run (function(editableOptions) {
   editableOptions.theme = 'bs3'; // bootstrap3 theme. Can be also 'bs2', 'default'
@@ -60,6 +67,6 @@ require('./services/cacheEngineService');
 require('./controllers/userController');
 require('./controllers/sessionController');
 require('./controllers/friendController');
+require('./controllers/navbar.controller');
 require ('./directives/sessionDirective');
 require ('./directives/friendAcceptDirective');
-require('./controllers/navbar.controller')

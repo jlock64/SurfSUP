@@ -28,6 +28,9 @@ angular
           }
         }
       })
+      .when('/', {
+        redirectTo: '/login'
+      })
       .when('/login', {
         templateUrl: "templates/login.html",
         controller: "UserController"
@@ -48,6 +51,10 @@ angular
         templateUrl: "templates/friendsList.html",
         controller: "FriendController"
       })
+      .when('/profile', {
+        templateUrl: "templates/profilePage.html",
+        controller: "FriendController"
+      })
   })
   .run (function(editableOptions) {
   editableOptions.theme = 'bs3'; // bootstrap3 theme. Can be also 'bs2', 'default'
@@ -61,9 +68,9 @@ require('./services/cacheEngineService');
 require('./controllers/userController');
 require('./controllers/sessionController');
 require('./controllers/friendController');
+require('./controllers/navbar.controller');
 require ('./directives/sessionDirective');
 require ('./directives/friendAcceptDirective');
-require('./controllers/navbar.controller')
 
 },{"./controllers/friendController":2,"./controllers/navbar.controller":3,"./controllers/sessionController":4,"./controllers/userController":5,"./directives/friendAcceptDirective":6,"./directives/sessionDirective":7,"./services/cacheEngineService":15,"./services/friendService":16,"./services/sessionService":17,"./services/userService":18,"./services/weatherService":19,"./xeditable":20,"angular":13,"angular-route":9,"angular-ui-mask":11,"jquery":14}],2:[function(require,module,exports){
 angular
@@ -78,6 +85,7 @@ angular
     $scope.denyFriendRequest = denyFriendRequest;
     $scope.acceptInvite = acceptInvite;
     $scope.deleteFriendFromList = deleteFriendFromList;
+    $scope.profilePage = profilePage;
     // $scope.requestList = requestList;
 
     // GET FRIENDS LIST
@@ -177,18 +185,6 @@ angular
     // DELETE FRIEND FROM FRIEND LIST
     function deleteFriendFromList(id) {
         console.log('id of friend to be deleted', id);
-<<<<<<< HEAD
-        FriendService.deleteFriend(id);
-      //   .then(function(data) {
-      //     console.log('data from delete friend', data);
-      //     var objId = id;
-      //     var objPlace = $scope.friendsList.findIndex (function(el,idx,arr){
-      //       return el.id === objId;
-      //     });
-      //     $rootScope.friendsList.splice (objPlace, 1);
-      //     // console.log('sessions deleted', objPlace);
-      // });
-=======
         FriendService.deleteFriend(id)
         .then(function(data) {
           console.log('data from delete friend', data);
@@ -199,9 +195,9 @@ angular
           // $rootScope.friendsList.splice (objPlace, 1);
           // console.log('sessions deleted', objPlace);
       });
->>>>>>> 0da76bca5a6f94554b67b9da22960e749223ba49
       }
 
+      // DELETE FRIEND AUTO UPDATE
       $scope.$on('friend:deleted', function() {
         FriendService.friendsList()
         .then(function(data) {
@@ -209,6 +205,17 @@ angular
           // $rootScope.$apply();
         });
       });
+
+      function profilePage(id) {
+        console.log('user has been clicked, id:', id);
+        FriendService.getProfile(id)
+          .then(function (data) {
+            console.log('profilePage function', data);
+            $scope.profiles = data.data;
+            window.glob = data.data;
+            $location.path('/profile');
+          })
+      }
 
   }); // end of FriendController
 
@@ -232,7 +239,7 @@ angular
 angular
   .module('surfSup')
   .controller('SessionController', function($scope, $location, SessionService, CacheEngine, $rootScope) {
-    
+
     $location.path() === "/login" || $location.path() === "/create" ? $rootScope.showBar = false : $rootScope.showBar = true;
     $scope.addSesh = addSesh;
     $scope.deleteSession = deleteSession;
@@ -240,6 +247,7 @@ angular
     $scope.activeButtonSurf = activeButtonSurf;
     $scope.activeButtonSUP = activeButtonSUP;
     $scope.buttonsClicked = false;
+    $scope.todayOrFutureDate = todayOrFutureSession;
     // CacheEngine
     // if (CacheEngine.get('seshActivity')){
     //   var cache = CacheEngine.get('seshActivity');
@@ -247,6 +255,12 @@ angular
     //   console.log('cache is working! seshActivity =', cache);
     // }
     // else {
+
+    function todayOrFutureSession() {
+      console.log('today or future');
+    }
+
+
         SessionService.getSession()
         .then(function(data) {
           CacheEngine.put('seshActivity', data);
@@ -42773,6 +42787,7 @@ angular
     var friendsListUrl = '/friend';
     var denyRequestUrl = '/deny';
     var deleteFriendUrl = '/friend';
+    var profileUrl = '/user';
 
     function findFriends() {
       return $http.get(searchFriendsUrl);
@@ -42814,6 +42829,10 @@ angular
         });
     }
 
+    function getProfile(id) {
+      return $http.get(profileUrl + "/" + id);
+    }
+
     return {
       findFriends: findFriends,
       friendInvitation: friendInvitation,
@@ -42822,7 +42841,8 @@ angular
       requestList: requestList,
       friendsList: friendsList,
       denyRequest: denyRequest,
-      deleteFriend: deleteFriend
+      deleteFriend: deleteFriend,
+      getProfile: getProfile
     };
 
   });
@@ -42879,18 +42899,20 @@ angular
 angular
   .module('surfSup')
   .service('UserService', function($http) {
+
     var loginUrl = '/login';
+    var logoutUrl = '/logout';
+    var createUrl = '/user';
+
     function loginUser(username, password) {
       return $http.post(loginUrl, username, password);
     }
 
-    var logoutUrl = '/logout';
     function logoutUser() {
       console.log('user logged out', logoutUrl);
       return $http.get(logoutUrl);
     }
 
-    var createUrl = '/user';
     function addAcct(info) {
       return $http.post(createUrl, info);
     }
