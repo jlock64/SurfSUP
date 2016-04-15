@@ -10,6 +10,7 @@ angular
     $scope.activeButtonSUP = activeButtonSUP;
     $scope.buttonsClicked = false;
     $scope.joinSession = joinSession;
+    $scope.allGoingtoSesh = allGoingtoSesh;
 
     // CacheEngine
     // if (CacheEngine.get('seshActivity')){
@@ -99,6 +100,19 @@ angular
     function joinSession(id) {
       console.log('this is joinsession id:', id);
       SessionService.joinSesh(id)
+        .then(function() {
+          SessionService.getSession()
+          .then(function(data) {
+            CacheEngine.put('seshActivity', data);
+            $scope.seshActivity = data.data;
+            window.glow = $scope.seshActivity;
+          });
+        })
+    }
+
+    function allGoingtoSesh(id) {
+      console.log('new person going to this sesh:', id);
+      SessionService.getAllGoingtoSesh(id)
         .then(function() {
           SessionService.getSession()
           .then(function(data) {
