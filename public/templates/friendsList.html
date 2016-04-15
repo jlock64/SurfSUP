@@ -1,4 +1,4 @@
-<input ng-model="queryFriend" ng-change="searchFriends(queryFriend)" type="text" name="name" value="">
+<input ng-model="queryFriend" ng-change="searchFriends(queryFriend)" type="text" name="name" placeholder="">
 
 
 <div ng-repeat=" user in listUsers | filter:queryFriend:strict" >

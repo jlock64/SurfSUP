@@ -206,15 +206,14 @@ angular
         });
       });
 
+      // GET USER PROFILE FOR PROFILE PAGE
       function profilePage(id) {
         console.log('user has been clicked, id:', id);
+        $location.path('/profile');
         FriendService.getProfile(id)
           .then(function (data) {
-            console.log('profilePage function', data);
             $rootScope.profiles = data;
             console.log("scope.profiles =", $rootScope.profiles);
-            window.glob = data;
-            $location.path('/profile');
           });
       }
 
