@@ -199,8 +199,12 @@ public class SurfSupController {
     @RequestMapping(path = "/join/sesh/{id}", method = RequestMethod.GET)
     public List<User> displayUserBySesh (@PathVariable("id") int id) {
         Sesh sesh = seshs.findOne(id);
-        List<User> list = joins.findAllBySesh(sesh);
-        return list;
+        List<Join> joinList = joins.findAllBySesh(sesh);
+        List<User> joinedUsers = new ArrayList<>();
+        for (Join j : joinList) {
+            joinedUsers.add(j.getUser());
+        }
+        return joinedUsers;
     }
 
     //DISPLAY SESHS BY THE CURRENT USER AND HIS/HER FRIENDS

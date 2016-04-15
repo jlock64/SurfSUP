@@ -11,5 +11,5 @@ import java.util.List;
  * Created by noellemachin on 4/8/16.
  */
 public interface JoinRepository extends CrudRepository<Join, Integer> {
-    List<User> findAllBySesh(Sesh sesh);
+    List<Join> findAllBySesh(Sesh sesh);
 }
