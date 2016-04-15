@@ -41,7 +41,7 @@ angular
       return $http.post(joinSessionUrl + '/' + id)
         .then(function (res) {
           $rootScope.$broadcast('session:joined');
-          log('you joined this session bitch', res );
+          console.log('you joined this session bitch', res );
         })
     }
 

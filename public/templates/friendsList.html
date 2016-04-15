@@ -1,7 +1,6 @@
-<<<<<<< HEAD
-=======
+
 <!-- USER LIST -->
->>>>>>> 10e3a35c65017983989637f0b55ade77d7dbbd02
+
 <input ng-model="queryFriend" ng-change="searchFriends(queryFriend)" type="text" name="name" placeholder="">
 <div class="searchBar" ng-show="queryFriend.length > 1" ng-repeat=" user in listUsers | filter:queryFriend:strict" >
   {{user.username}}
@@ -9,11 +8,9 @@
   <div id="requestFriendAlert"></div>
 </div>
 
-<<<<<<< HEAD
-// INDIVIDUAL FRIEND
-=======
+
 <!-- INDIVIDUAL FRIEND -->
->>>>>>> 10e3a35c65017983989637f0b55ade77d7dbbd02
+
 <div id="friendsListWrapper" class="list-group">
   <a ng-repeat="friend in friendsList" class="list-group-item">
     <div class="friendsListInfo" ng-click="profilePage(friend.id)">
