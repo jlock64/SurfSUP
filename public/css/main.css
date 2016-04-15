@@ -14,6 +14,8 @@
     top: 8px; }
   #friendsListWrapper #friendsListProfileLink {
     vertical-align: 8px; }
+  #friendsListWrapper .friendsListInfo {
+    display: inline-block; }
 
 form h1 {
   text-align: center; }

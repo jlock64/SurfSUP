@@ -1,18 +1,17 @@
-<input ng-model="queryFriend" ng-change="searchFriends(queryFriend)" type="text" name="name" placeholder="">
-
-
-<div ng-repeat=" user in listUsers | filter:queryFriend:strict" >
+<input ng-model="queryFriend.$" ng-change="searchFriends(queryFriend)" type="text" name="name" placeholder="">
+<div ng-show="queryFriend.$.length > 1" ng-repeat=" user in listUsers | filter:queryFriend:strict" >
   {{user.username}}
   <button type="button" class="btn btn-default" ng-click = "sendInvite(user.username)" name="button">add friend</button>
   <div id="requestFriendAlert"></div>
 </div>
 
 <div id="friendsListWrapper" class="list-group">
-  <a href="" ng-click="profilePage(friend.id)" ng-repeat="friend in friendsList" class="list-group-item">
-    <div class="friendsListWrapper">
+  <a href=""  ng-repeat="friend in friendsList" class="list-group-item">
+    <div class="friendsListInfo" ng-click="profilePage(friend.id)">
       <span id="friendsListUserIcon" class="glyphicon glyphicon-user"></span>
       <span id="friendsListUsername">{{friend.username}}</span>
       <!-- <span id="friendsListProfileLink"><a class="viewProfileLink" href="">View Profile</a></span> -->
+    </div>
       <button class="btn btn-xs btn-danger pull-right removeFriendBtn"
               type="button"
               ng-click="deleteFriendFromList(friend.id)"
@@ -25,7 +24,6 @@
               aria-hidden="true">
         </span>
       </button>
-    </div>
   </a>
 </div>
 
