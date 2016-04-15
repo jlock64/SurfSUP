@@ -10,6 +10,7 @@ import com.theironyard.services.SeshRepository;
 import com.theironyard.services.UserRepository;
 import com.theironyard.utilities.PasswordStorage;
 import org.h2.tools.Server;
+import org.omg.CORBA.Request;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -160,6 +161,15 @@ public class SurfSupController {
         joins.save(join);
     }
 
+    //JOIN A SESH (ID = SESH ID)
+    @RequestMapping(path = "/join/{id}", method = RequestMethod.POST)
+    public void joinSesh (@PathVariable("seshId") int seshId, HttpSession session) {
+        User user = users.findByUsername((String) session.getAttribute("username"));
+        Sesh sesh = seshs.findOne(seshId);
+        Join join = new Join (user, sesh);
+        joins.save(join);
+    }
+
     // CURRENT USER USERNAME
     @RequestMapping(path = "/currentUsername", method = RequestMethod.GET)
     public String loggedInUsername (HttpSession session) {
@@ -199,8 +209,12 @@ public class SurfSupController {
     @RequestMapping(path = "/join/sesh/{id}", method = RequestMethod.GET)
     public List<User> displayUserBySesh (@PathVariable("id") int id) {
         Sesh sesh = seshs.findOne(id);
-        List<User> list = joins.findAllBySesh(sesh);
-        return list;
+        List<Join> joinList = joins.findAllBySesh(sesh);
+        List<User> joinedUsers = new ArrayList<>();
+        for (Join j : joinList) {
+            joinedUsers.add(j.getUser());
+        }
+        return joinedUsers;
     }
 
     //DISPLAY SESHS BY THE CURRENT USER AND HIS/HER FRIENDS
