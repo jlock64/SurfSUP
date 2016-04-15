@@ -1,11 +1,10 @@
-<h1>WELCOME TO SESSIONS</h1>
+<h1 ng-controller="UserController">WELCOME TO SESSIONS, {{currentUser.username}}</h1>
 <h6>(edit your session by clicking links)</h6>
 <hr>
 
 <div  ng-repeat="seshActivities in seshActivity | orderBy: 'time '">
   <session-reader activity = "seshActivities"> </session-reader>
 </div>
-
 <a href="/#/addSession">
   <button class="btn btn-success"
           type="button"

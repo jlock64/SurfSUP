@@ -5,6 +5,7 @@ angular
     var loginUrl = '/login';
     var logoutUrl = '/logout';
     var createUrl = '/user';
+    var currentUserUrl = '/currentUser';
 
     function loginUser(username, password) {
       return $http.post(loginUrl, username, password);
@@ -19,9 +20,14 @@ angular
       return $http.post(createUrl, info);
     }
 
+    function currentUser(){
+      return $http.get(currentUserUrl);
+    }
+
     return {
       addAcct: addAcct,
       loginUser: loginUser,
-      logoutUser: logoutUser
+      logoutUser: logoutUser,
+      currentUser: currentUser
     };
   });

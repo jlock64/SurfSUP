@@ -54,7 +54,7 @@ angular
       .when('/profile', {
         templateUrl: "templates/profilePage.html",
         controller: "FriendController"
-      })
+      });
   })
   .run (function(editableOptions) {
   editableOptions.theme = 'bs3'; // bootstrap3 theme. Can be also 'bs2', 'default'
@@ -259,12 +259,11 @@ angular
     function todayOrFutureSession() {
       console.log('today or future');
     }
-
-
         SessionService.getSession()
         .then(function(data) {
           CacheEngine.put('seshActivity', data);
           $scope.seshActivity = data.data;
+          window.glow = $scope.seshActivity;
         });
     // }
 
@@ -356,6 +355,7 @@ angular
     $scope.acctObj = {};
     $scope.submitForm = submitForm;
     $scope.getWeatherData = getWeatherData;
+    $scope.getCurrentUser = getCurrentUser;
 
 
     function login() {
@@ -388,6 +388,14 @@ angular
       });
     }
 
+    function getCurrentUser() {
+      UserService.currentUser().then(function(data) {
+        $scope.currentUser = data.data;
+        console.log("Current User: ", data.data);
+      });
+    }
+    getCurrentUser();
+
     function getWeatherData() {
       console.log('in getWeatherData function');
       WeatherService.getWeather()
@@ -395,7 +403,7 @@ angular
           console.log(data);
           window.glob = data.data;
           $scope.weatherData = data.data;
-        })
+        });
     }
     // getWeatherData();
 
@@ -42903,6 +42911,7 @@ angular
     var loginUrl = '/login';
     var logoutUrl = '/logout';
     var createUrl = '/user';
+    var currentUserUrl = '/currentUser';
 
     function loginUser(username, password) {
       return $http.post(loginUrl, username, password);
@@ -42917,10 +42926,15 @@ angular
       return $http.post(createUrl, info);
     }
 
+    function currentUser(){
+      return $http.get(currentUserUrl);
+    }
+
     return {
       addAcct: addAcct,
       loginUser: loginUser,
-      logoutUser: logoutUser
+      logoutUser: logoutUser,
+      currentUser: currentUser
     };
   });
 

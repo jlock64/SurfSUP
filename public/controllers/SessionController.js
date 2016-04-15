@@ -90,13 +90,11 @@ angular
   	$scope.isActiveSurf = false;
     function activeButtonSurf () {
       $scope.buttonsClicked = true;
-      console.log('clicky surf');
       $scope.isActiveSurf = !$scope.isActiveSurf;
     }
   	$scope.isActiveSUP = false;
     function activeButtonSUP () {
       $scope.buttonsClicked = true;
-      console.log('clicky SUP');
       $scope.isActiveSUP = !$scope.isActiveSUP;
     }
 
