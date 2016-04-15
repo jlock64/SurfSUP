@@ -10,7 +10,7 @@ angular
     var requestListUrl = '/requests';
     var friendsListUrl = '/friend';
     var denyRequestUrl = '/deny';
-    var deleteFriendUrl = '/friend'
+    var deleteFriendUrl = '/friend';
 
     function findFriends() {
       return $http.get(searchFriendsUrl);

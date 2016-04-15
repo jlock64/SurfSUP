@@ -1,6 +1,6 @@
 angular
   .module('surfSup')
-  .controller('FriendController', function($scope, $location, FriendService, $rootScope) {
+  .controller('FriendController', function($scope,$q, $location, FriendService, $rootScope,SessionService) {
     $location.path() === "/login" || $location.path() === "/create" ? $rootScope.showBar = false : $rootScope.showBar = true;
 
     $scope.searchFriends = searchFriends;
@@ -12,36 +12,39 @@ angular
     $scope.deleteFriendFromList = deleteFriendFromList;
     // $scope.requestList = requestList;
 
+    // GET FRIENDS LIST
     function getFriendsList() {
       FriendService.friendsList()
         .success(function(data){
-          console.log('in getFriendsList', data);
-          // window.glob = data;
-          $scope.friendsList = data;
-        })
-        .error (function(err) {
-          console.log(err);
+          $rootScope.$broadcast('friendList:added', data.data);
         });
     }
     getFriendsList();
 
+    // FRIENDS LIST AUTO UPDATE
+    $scope.$on('friendList:added', function(data) {
+      FriendService.friendsList()
+      .then(function(data) {
+        $scope.friendsList = data.data;
+      });
+    });
+
+    // GET REQUEST AMOUNT
     function getRequestAmt() {
       FriendService.requestAmt()
-        .success(function(data) {
-          $rootScope.requests = data;
-          console.log('friend request amt:', data);
-        })
-        .error (function(err) {
-          console.log(err);
+        .then(function(data) {
+          $rootScope.requests = data.data;
+          // $rootScope.$apply();
+          // console.log('friend request amt:', data);
         });
     }
     getRequestAmt();
 
+    // GET REQUEST LIST
     function getRequestList() {
       FriendService.requestList()
         .success(function(data) {
           $rootScope.requestList = data;
-          // console.log('friend request list:', data);
           // window.glob = data.data;
         })
         .error (function(err) {
@@ -50,6 +53,7 @@ angular
     }
     getRequestList();
 
+    // DENY FRIEND REQUEST
     function denyFriendRequest (id) {
       FriendService.denyRequest(id)
         .then(function(data) {
@@ -62,11 +66,12 @@ angular
       });
     }
 
+    // SEARCH FRIENDS
     function searchFriends(friend) {
-      console.log('this is a friend', friend);
       FriendService.findFriends(friend);
     }
 
+    // FIND FRIENDS (USERS)
     FriendService.findFriends()
     .then(function(data) {
       // CacheEngine.put('seshActivity', data);
@@ -75,6 +80,7 @@ angular
       // console.log('users list is working,', data);
     });
 
+    // SEND INVITATION TO FRIEND
     function sendInvite (username) {
       // console.log(username);
       FriendService.friendInvitation(username)
@@ -87,20 +93,13 @@ angular
       });
     }
 
-    // //Invite updated
-    // $scope.$on('invite:added', function() {
-    //   FriendService.friendInvitation()
-    //   .then(function(data) {
-    //     $rootScope.requests = data;
-    //     console.log('invite was added!', data);
-    //   });
-    // });
-
+    // ACCEPT FRIEND INVITE
     function acceptInvite (username) {
       console.log(username);
       FriendService.acceptInvitation(username)
       .success(function(data) {
-        console.log('accept friends is working,', data);
+        // console.log('accept friends is working,', data);
+        $rootScope.$broadcast('requestAmt:added',data.data);
       })
       .error (function(err) {
         console.log(err);
@@ -110,16 +109,24 @@ angular
     // DELETE FRIEND FROM FRIEND LIST
     function deleteFriendFromList(id) {
         console.log('id of friend to be deleted', id);
-        FriendService.deleteFriend(id);
-      //   .then(function(data) {
-      //     console.log('data from delete friend', data);
-      //     var objId = id;
-      //     var objPlace = $scope.friendsList.findIndex (function(el,idx,arr){
-      //       return el.id === objId;
-      //     });
-      //     $rootScope.friendsList.splice (objPlace, 1);
-      //     // console.log('sessions deleted', objPlace);
-      // });
+        FriendService.deleteFriend(id)
+        .then(function(data) {
+          console.log('data from delete friend', data);
+          var objId = id;
+          var objPlace = $scope.friendsList.findIndex (function(el,idx,arr){
+            return el.id === objId;
+          });
+          // $rootScope.friendsList.splice (objPlace, 1);
+          // console.log('sessions deleted', objPlace);
+      });
       }
+
+      $scope.$on('friend:deleted', function() {
+        FriendService.friendsList()
+        .then(function(data) {
+          $scope.friendsList = data.data;
+          // $rootScope.$apply();
+        });
+      });
 
   }); // end of FriendController

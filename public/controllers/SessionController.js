@@ -87,18 +87,19 @@ angular
       SessionService.editSession(id,location);
     }
 
-	$scope.isActiveSurf = false;
-  function activeButtonSurf () {
-    $scope.buttonsClicked = true;
-    console.log('clicky surf');
-    $scope.isActiveSurf = !$scope.isActiveSurf;
-  }
-	$scope.isActiveSUP = false;
-  function activeButtonSUP () {
-    $scope.buttonsClicked = true;
-    console.log('clicky SUP');
-    $scope.isActiveSUP = !$scope.isActiveSUP;
-  }
+    //Changing Color when SUP/SURF is clicked
+  	$scope.isActiveSurf = false;
+    function activeButtonSurf () {
+      $scope.buttonsClicked = true;
+      console.log('clicky surf');
+      $scope.isActiveSurf = !$scope.isActiveSurf;
+    }
+  	$scope.isActiveSUP = false;
+    function activeButtonSUP () {
+      $scope.buttonsClicked = true;
+      console.log('clicky SUP');
+      $scope.isActiveSUP = !$scope.isActiveSUP;
+    }
 
 
   }); // end of SessionController
