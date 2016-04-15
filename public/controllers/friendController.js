@@ -138,6 +138,7 @@ angular
 
       // GET USER PROFILE FOR PROFILE PAGE
       function profilePage(id) {
+        console.log('ID', id);
         $location.path('/profile/' + id);  
       }
 

@@ -1,6 +1,8 @@
 angular
   .module('surfSup')
-  .controller('NavbarController', function($scope,$location, $rootScope, FriendService) {
+  .controller('NavbarController', function($scope,$location, $rootScope, FriendService, UserService) {
+    $scope.profilePage = profilePage;
+    $scope.logout = logout;
 
     $scope.$on('requestAmt:added', function(data) {
       FriendService.requestAmt()
@@ -9,6 +11,15 @@ angular
         // $rootScope.$apply();
       });
     });
+    function profilePage(id) {
+      console.log('ID', id);
+      $location.path('/profile/' + id);
+    }
+    function logout() {
+      UserService.logoutUser();
+      console.log('logging out');
+      $location.path('/login');
+    }
 
 
   }); // end of NavbarControler

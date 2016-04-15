@@ -54,7 +54,11 @@ angular
       .when('/profile/:id/', {
         templateUrl: "templates/profilePage.html",
         controller: "ProfileController"
-      });
+      })
+      .when('/profile', {
+        templateUrl: "templates/userProfilePage.html",
+        controller: "ProfileController"
+      })
   })
   .run (function(editableOptions) {
   editableOptions.theme = 'bs3'; // bootstrap3 theme. Can be also 'bs2', 'default'
@@ -214,6 +218,7 @@ angular
 
       // GET USER PROFILE FOR PROFILE PAGE
       function profilePage(id) {
+        console.log('ID', id);
         $location.path('/profile/' + id);  
       }
 
@@ -222,7 +227,9 @@ angular
 },{}],3:[function(require,module,exports){
 angular
   .module('surfSup')
-  .controller('NavbarController', function($scope,$location, $rootScope, FriendService) {
+  .controller('NavbarController', function($scope,$location, $rootScope, FriendService, UserService) {
+    $scope.profilePage = profilePage;
+    $scope.logout = logout;
 
     $scope.$on('requestAmt:added', function(data) {
       FriendService.requestAmt()
@@ -231,6 +238,15 @@ angular
         // $rootScope.$apply();
       });
     });
+    function profilePage(id) {
+      console.log('ID', id);
+      $location.path('/profile/' + id);
+    }
+    function logout() {
+      UserService.logoutUser();
+      console.log('logging out');
+      $location.path('/login');
+    }
 
 
   }); // end of NavbarControler
@@ -247,6 +263,8 @@ angular
       },function(err) {
         console.log("THIS IS AN ERROR",err);
       })
+
+
 
   }); // end of FriendController
 
@@ -364,7 +382,6 @@ angular
       password: ''
     };
     $scope.login = login;
-    $scope.logout = logout;
     $scope.acctObj = {};
     $scope.submitForm = submitForm;
     $scope.getWeatherData = getWeatherData;
@@ -384,11 +401,11 @@ angular
       });
     }
 
-    function logout() {
-      UserService.logoutUser();
-      console.log('logging out');
-      $location.path('/login');
-    }
+    // function logout() {
+    //   UserService.logoutUser();
+    //   console.log('logging out');
+    //   $location.path('/login');
+    // }
 
     function submitForm() {
       console.log('account object:', $scope.acctObj);
@@ -403,7 +420,7 @@ angular
 
     function getCurrentUser() {
       UserService.currentUser().then(function(data) {
-        $scope.currentUser = data.data;
+        $rootScope.currentUser = data.data;
         console.log("Current User: ", data.data);
       });
     }
