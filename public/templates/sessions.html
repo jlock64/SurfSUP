@@ -6,9 +6,19 @@
   <session-reader activity = "seshActivities"> </session-reader>
 </div>
 
+<div  ng-repeat="seshActivities in seshActivity | orderBy: 'isSurf'">
+  <session-reader activity = "seshActivities"> </session-reader>
+</div>
+
 <a href="/#/addSession">
   <button class="btn btn-success"
           type="button"
           name="button">Add Another Session
   </button>
 </a>
+
+<!-- if (today.getDay() === new Date().getDay()) {
+  console.log('today is today')
+
+
+orderBy: 'time'

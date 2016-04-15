@@ -110,16 +110,16 @@ angular
     // DELETE FRIEND FROM FRIEND LIST
     function deleteFriendFromList(id) {
         console.log('id of friend to be deleted', id);
-        FriendService.deleteFriend(id)
-        .then(function(data) {
-          console.log('data from delete friend', data);
-          var objId = id;
-          var objPlace = $scope.friendsList.findIndex (function(el,idx,arr){
-            return el.id === objId;
-          });
-          $rootScope.friendsList.splice (objPlace, 1);
-          // console.log('sessions deleted', objPlace);
-      });
+        FriendService.deleteFriend(id);
+      //   .then(function(data) {
+      //     console.log('data from delete friend', data);
+      //     var objId = id;
+      //     var objPlace = $scope.friendsList.findIndex (function(el,idx,arr){
+      //       return el.id === objId;
+      //     });
+      //     $rootScope.friendsList.splice (objPlace, 1);
+      //     // console.log('sessions deleted', objPlace);
+      // });
       }
 
   }); // end of FriendController

@@ -1,6 +1,7 @@
 angular
   .module('surfSup')
   .controller('SessionController', function($scope, $location, SessionService, CacheEngine, $rootScope) {
+
     $location.path() === "/login" || $location.path() === "/create" ? $rootScope.showBar = false : $rootScope.showBar = true;
     $scope.addSesh = addSesh;
     $scope.deleteSession = deleteSession;
@@ -8,6 +9,7 @@ angular
     $scope.activeButtonSurf = activeButtonSurf;
     $scope.activeButtonSUP = activeButtonSUP;
     $scope.buttonsClicked = false;
+    $scope.todayOrFutureDate = todayOrFutureSession;
     // CacheEngine
     // if (CacheEngine.get('seshActivity')){
     //   var cache = CacheEngine.get('seshActivity');
@@ -15,6 +17,12 @@ angular
     //   console.log('cache is working! seshActivity =', cache);
     // }
     // else {
+
+    function todayOrFutureSession() {
+      console.log('today or future');
+    }
+
+
         SessionService.getSession()
         .then(function(data) {
           CacheEngine.put('seshActivity', data);
