@@ -17,6 +17,9 @@
   #friendsListWrapper .friendsListInfo {
     display: inline-block; }
 
+.searchBar {
+  position: absolute; }
+
 form h1 {
   text-align: center; }
 
@@ -35,7 +38,7 @@ form .surf-sup-button {
   padding: 14px;
   color: #fff;
   margin: 0 10px;
-  background: blue;
+  background: rgba 25, 29, 165, 0.8;
   font-weight: 700;
   border-radius: 4px;
   width: 42.5%; }
@@ -48,7 +51,7 @@ form .disabled {
   color: green; }
 
 form .active {
-  background: orange; }
+  background: #191da5; }
 
 form .disabled {
   background: #eee;

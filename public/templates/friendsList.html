@@ -1,5 +1,5 @@
-<input ng-model="queryFriend.$" ng-change="searchFriends(queryFriend)" type="text" name="name" placeholder="">
-<div ng-show="queryFriend.$.length > 1" ng-repeat=" user in listUsers | filter:queryFriend:strict" >
+<input ng-model="queryFriend" ng-change="searchFriends(queryFriend)" type="text" name="name" placeholder="">
+<div class="searchBar" ng-show="queryFriend.length > 1" ng-repeat=" user in listUsers | filter:queryFriend:strict" >
   {{user.username}}
   <button type="button" class="btn btn-default" ng-click = "sendInvite(user.username)" name="button">add friend</button>
   <div id="requestFriendAlert"></div>
