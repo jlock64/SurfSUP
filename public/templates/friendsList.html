@@ -1,6 +1,11 @@
+<<<<<<< HEAD
+<input ng-model="queryFriend" ng-change="searchFriends(queryFriend)" type="text" name="name" placeholder="">
+<div class="searchBar" ng-show="queryFriend.length > 1" ng-repeat=" user in listUsers | filter:queryFriend:strict" >
+=======
 // SEARCH BAR
 <input ng-model="queryFriend.$" ng-change="searchFriends(queryFriend)" type="text" name="name" placeholder="">
 <div ng-show="queryFriend.$.length > 1" ng-repeat=" user in listUsers | filter:queryFriend:strict" >
+>>>>>>> 597e01d53ee1949618f88dafc969fb700b359e5f
   {{user.username}}
   <button type="button" class="btn btn-default" ng-click = "sendInvite(user.username)" name="button">add friend</button>
   <div id="requestFriendAlert"></div>
