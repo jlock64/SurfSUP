@@ -12,7 +12,7 @@ angular
     $scope.getWeatherData = getWeatherData;
     $scope.getCurrentUser = getCurrentUser;
 
-
+    // LOGIN PAGE
     function login() {
       console.log('login object:', $scope.loginObj);
       UserService.loginUser($scope.loginObj).success(function (res) {
@@ -26,12 +26,7 @@ angular
       });
     }
 
-    // function logout() {
-    //   UserService.logoutUser();
-    //   console.log('logging out');
-    //   $location.path('/login');
-    // }
-
+    // CREATE USER FORM
     function submitForm() {
       console.log('account object:', $scope.acctObj);
       UserService.addAcct($scope.acctObj).success(function(res){
@@ -60,7 +55,7 @@ angular
           $scope.weatherData = data.data;
         });
     }
-    // getWeatherData();
+    getWeatherData();
 
 
   }); // end of LoginController
