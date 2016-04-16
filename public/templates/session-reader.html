@@ -17,10 +17,10 @@
       </a>
     </p>
     <span ng-controller="SessionController" >
-      <button ng-click="allGoingToSesh(activity.id)" class="list-group-item-text">Who is going:</button>
+      <button ng-click="allGoingToSesh(activity.id); showUsers = !showUsers" class="list-group-item-text">Who is going:</button>
       <!-- {{activity.id}} -->
-    
-      <ul>
+
+      <ul ng-if="showUsers">
         <li ng-repeat="user in usersGoingToSesh.data">
           {{user.username}}
         </li>
