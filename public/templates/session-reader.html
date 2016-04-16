@@ -16,10 +16,17 @@
                   >{{activity.time | date : 'EEEE, MMMM d, h:mm a'}}
       </a>
     </p>
-    <p class="list-group-item-text">Who is going:</p>
-    <div>
-      <p>{{}}</p>
-    </div>
+    <span ng-controller="SessionController" >
+      <button ng-click="allGoingToSesh(activity.id)" class="list-group-item-text">Who is going:</button>
+      <!-- {{activity.id}} -->
+    
+      <ul>
+        <li ng-repeat="user in usersGoingToSesh.data">
+          {{user.username}}
+        </li>
+      </ul>
+    </span>
+
     <button ng-controller="UserController" class="btn btn-xs btn-danger pull-right"
             type="button"
             ng-click="deleteSession(activity.id)"

@@ -10,7 +10,7 @@ angular
     $scope.activeButtonSUP = activeButtonSUP;
     $scope.buttonsClicked = false;
     $scope.joinSession = joinSession;
-    $scope.allGoingtoSesh = allGoingtoSesh;
+    $scope.allGoingToSesh = allGoingToSesh;
 
     // CacheEngine
     // if (CacheEngine.get('seshActivity')){
@@ -24,7 +24,6 @@ angular
         .then(function(data) {
           CacheEngine.put('seshActivity', data);
           $scope.seshActivity = data.data;
-          window.glow = $scope.seshActivity;
         });
     // }
 
@@ -105,23 +104,27 @@ angular
           .then(function(data) {
             CacheEngine.put('seshActivity', data);
             $scope.seshActivity = data.data;
-            window.glow = $scope.seshActivity;
           });
         })
     }
 
-    function allGoingtoSesh(id) {
+    function allGoingToSesh(id) {
       console.log('new person going to this sesh:', id);
-      SessionService.getAllGoingtoSesh(id)
-        .then(function() {
-          SessionService.getSession()
-          .then(function(data) {
-            CacheEngine.put('seshActivity', data);
-            $scope.seshActivity = data.data;
-            window.glow = $scope.seshActivity;
-          });
+      SessionService.getAllGoingToSesh(id)
+        .then(function(data) {
+          console.log('all going to sesh in ctrl:', data);
+          $scope.usersGoingToSesh = data;
+          // console.log('data', data.data.username);
         })
+        // .then(function() {
+        //   SessionService.getSession()
+        //   .then(function(data) {
+        //     CacheEngine.put('seshActivity', data);
+        //     $scope.seshActivity = data.data;
+        //   });
+        // })
     }
+    // allGoingToSesh();
 
 
   }); // end of SessionController
