@@ -51,8 +51,14 @@ angular
       return $http.get(allGoingToSeshUrl + '/' + id)
         .then(function (res) {
           $rootScope.$broadcast('session:allGoing');
+<<<<<<< HEAD
           console.log('all friends going to this sesh', res );
         });
+=======
+          console.log('all going to sesh in service', res);
+          return res;
+        })
+>>>>>>> 270b746673273a28c835b40aad312e114528cd15
     }
 
     return {
@@ -60,7 +66,8 @@ angular
       getSession: getSession,
       deleteSesh: deleteSesh,
       editSession: editSession,
-      joinSesh: joinSesh
+      joinSesh: joinSesh,
+      getAllGoingToSesh: getAllGoingToSesh
     };
 
   });
