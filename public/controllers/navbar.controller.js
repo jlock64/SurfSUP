@@ -3,7 +3,16 @@ angular
   .controller('NavbarController', function($scope,$location, $rootScope, FriendService, UserService) {
     $scope.profilePage = profilePage;
     $scope.logout = logout;
-    
+
+    $scope.$on('requestAmt:added', function(data) {
+      FriendService.requestAmt();
+      FriendService.requestList()
+      .then(function(data) {
+        $rootScope.requests = data.data;
+        $rootScope.requestList = data.data;
+        // $rootScope.$apply();
+      });
+    });
     $scope.$on('requestAmt:added', function(data) {
       FriendService.requestAmt()
       .then(function(data) {
