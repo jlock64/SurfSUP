@@ -38,6 +38,7 @@ angular
       });
     }
 
+    // GET CURRENT USER
     function getCurrentUser() {
       UserService.currentUser().then(function(data) {
         $scope.currentUser = data.data;
@@ -50,6 +51,7 @@ angular
       getCurrentUser();
     });
 
+    //GET WEATHER DATA
     function getWeatherData() {
       console.log('in getWeatherData function');
       WeatherService.getWeather()
