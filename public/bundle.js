@@ -11,7 +11,8 @@ angular
   .module('surfSup', [
     'ngRoute',
     'ui.mask',
-    'xeditable'])
+    'xeditable',
+    ])
 
   .config(function($routeProvider) {
     $routeProvider
