@@ -43,9 +43,8 @@ angular
         .then(function (res) {
           $rootScope.$broadcast('session:joined');
           console.log('you joined this session bitch', res );
-<<<<<<< HEAD
-=======
-        })
+
+        });
     }
 
     function getAllGoingToSesh (id) {
@@ -53,8 +52,7 @@ angular
         .then(function (res) {
           $rootScope.$broadcast('session:allGoing');
           console.log('all friends going to this sesh', res );
->>>>>>> 22d0de350aa303c68bc24a30bfa41056babecec8
-        })
+        });
     }
 
     return {

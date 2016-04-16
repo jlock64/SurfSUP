@@ -272,6 +272,7 @@ angular
     $scope.activeButtonSUP = activeButtonSUP;
     $scope.buttonsClicked = false;
     $scope.joinSession = joinSession;
+    $scope.allGoingtoSesh = allGoingtoSesh;
 
     // CacheEngine
     // if (CacheEngine.get('seshActivity')){
@@ -371,6 +372,19 @@ angular
         })
     }
 
+    function allGoingtoSesh(id) {
+      console.log('new person going to this sesh:', id);
+      SessionService.getAllGoingtoSesh(id)
+        .then(function() {
+          SessionService.getSession()
+          .then(function(data) {
+            CacheEngine.put('seshActivity', data);
+            $scope.seshActivity = data.data;
+            window.glow = $scope.seshActivity;
+          });
+        })
+    }
+
 
   }); // end of SessionController
 
@@ -417,14 +431,11 @@ angular
 
     function getCurrentUser() {
       UserService.currentUser().then(function(data) {
-<<<<<<< HEAD
-        $scope.currentUser = data.data.username;
-        console.log("Current User: ", $scope.currentUser);
-=======
+
 
         $scope.currentUser = data.data;
         console.log("Current User: ", data.data);
->>>>>>> 22d0de350aa303c68bc24a30bfa41056babecec8
+
       });
     }
     getCurrentUser();
@@ -42894,10 +42905,7 @@ angular
   .service('SessionService', function($http, $q, $rootScope) {
 
     var sessionUrl = '/sesh';
-<<<<<<< HEAD
-=======
     var allGoingToSeshUrl = '/sesh';
->>>>>>> 22d0de350aa303c68bc24a30bfa41056babecec8
     var friendSeshUrl = '/user/friend/sesh';
     var joinSessionUrl = '/join'
 
@@ -42937,20 +42945,18 @@ angular
         .then(function (res) {
           $rootScope.$broadcast('session:joined');
           console.log('you joined this session bitch', res );
-        })
+
+        });
     }
 
-<<<<<<< HEAD
-=======
     function getAllGoingToSesh (id) {
       return $http.get(allGoingToSeshUrl + '/' + id)
         .then(function (res) {
           $rootScope.$broadcast('session:allGoing');
           console.log('all friends going to this sesh', res );
-        })
+        });
     }
 
->>>>>>> 22d0de350aa303c68bc24a30bfa41056babecec8
     return {
       addSession: addSession,
       getSession: getSession,
