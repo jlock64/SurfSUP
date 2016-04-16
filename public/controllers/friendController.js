@@ -82,7 +82,6 @@ angular
     .then(function(data) {
       // CacheEngine.put('seshActivity', data);
       $scope.listUsers = data.data;
-      window.glow = data;
       // console.log('users list is working,', data);
     });
 
@@ -139,7 +138,7 @@ angular
       // GET USER PROFILE FOR PROFILE PAGE
       function profilePage(id) {
         console.log('ID', id);
-        $location.path('/profile/' + id);  
+        $location.path('/profile/' + id);
       }
 
   }); // end of FriendController

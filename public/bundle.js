@@ -153,7 +153,6 @@ angular
     .then(function(data) {
       // CacheEngine.put('seshActivity', data);
       $scope.listUsers = data.data;
-      window.glow = data;
       // console.log('users list is working,', data);
     });
 
@@ -210,7 +209,7 @@ angular
       // GET USER PROFILE FOR PROFILE PAGE
       function profilePage(id) {
         console.log('ID', id);
-        $location.path('/profile/' + id);  
+        $location.path('/profile/' + id);
       }
 
   }); // end of FriendController
@@ -221,7 +220,7 @@ angular
   .controller('NavbarController', function($scope,$location, $rootScope, FriendService, UserService) {
     $scope.profilePage = profilePage;
     $scope.logout = logout;
-
+    
     $scope.$on('requestAmt:added', function(data) {
       FriendService.requestAmt()
       .then(function(data) {
@@ -272,6 +271,7 @@ angular
     $scope.activeButtonSUP = activeButtonSUP;
     $scope.buttonsClicked = false;
     $scope.joinSession = joinSession;
+    $scope.allGoingToSesh = allGoingToSesh;
 
     // CacheEngine
     // if (CacheEngine.get('seshActivity')){
@@ -285,7 +285,6 @@ angular
         .then(function(data) {
           CacheEngine.put('seshActivity', data);
           $scope.seshActivity = data.data;
-          window.glow = $scope.seshActivity;
         });
     // }
 
@@ -366,10 +365,27 @@ angular
           .then(function(data) {
             CacheEngine.put('seshActivity', data);
             $scope.seshActivity = data.data;
-            window.glow = $scope.seshActivity;
           });
         })
     }
+
+    function allGoingToSesh(id) {
+      console.log('new person going to this sesh:', id);
+      SessionService.getAllGoingToSesh(id)
+        .then(function(data) {
+          console.log('all going to sesh in ctrl:', data);
+          $scope.usersGoingToSesh = data;
+          // console.log('data', data.data.username);
+        })
+        // .then(function() {
+        //   SessionService.getSession()
+        //   .then(function(data) {
+        //     CacheEngine.put('seshActivity', data);
+        //     $scope.seshActivity = data.data;
+        //   });
+        // })
+    }
+    // allGoingToSesh();
 
 
   }); // end of SessionController
@@ -423,6 +439,10 @@ angular
       });
     }
     getCurrentUser();
+
+    $scope.$on('requestAmt:added', function () {
+      getCurrentUser();
+    })
 
     function getWeatherData() {
       console.log('in getWeatherData function');
@@ -42936,7 +42956,8 @@ angular
       return $http.get(allGoingToSeshUrl + '/' + id)
         .then(function (res) {
           $rootScope.$broadcast('session:allGoing');
-          console.log('all friends going to this sesh', res );
+          console.log('all going to sesh in service', res);
+          return res;
         })
     }
 
@@ -42945,7 +42966,8 @@ angular
       getSession: getSession,
       deleteSesh: deleteSesh,
       editSession: editSession,
-      joinSesh: joinSesh
+      joinSesh: joinSesh,
+      getAllGoingToSesh: getAllGoingToSesh
     };
 
   });

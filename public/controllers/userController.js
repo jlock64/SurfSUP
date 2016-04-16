@@ -47,6 +47,10 @@ angular
     }
     getCurrentUser();
 
+    $scope.$on('requestAmt:added', function () {
+      getCurrentUser();
+    })
+
     function getWeatherData() {
       console.log('in getWeatherData function');
       WeatherService.getWeather()
