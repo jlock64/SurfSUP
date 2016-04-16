@@ -16,6 +16,7 @@
                   >{{activity.time | date : 'EEEE, MMMM d, h:mm a'}}
       </a>
     </p>
+
     <span ng-controller="SessionController" >
       <button ng-click="allGoingToSesh(activity.id); showUsers = !showUsers" class="list-group-item-text">Who is going:</button>
       <!-- {{activity.id}} -->
@@ -26,11 +27,11 @@
         </li>
       </ul>
     </span>
-
     <button ng-controller="UserController" class="btn btn-xs btn-danger pull-right"
             type="button"
             ng-click="deleteSession(activity.id)"
-            ng-show="currentUser.username===activity.user.username"
+            ng-controller= "UserController"
+            ng-show="currentUser===activity.user.username"
             name="button"
             data-toggle="tooltip"
             data-placement="bottom"

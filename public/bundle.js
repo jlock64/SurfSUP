@@ -433,16 +433,15 @@ angular
 
     function getCurrentUser() {
       UserService.currentUser().then(function(data) {
-
-        $scope.currentUser = data.data;
-        console.log("Current User: ", data.data);
+        $scope.currentUser = data.data.username;
+        console.log("Current User: ", data.data.username);
       });
     }
     getCurrentUser();
 
     $scope.$on('requestAmt:added', function () {
       getCurrentUser();
-    })
+    });
 
     function getWeatherData() {
       console.log('in getWeatherData function');
@@ -42949,13 +42948,15 @@ angular
         .then(function (res) {
           $rootScope.$broadcast('session:joined');
           console.log('you joined this session bitch', res );
-        })
+
+        });
     }
 
     function getAllGoingToSesh (id) {
       return $http.get(allGoingToSeshUrl + '/' + id)
         .then(function (res) {
           $rootScope.$broadcast('session:allGoing');
+
           console.log('all going to sesh in service', res);
           return res;
         })
