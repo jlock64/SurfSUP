@@ -1,76 +1,66 @@
-  <div class="list-group">
-    <h5 class="list-group-item-heading"><span class="glyphicon glyphicon-user"
-          aria-hidden="true">
-    </span><strong>{{activity.user.username}}</strong> is going {{activity.isSurf ? 'Surfing' : 'Paddle Boarding'}}
+<!-- SESH INFORMATION -->
+<div class="list-group">
+    <h5 class="list-group-item-heading">
+        <span aria-hidden="true" class=
+        "glyphicon glyphicon-user">
+        </span>
+        <strong>{{activity.user.username}}
+        </strong> is going {{activity.isSurf ? 'Surfing' : 'Paddle Boarding'}}
     </h5>
-    <p class="list-group-item-text">Where:
-      <a href="#" editable-text="activity.location"
-                  onaftersave="editSession(activity)"
-                  >{{activity.location}}
-      </a>
-    </p>
-    <p class="list-group-item-text">When:
-      <a href="#" editable-combodate="activity.time"
-                  onaftersave="editSession(activity)"
-                  date-type="datetime"
-                  >{{activity.time | date : 'EEEE, MMMM d, h:mm a'}}
-      </a>
-    </p>
 
-    <span ng-controller="SessionController" >
-      <button ng-click="allGoingToSesh(activity.id); showUsers = !showUsers" class="list-group-item-text">Who is going:</button>
-      <!-- {{activity.id}} -->
+    <div class="edit-delete-sesh" ng-controller="UserController">
+        <p class="list-group-item-text" ng-if="currentUser.username!==activity.user.username">
+            Where: <a>&gt;{{activity.location}}</a>
+        </p>
 
-      <ul ng-if="showUsers">
-        <li ng-repeat="user in usersGoingToSesh.data">
-          {{user.username}}
+        <p class="list-group-item-text" ng-if="currentUser.username===activity.user.username">
+            Where: <a editable-text="activity.location" href="#" onaftersave=
+            "editSession(activity)">{{activity.location}}</a>
+        </p>
+
+        <p class="list-group-item-text">
+            When: <a date-type="datetime" editable-combodate="activity.time" href="#" onaftersave=
+            "editSession(activity)">{{activity.time | date : 'EEEE, MMMM d, h:mm a'}}</a>
+        </p>
+    </div>
+
+
+    <!-- JOINING SESH -->
+     <span ng-controller="SessionController"><button class="list-group-item-text" ng-click=
+    "allGoingToSesh(activity.id); showUsers = !showUsers"><span ng-controller=
+    "SessionController">Who is going:</span> <!-- {{activity.id}} -->
+
+    <ul ng-if="showUsers">
+        <li ng-repeat="user in usersGoingToSesh.data">{{user.username}}
         </li>
-      </ul>
-    </span>
-    <button ng-controller="UserController" class="btn btn-xs btn-danger pull-right"
-            type="button"
-            ng-click="deleteSession(activity.id)"
-            ng-controller= "UserController"
-            ng-show="currentUser.username===activity.user.username"
-            name="button"
-            data-toggle="tooltip"
-            data-placement="bottom"
-            onmouseenter="$(this).tooltip('show')"
-            title="Delete Session">
-      <span class="glyphicon glyphicon-remove"
-            aria-hidden="true">
-      </span>
-    </button>
-    <button class="btn btn-xs btn-success pull-right"
-            type="button"
-            ng-controller="SessionController"
-            ng-click="joinSession(activity.id)"
-            name="button"
-            data-toggle="tooltip"
-            onmouseenter="$(this).tooltip('show')"
-            title="Join Session">
-      <span class="glyphicon glyphicon-plus"
-            aria-hidden="true">
-      </span>
-    </button>
-  </div>
-</div>
+    </ul>
+  </button></span>
 
+
+    <!-- DELETING AND JOINING SESH BUTTONS -->
+     <button class="btn btn-xs btn-danger pull-right" data-placement="bottom" data-toggle="tooltip"
+    name="button" ng-click="deleteSession(activity.id)" ng-controller="UserController" ng-show=
+    "currentUser.username===activity.user.username" onmouseenter="$(this).tooltip('show')" title=
+    "Delete Session" type="button"><span aria-hidden="true" class=
+    "glyphicon glyphicon-remove"></span></button> <button class="btn btn-xs btn-success pull-right"
+    data-toggle="tooltip" name="button" ng-click="joinSession(activity.id)" ng-controller=
+    "SessionController" onmouseenter="$(this).tooltip('show')" title="Join Session" type=
+    "button"><span aria-hidden="true" class="glyphicon glyphicon-plus"></span></button>
+</div>
 <!-- if (today.getDay() === new Date().getDay()) {
   console.log('today is today')
 }
 VM2977:3 today is today -->
-
-  <!-- <span>{{activity.user.username}} is going {{activity.isSurf ? 'Surfing' : 'Paddle Boarding'}}</span> -->
-  <!-- <span> at </span> -->
-  <!-- <a href="#" editable-text="activity.location"
+<!-- <span>{{activity.user.username}} is going {{activity.isSurf ? 'Surfing' : 'Paddle Boarding'}}</span> -->
+<!-- <span> at </span> -->
+<!-- <a href="#" editable-text="activity.location"
               onaftersave="editSession(activity)">{{activity.location}}</a> -->
-  <!-- <span> on </span> -->
-  <!-- <a href="#" editable-combodate="activity.time"
+<!-- <span> on </span> -->
+<!-- <a href="#" editable-combodate="activity.time"
               onaftersave="editSession(activity)"
               date-type="datetime"
               >{{activity.time | date : 'EEEE, MMMM d, h:mm a'}}</a> -->
-  <!-- <button class="btn btn-xs btn-warning"
+<!-- <button class="btn btn-xs btn-warning"
           type="button"
           ng-click="editSession(activity.user.id)"
           name="button">Edit

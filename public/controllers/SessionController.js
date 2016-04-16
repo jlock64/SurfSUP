@@ -78,11 +78,16 @@ angular
       });
     });
 
-    // editedSession
+    // EDIT SESSION
     function editSession(id,location) {
       console.log('location',location);
       SessionService.editSession(id,location);
     }
+
+    //ONLY LET CURRENT USER EDIT SESSION
+
+
+
 
     //Changing Color when SUP/SURF is clicked
   	$scope.isActiveSurf = false;
