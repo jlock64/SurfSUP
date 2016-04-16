@@ -3,7 +3,6 @@ require('angular-route');
 require('angular-ui-mask');
 require('./xeditable');
 require('jquery');
-require('google-maps');
 // require('moment');
 
 
@@ -12,7 +11,7 @@ angular
     'ngRoute',
     'ui.mask',
     'xeditable',
-    'google-maps'])
+    ])
 
   .config(function($routeProvider) {
     $routeProvider
