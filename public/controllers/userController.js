@@ -11,6 +11,7 @@ angular
     $scope.submitForm = submitForm;
     $scope.getWeatherData = getWeatherData;
     $scope.getCurrentUser = getCurrentUser;
+  
 
     // LOGIN PAGE
     function login() {
@@ -50,6 +51,7 @@ angular
     $scope.$on('requestAmt:added', function () {
       getCurrentUser();
     });
+
 
     //GET WEATHER DATA
     function getWeatherData() {

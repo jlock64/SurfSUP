@@ -3,6 +3,7 @@ require('angular-route');
 require('angular-ui-mask');
 require('./xeditable');
 require('jquery');
+require('google-maps');
 // require('moment');
 
 
@@ -10,7 +11,8 @@ angular
   .module('surfSup', [
     'ngRoute',
     'ui.mask',
-    'xeditable'])
+    'xeditable',
+    'google-maps'])
 
   .config(function($routeProvider) {
     $routeProvider

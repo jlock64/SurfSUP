@@ -28,6 +28,6 @@ angular
       addAcct: addAcct,
       loginUser: loginUser,
       logoutUser: logoutUser,
-      currentUser: currentUser
+      currentUser: currentUser,
     };
   });
