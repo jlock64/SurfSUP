@@ -40,18 +40,15 @@ angular
 
     function getCurrentUser() {
       UserService.currentUser().then(function(data) {
-
-
-        $scope.currentUser = data.data;
-        console.log("Current User: ", data.data);
-
+        $scope.currentUser = data.data.username;
+        console.log("Current User: ", data.data.username);
       });
     }
     getCurrentUser();
 
     $scope.$on('requestAmt:added', function () {
       getCurrentUser();
-    })
+    });
 
     function getWeatherData() {
       console.log('in getWeatherData function');
