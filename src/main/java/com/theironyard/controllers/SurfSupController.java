@@ -62,7 +62,7 @@ public class SurfSupController {
         dbui.stop();
     }
 
-    // CREATE A USER
+    // CREATES A USER
     @RequestMapping(path = "/user", method = RequestMethod.POST)
     public User createUser (@RequestBody User user, HttpSession session) throws Exception {
         if (users.findByUsername(user.getUsername()) == null) {
@@ -100,7 +100,7 @@ public class SurfSupController {
         return null;
     }
 
-    // CREATE SESH
+    // CREATE A SESH
     @RequestMapping(path = "/sesh", method = RequestMethod.POST)
     public Sesh addSesh (@RequestBody Sesh sesh, HttpSession session) {
         User user = users.findByUsername((String) session.getAttribute("username"));
@@ -113,7 +113,7 @@ public class SurfSupController {
         return sesh;
     }
 
-    // UPLOAD PROFILE PICTURE (WHEN ALREADY LOGGED IN)
+    // UPLOAD PROFILE PICTURE (IF ALREADY LOGGED IN)
     @RequestMapping(path = "/upload", method = RequestMethod.POST)
     public void addProfile (@RequestBody MultipartFile photo, HttpSession session) throws IOException {
         User existing = users.findByUsername((String) session.getAttribute("username"));
@@ -129,11 +129,19 @@ public class SurfSupController {
         users.save(existing);
     }
 
-    //SEND FRIEND REQUEST (CREATES FRIEND OBJECT)
+    /**
+     * This will create a Friend object (User requester, User responder). Does not set the parameter
+     * isAccepted (this boolean is only changed when the friend request is accepted). The @RequestBody
+     * String username refers to the username of the approver.
+     * @param session
+     * @param username
+     * @throws Exception
+     */
+    //SEND FRIEND REQUEST
     @RequestMapping(path = "/friend", method = RequestMethod.POST)
-    public void createFriend (HttpSession session, @RequestBody String usernameB) throws Exception {
+    public void createFriend (HttpSession session, @RequestBody String username) throws Exception {
         User requester = users.findByUsername((String) session.getAttribute("username"));
-        User approver = users.findByUsername(usernameB);
+        User approver = users.findByUsername(username);
         Friend friend = new Friend (requester, approver);
         if (friends.findFirstByRequesterAndApprover(requester, approver) == null){
             friends.save(friend);
@@ -142,11 +150,18 @@ public class SurfSupController {
         }
     }
 
+    /**
+     * This will create the reciprocal of the Friend object created by method: createFriend.
+     * This created object will have its boolean parameter, isAccepted, set to TRUE.
+     * @param session
+     * @param username
+     * @throws Exception
+     */
     //ACCEPTS FRIEND REQUEST
     @RequestMapping(path = "/friend/friend", method = RequestMethod.POST)
-    public void acceptFriend (HttpSession session, @RequestBody String usernameB) throws Exception {
+    public void acceptFriend (HttpSession session, @RequestBody String username) throws Exception {
         User requester = users.findByUsername((String) session.getAttribute("username"));
-        User approver = users.findByUsername(usernameB);
+        User approver = users.findByUsername(username);
         Friend friend = new Friend (requester, approver);
         if (friends.findFirstByRequesterAndApprover(requester, approver) == null){
             friend.setIsApproved(true);
@@ -156,7 +171,7 @@ public class SurfSupController {
         }
     }
 
-    //INVITE FRIENDS TO JOIN SESH (ID = USER BEING INVITED'S ID)
+    //INVITE FRIENDS TO JOIN A SESH (ID = USER BEING INVITED'S ID)
     @RequestMapping(path = "/join/{userId}/{seshId}", method = RequestMethod.POST)
     public void inviteFriendToJoin (@PathVariable("userId") int userId, @PathVariable("seshId") int seshId) {
         User invitedUser = users.findOne(userId);
@@ -197,7 +212,7 @@ public class SurfSupController {
         return username;
     }
 
-    //CURRENT USER
+    //RETURNS CURRENT USER
     @RequestMapping(path = "/currentUser", method = RequestMethod.GET)
     public User loggedInUser (HttpSession session) {
         User user = users.findByUsername((String) session.getAttribute("username"));
@@ -223,6 +238,14 @@ public class SurfSupController {
         User user = users.findOne(id);
         List<Sesh> list = seshs.findAllByUser(user);
         return list;
+    }
+
+    //DISPLAY CURRENT USERS SESHS
+    @RequestMapping(path = "currentUser/{id}", method = RequestMethod.GET)
+    public List<Sesh> currentUsersSeshs (HttpSession session) {
+        User user = users.findByUsername((String) session.getAttribute("username"));
+        List<Sesh> userSeshs = seshs.findAllByUser(user);
+        return userSeshs;
     }
 
     //DISPLAY SESHS BY THE CURRENT USER AND HIS/HER FRIENDS
@@ -369,23 +392,24 @@ public class SurfSupController {
 
     //EDIT EXISTING SESH
     @RequestMapping(path = "/sesh", method = RequestMethod.PUT)
-    public void editSesh (@RequestBody Sesh sesh) {
+    public void editSesh (@RequestBody Sesh sesh, HttpSession session) {
+        User user = users.findByUsername((String) session.getAttribute("username"));
+
         seshs.save(sesh);
     }
 
-    //ALTERNATIVE EDIT SESH
-    @RequestMapping(path = "/sesh/{id}", method = RequestMethod.PUT)
-    public void editSesh2 (@RequestBody Sesh newSesh, @PathVariable("id") int id) {
-        seshs.save(newSesh);
-    }
-
-    //DELETE SESSION
+    //DELETE A SESSION
     @RequestMapping(path = "/sesh/{id}", method = RequestMethod.DELETE)
     public void deleteSesh (@PathVariable("id") int id) {
         Sesh sesh = seshs.findOne(id);
         seshs.delete(sesh);
     }
 
+    /**
+     * This will remove two Friend objects: the original and its reciprocal.
+     * @param id
+     * @param session
+     */
     //REMOVE SOMEONE FROM FRIENDS LIST
     @RequestMapping(path = "/friend/{id}", method = RequestMethod.DELETE)
     public void removeFriend (@PathVariable("id") int id, HttpSession session) {
