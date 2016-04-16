@@ -10,7 +10,7 @@
 
     <div class="edit-delete-sesh" ng-controller="UserController">
         <p class="list-group-item-text" ng-if="currentUser.username!==activity.user.username">
-            Where: <a>&gt;{{activity.location}}</a>
+            Where: <a>{{activity.location}}</a>
         </p>
 
         <p class="list-group-item-text" ng-if="currentUser.username===activity.user.username">
@@ -18,7 +18,10 @@
             "editSession(activity)">{{activity.location}}</a>
         </p>
 
-        <p class="list-group-item-text">
+        <p class="list-group-item-text" ng-if="currentUser.username!==activity.user.username">
+            When: <a date-type="datetime" >{{activity.time | date : 'EEEE, MMMM d, h:mm a'}}</a>
+        </p>
+        <p class="list-group-item-text" ng-if="currentUser.username===activity.user.username">
             When: <a date-type="datetime" editable-combodate="activity.time" href="#" onaftersave=
             "editSession(activity)">{{activity.time | date : 'EEEE, MMMM d, h:mm a'}}</a>
         </p>
