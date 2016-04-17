@@ -368,8 +368,8 @@ angular
         isSurf: $scope.suppy,
         //we'll need a LONG and LAT and maybe keep LOCATION for typing in
         location: $scope.location,
-        lat: $scope.map.markers[0].coords.latitude,
-        lon: $scope.map.markers[0].coords.longitude,
+        // lat: $scope.map.markers[0].coords.latitude,
+        // lon: $scope.map.markers[0].coords.longitude,
       };
         console.log("session obj", $scope.sessionObjs);
         SessionService.addSession($scope.sessionObjs).then(function(res){
