@@ -50,32 +50,16 @@ public class Sesh {
         return location;
     }
 
-    public void setLocation(String location) {
-        this.location = location;
-    }
-
     public User getUser() {
         return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
     }
 
     public String getTime() {
         return time;
     }
 
-    public void setTime(String time) {
-        this.time = time;
-    }
-
     public Boolean getIsSurf() {
         return isSurf;
-    }
-
-    public void setIsSurf(Boolean surf) {
-        isSurf = surf;
     }
 
     public int getId() {
@@ -86,12 +70,28 @@ public class Sesh {
         return lat;
     }
 
-    public void setLat(double lat) {
-        this.lat = lat;
-    }
-
     public double getLon() {
         return lon;
+    }
+
+    public void setLocation(String location) {
+        this.location = location;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public void setTime(String time) {
+        this.time = time;
+    }
+
+    public void setIsSurf(Boolean surf) {
+        isSurf = surf;
+    }
+
+    public void setLat(double lat) {
+        this.lat = lat;
     }
 
     public void setLon(double lon) {

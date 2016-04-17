@@ -390,10 +390,20 @@ public class SurfSupController {
         return joined;
     }
 
+    //RETURNS A SINGLE SESH OBJECT (ID = SESH ID)
+    @RequestMapping(path = "/sesh/{id}/coords", method = RequestMethod.GET)
+    public Sesh oneSesh (@PathVariable("id") int id) {
+        Sesh s = seshs.findOne(id);
+        return s;
+    }
+
     //EDIT EXISTING SESH
     @RequestMapping(path = "/sesh", method = RequestMethod.PUT)
     public void editSesh (@RequestBody Sesh sesh, HttpSession session) {
-        seshs.save(sesh);
+        User u = users.findByUsername((String) session.getAttribute("username"));
+        if (u.getId() == sesh.getUser().getId()) {
+            seshs.save(sesh);
+        }
     }
 
     //DELETE A SESSION
