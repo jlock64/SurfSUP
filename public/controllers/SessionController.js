@@ -1,6 +1,6 @@
 angular
   .module('surfSup')
-  .controller('SessionController', function($scope, $location, SessionService, CacheEngine, $rootScope) {
+  .controller('SessionController', function($scope, $location, SessionService, CacheEngine, $rootScope, UserService) {
     console.log("CALLING ALL SESH");
     $location.path() === "/login" || $location.path() === "/create" ? $rootScope.showBar = false : $rootScope.showBar = true;
     $scope.addSesh = addSesh;
@@ -12,6 +12,8 @@ angular
     $scope.joinSession = joinSession;
     $scope.allGoingToSesh = allGoingToSesh;
     $scope.location = [];
+    $scope.getCurrentUser = getCurrentUser;
+    $scope.showMap = showMap;
 
     // CacheEngine
     // if (CacheEngine.get('seshActivity')){
@@ -172,37 +174,51 @@ angular
       }
   }
   };
-  //GOOGLE MAP
-  // angular.extend($scope, {
-  //     map: {
-  //         center: {
-  //             latitude: 32.7799400,
-  //             longitude:-79.9341970
-  //         },
-  //         zoom: 11,
-  //         markers: [],
-  //         events: {
-  //         click: function (map, eventName, originalEventArgs) {
-  //             var e = originalEventArgs[0];
-  //             var lat = e.latLng.lat(),lon = e.latLng.lng();
-  //             var marker = {
-  //                 id: Date.now(),
-  //                 coords: {
-  //                     latitude: lat,
-  //                     longitude: lon
-  //                 }
-  //             };
-  //             $scope.map.markers.push(marker);
-  //             console.log('MARKERS:', $scope.map.markers.markers);
-  //             window.glow = $scope.map.markers;
-  //             $scope.mapCoords = $scope.map.markers;
-  //             $scope.$apply();
-  //         }
-  //     }
-  //     }
-  // });
+
+  function showMap () {
+    console.log("show map is working");
+    var item = {
+       coordinates: [$scope.seshActivity.lat, $scope.seshActivity.lon]
+   };
+   console.log("LAT AND LON IN SHOW MAP", $scope.seshActivity);
+
+  //  var woa = {
+  //      city: 'This is my marker. There are many like it but this one is mine.'
+  //  };
+   //
+   //
+  //  //set up map
+  //  var mapOptions = {
+  //      zoom: 11,
+  //      center: new google.maps.LatLng(40.0000, -98.0000),
+  //      mapTypeId: google.maps.MapTypeId.TERRAIN
+  //  };
+   //
+  //  $scope.mymapdetail = new google.maps.Map(document.getElementById('map'), mapOptions);
+   //
+  //  //add marker
+  //  $scope.mymarker = new google.maps.Marker({
+  //      map: $scope.mymapdetail,
+  //      animation: google.maps.Animation.DROP,
+  //      position: new google.maps.LatLng(item.coordinates[0], item.coordinates[1]),
+  //      title: woa.city
+  //  });
+  };
 
 
 
+
+  // GET CURRENT USER
+  function getCurrentUser() {
+    UserService.currentUser().then(function(data) {
+      $scope.currentUser = data.data;
+      console.log("Current User: ", data.data);
+    });
+  };
+  getCurrentUser();
+
+  $scope.$on('requestAmt:added', function () {
+    getCurrentUser();
+  });
 
   }); // end of SessionController
