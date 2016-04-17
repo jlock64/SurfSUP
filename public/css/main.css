@@ -110,6 +110,9 @@ body {
   width: 15.625em;
   /*should match the above value*/ }
 
+.angular-google-map-container {
+  height: 400px; }
+
 form {
   max-width: 330px;
   padding: 15px;
