@@ -2,7 +2,7 @@ angular
 .module ('surfSup')
 .directive ('mapReader', function (){
   return {
-    templateUrl: '../templates/map.html',
+    templateUrl: '../templates/map-reader.html',
     controller: 'SessionController',
     restrict: 'E',
     scope: {
