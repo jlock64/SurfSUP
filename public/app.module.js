@@ -3,6 +3,9 @@ require('angular-route');
 require('angular-ui-mask');
 require('./xeditable');
 require('jquery');
+require ('angular-google-maps');
+require ('lodash');
+require ('angular-simple-logger');
 // require('moment');
 
 
@@ -10,9 +13,14 @@ angular
   .module('surfSup', [
     'ngRoute',
     'ui.mask',
-    'xeditable'])
+    'xeditable',
+    'uiGmapgoogle-maps'
+    ])
 
-  .config(function($routeProvider) {
+  .config(function(uiGmapGoogleMapApiProvider, $routeProvider) {
+    uiGmapGoogleMapApiProvider.configure({
+       key: 'AIzaSyDMEhJv69yLhVNwUj0irIUPSbVCOnXNlYM',
+      });
     $routeProvider
       .when('/home', {
         templateUrl: "templates/homepage.html",
@@ -49,6 +57,10 @@ angular
         templateUrl: "templates/userProfilePage.html",
         controller: "ProfileController"
       })
+      .when('/maptest', {
+        templateUrl: "templates/map.html",
+        controller: "MapController"
+      });
   })
   .run (function(editableOptions) {
   editableOptions.theme = 'bs3'; // bootstrap3 theme. Can be also 'bs2', 'default'
@@ -63,6 +75,7 @@ require('./controllers/userController');
 require('./controllers/sessionController');
 require('./controllers/friendController');
 require('./controllers/navbar.controller');
+require('./controllers/mapController');
 require ('./directives/sessionDirective');
-require ('./directives/friendAcceptDirective');
+require ('./directives/mapDirective');
 require('./controllers/profile.controller');

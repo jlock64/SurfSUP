@@ -11,6 +11,7 @@ angular
     $scope.submitForm = submitForm;
     $scope.getWeatherData = getWeatherData;
     $scope.getCurrentUser = getCurrentUser;
+  
 
     // LOGIN PAGE
     function login() {
@@ -38,15 +39,21 @@ angular
       });
     }
 
+    // GET CURRENT USER
     function getCurrentUser() {
       UserService.currentUser().then(function(data) {
-
         $scope.currentUser = data.data;
         console.log("Current User: ", data.data);
       });
     }
     getCurrentUser();
 
+    $scope.$on('requestAmt:added', function () {
+      getCurrentUser();
+    });
+
+
+    //GET WEATHER DATA
     function getWeatherData() {
       console.log('in getWeatherData function');
       WeatherService.getWeather()

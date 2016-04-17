@@ -5,14 +5,17 @@
   "main": "index.js",
   "dependencies": {
     "angular": "^1.5.3",
+    "angular-google-maps": "^2.3.2",
     "angular-messages": "^1.5.3",
     "angular-route": "^1.5.3",
+    "angular-simple-logger": "^0.1.7",
     "angular-ui-mask": "^1.8.3",
     "angular-xeditable": "^0.1.11",
     "bigslide": "^0.10.0",
     "bootstrap": "^3.3.6",
     "eonasdan-bootstrap-datetimepicker": "^4.15.35",
     "jquery": "^2.2.3",
+    "lodash": "^4.11.1",
     "moment": "^2.12.0",
     "serve": "^1.4.0",
     "underscore": "^1.8.3"

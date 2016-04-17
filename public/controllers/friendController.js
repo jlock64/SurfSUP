@@ -7,7 +7,7 @@ angular
 
 
     $scope.searchFriends = searchFriends;
-    $scope.sendInvite = sendInvite;
+    // $scope.sendInvite = sendInvite;
     $scope.getRequestList = getRequestList;
     $scope.getFriendsList = getFriendsList;
     $scope.denyFriendRequest = denyFriendRequest;
@@ -82,22 +82,21 @@ angular
     .then(function(data) {
       // CacheEngine.put('seshActivity', data);
       $scope.listUsers = data.data;
-      window.glow = data;
       // console.log('users list is working,', data);
     });
 
     // SEND INVITATION TO FRIEND
-    function sendInvite (username) {
-      // console.log(username);
-      FriendService.friendInvitation(username)
-      .success(function(data) {
-        console.log('send invite is working,', data);
-      })
-      .error (function(err) {
-        console.log('this friend has already been invited', err);
-        $('#requestFriendAlert').html('<div class="alert alert-danger" role="alert">You have already sent this friend a request.</div>');
-      });
-    }
+    // function sendInvite (username) {
+    //   // console.log(username);
+    //   FriendService.friendInvitation(username)
+    //   .success(function(data) {
+    //     console.log('send invite is working,', data);
+    //   })
+    //   .error (function(err) {
+    //     console.log('this friend has already been invited', err);
+    //     $('#requestFriendAlert').html('<div class="alert alert-danger" role="alert">You have already sent this friend a request.</div>');
+    //   });
+    // }
 
     // ACCEPT FRIEND INVITE
     function acceptInvite (username) {
@@ -139,7 +138,7 @@ angular
       // GET USER PROFILE FOR PROFILE PAGE
       function profilePage(id) {
         console.log('ID', id);
-        $location.path('/profile/' + id);  
+        $location.path('/profile/' + id);
       }
 
   }); // end of FriendController
