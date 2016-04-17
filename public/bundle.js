@@ -333,7 +333,7 @@ angular
 angular
   .module('surfSup')
   .controller('SessionController', function($scope, $location, SessionService, CacheEngine, $rootScope) {
-
+    console.log("CALLING ALL SESH");
     $location.path() === "/login" || $location.path() === "/create" ? $rootScope.showBar = false : $rootScope.showBar = true;
     $scope.addSesh = addSesh;
     $scope.deleteSession = deleteSession;
@@ -343,6 +343,7 @@ angular
     $scope.buttonsClicked = false;
     $scope.joinSession = joinSession;
     $scope.allGoingToSesh = allGoingToSesh;
+    $scope.location = [];
 
     // CacheEngine
     // if (CacheEngine.get('seshActivity')){
@@ -361,13 +362,17 @@ angular
 
     // addSesh
     function addSesh () {
+      console.log("SCOPE LOCATION", $scope.location);
       $scope.sessionObjs = {
         time: $scope.time ? $scope.time.toISOString().slice(0,19) : "",
         isSurf: $scope.suppy,
-        location: $scope.map.center.latitude
+        //we'll need a LONG and LAT and maybe keep LOCATION for typing in
+        location: $scope.location,
+        lat: $scope.map.markers[0].coords.latitude,
+        lon: $scope.map.markers[0].coords.longitude,
       };
-      console.log("session obj", $scope.sessionObjs);
-      SessionService.addSession($scope.sessionObjs).then(function(res){
+        console.log("session obj", $scope.sessionObjs);
+        SessionService.addSession($scope.sessionObjs).then(function(res){
         console.log('session created', res);
         $location.path('/sessions');
         // $scope.$apply();
@@ -384,6 +389,7 @@ angular
       .then(function(data) {
         $scope.seshActivity = data.data;
         console.log('it was added!', data);
+        console.log("Markers:, ", $scope.map.markers);
       });
     });
 
@@ -471,6 +477,7 @@ angular
       markers: [],
       events: {
       click: function (map, eventName, originalEventArgs) {
+          $scope.$apply(function(){
           var e = originalEventArgs[0];
           var lat = e.latLng.lat(),lon = e.latLng.lng();
           var marker = {
@@ -480,10 +487,16 @@ angular
                   longitude: lon
               }
           };
+          $scope.location.push({
+            lat: lat,
+            lon: lon
+          });
+          console.log("location: ", $scope.location);
+          $scope.map.markers.pop(); //only can add one marker
           $scope.map.markers.push(marker);
           console.log('MARKERS:', $scope.map.markers);
           window.glow = $scope.map.markers;
-          $scope.$apply();
+        });
       }
   }
   };
@@ -599,7 +612,7 @@ angular
 .directive ('mapReader', function (){
   return {
     templateUrl: '../templates/map-reader.html',
-    controller: 'SessionController',
+    // controller: 'SessionController',
     restrict: 'E',
     scope: {
     }
