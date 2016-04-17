@@ -31,6 +31,8 @@ angular
     // }
 
     // addSesh
+
+
     function addSesh () {
       console.log("SCOPE LOCATION", $scope.location);
       $scope.sessionObjs = {
@@ -95,8 +97,6 @@ angular
     //ONLY LET CURRENT USER EDIT SESSION
 
 
-
-
     //Changing Color when SUP/SURF is clicked
   	$scope.isActiveSurf = false;
     function activeButtonSurf () {
@@ -114,10 +114,14 @@ angular
       SessionService.joinSesh(id)
         .then(function() {
           SessionService.getSession()
-          .then(function(data) {
+          .success(function(data) {
             CacheEngine.put('seshActivity', data);
             $scope.seshActivity = data.data;
-          });
+          })
+          .error(function(err) {
+            console.log('you are already going to this sesh', err);
+            $('.alreadyJoined').html('<div class="alert alert-danger" role="alert"><strong>Oh no!</strong> The username and password do not match. Try again.</div>');
+          })
         })
     }
 

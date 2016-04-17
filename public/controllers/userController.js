@@ -11,7 +11,7 @@ angular
     $scope.submitForm = submitForm;
     $scope.getWeatherData = getWeatherData;
     $scope.getCurrentUser = getCurrentUser;
-  
+
 
     // LOGIN PAGE
     function login() {

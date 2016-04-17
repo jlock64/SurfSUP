@@ -1,5 +1,20 @@
 <h1>WELCOME TO SESSIONS, {{currentUser.username}}</h1>
 <h6>(edit your session by clicking links)</h6>
+<div class="todaySessions">
+  <h2>TODAY'S SESSIONS</h2>
+  <div  ng-repeat="seshActivities in seshActivity | orderBy: 'time '">
+    <session-reader activity = "seshActivities"> </session-reader>
+  </div>
+  <a href="/#/addSession">
+    <button class="btn btn-success"
+            type="button"
+            name="button">Add a session
+    </button>
+  </a>
+</div>
+
+<div class="futureSessions">
+  <h2>FUTURE SESSIONS</h2>
 <hr>
 
 <div  ng-repeat="seshActivities in seshActivity | orderBy: 'time '">
@@ -68,7 +83,7 @@
           type="button"
           name="button">Add a session
   </button>
-</a>
+</a> -->
 
 <!-- if (today.getDay() === new Date().getDay()) {
   console.log('today is today')
