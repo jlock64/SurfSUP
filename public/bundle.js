@@ -75449,7 +75449,7 @@ angular
     function editSession (session) {
         console.log('in editSession', session);
         console.log('this is the id:', session.id);
-        var editUrl = sessionUrl + "/" + session.id;
+        var editUrl = sessionUrl;
         return $http.put(editUrl, session);
     }
 
