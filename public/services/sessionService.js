@@ -5,7 +5,8 @@ angular
     var sessionUrl = '/sesh';
     var allGoingToSeshUrl = '/sesh';
     var friendSeshUrl = '/user/friend/sesh';
-    var joinSessionUrl = '/join'
+    var joinSessionUrl = '/join';
+    var coordsUrl = '/sesh';
 
     function addSession (info) {
       return $http.post(sessionUrl, info)
@@ -54,7 +55,15 @@ angular
 
           console.log('all going to sesh in service', res);
           return res;
-        })
+        });
+    }
+    function getCoords (id) {
+      var defer = $q.defer();
+      $http.get(coordsUrl + '/' + id + '/coords')
+      .then(function(data) {
+        defer.resolve(data);
+      });
+      return defer.promise;
     }
 
     return {
@@ -63,7 +72,8 @@ angular
       deleteSesh: deleteSesh,
       editSession: editSession,
       joinSesh: joinSesh,
-      getAllGoingToSesh: getAllGoingToSesh
+      getAllGoingToSesh: getAllGoingToSesh,
+      getCoords: getCoords
     };
 
   });
