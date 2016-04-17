@@ -2,7 +2,7 @@
 <form class="form" name="form" novalidate>
   <h1>Add Session</h1>
   <div class="form-group">
-    <button ng-model="surf.surf" class="surf-sup-button" ng-class="{'active': isActiveSurf}" type="button" ng-click="suppy = true; activeButtonSurf()" name="button">Surf</button>
+    <button class="surf-sup-button" ng-class="{'active': isActiveSurf}" type="button" ng-click="suppy = true; activeButtonSurf()" name="button">Surf</button>
     <button class="surf-sup-button" ng-class="{'active': isActiveSUP}" type="button" ng-click="suppy = false; activeButtonSUP()" name="button">SUP</button>
   </div>
   <div ng-show="submitted && !buttonsClicked" >
@@ -11,6 +11,10 @@
     </div>
   </div>
   </br>
+
+  <!-- MAP READER -->
+  <map-reader></map-reader>
+
   <div class="form-group" >
     <input class="form-control" ng-model="location" type="text" name="location" placeholder="Enter Location" required>
   </div>

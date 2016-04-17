@@ -35,6 +35,7 @@ angular
         location: $scope.location
       };
       console.log("session obj", $scope.sessionObjs);
+      console.log("map coords: ", $scope.map.markers);
       SessionService.addSession($scope.sessionObjs).then(function(res){
         console.log('session created', res);
         $location.path('/sessions');
@@ -130,6 +131,35 @@ angular
         // })
     }
     // allGoingToSesh();
+
+  //GOOGLE MAP
+  angular.extend($scope, {
+      map: {
+          center: {
+              latitude: 32.7799400,
+              longitude:-79.9341970
+          },
+          zoom: 11,
+          markers: [],
+          events: {
+          click: function (map, eventName, originalEventArgs) {
+              var e = originalEventArgs[0];
+              var lat = e.latLng.lat(),lon = e.latLng.lng();
+              var marker = {
+                  id: Date.now(),
+                  coords: {
+                      latitude: lat,
+                      longitude: lon
+                  }
+              };
+              $scope.map.markers.push(marker);
+              console.log('MARKERS:', $scope.map.markers);
+              window.glow = $scope.map.markers;
+              $scope.$apply();
+          }
+      }
+      }
+  });
 
 
   }); // end of SessionController
