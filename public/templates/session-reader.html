@@ -45,10 +45,18 @@
     name="button" ng-click="deleteSession(activity.id)" ng-controller="UserController" ng-show=
     "currentUser.username===activity.user.username" onmouseenter="$(this).tooltip('show')" title=
     "Delete Session" type="button"><span aria-hidden="true" class=
-    "glyphicon glyphicon-remove"></span></button> <button class="btn btn-xs btn-success pull-right"
+    "glyphicon glyphicon-remove"></span></button>
+
+    <button class="btn btn-xs btn-success pull-right"
     data-toggle="tooltip" name="button" ng-click="joinSession(activity.id)" ng-controller=
     "SessionController" onmouseenter="$(this).tooltip('show')" title="Join Session" type=
     "button"><span aria-hidden="true" class="glyphicon glyphicon-plus"></span></button>
+    <!-- <div class="alreadyJoined"></div>
+    <div ng-show="" >
+      <div class="alert alert-danger">
+        You are already going
+      </div>
+    </div> -->
 </div>
 <!-- if (today.getDay() === new Date().getDay()) {
   console.log('today is today')
