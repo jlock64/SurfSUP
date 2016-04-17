@@ -282,6 +282,7 @@ Nicholas McCready - https://twitter.com/nmccready
 
             return uiGmapInfoBox;
 
+<<<<<<< HEAD
           })(window.InfoBox);
           window.uiGmapInfoBox = uiGmapInfoBox;
         }
@@ -313,6 +314,23 @@ Nicholas McCready - https://twitter.com/nmccready
 }).call(this);
 ;
 /*global _:true, angular:true */
+=======
+},{}],6:[function(require,module,exports){
+angular
+  .module('surfSup')
+  .controller('SessionController', function($scope, $location, SessionService, CacheEngine, $rootScope) {
+    console.log("CALLING ALL SESH");
+    $location.path() === "/login" || $location.path() === "/create" ? $rootScope.showBar = false : $rootScope.showBar = true;
+    $scope.addSesh = addSesh;
+    $scope.deleteSession = deleteSession;
+    $scope.editSession = editSession;
+    $scope.activeButtonSurf = activeButtonSurf;
+    $scope.activeButtonSUP = activeButtonSUP;
+    $scope.buttonsClicked = false;
+    $scope.joinSession = joinSession;
+    $scope.allGoingToSesh = allGoingToSesh;
+    $scope.location = [];
+>>>>>>> 3ab949c6a0c72abad0d474b86360dbbd53a58561
 
 (function() {
   angular.module('uiGmapgoogle-maps.extensions').service('uiGmapLodash', function() {
@@ -372,6 +390,7 @@ Nicholas McCready - https://twitter.com/nmccready
     });
     if (_.get == null) {
 
+<<<<<<< HEAD
       /**
        * Converts `value` to an object if it's not one.
        *
@@ -402,6 +421,40 @@ Nicholas McCready - https://twitter.com/nmccready
           return value + '';
         }
       };
+=======
+    // addSesh
+    function addSesh () {
+      console.log("SCOPE LOCATION", $scope.location);
+      $scope.sessionObjs = {
+        time: $scope.time ? $scope.time.toISOString().slice(0,19) : "",
+        isSurf: $scope.suppy,
+        //we'll need a LONG and LAT and maybe keep LOCATION for typing in
+        location: $scope.location,
+        lat: $scope.map.markers[0].coords.latitude,
+        lon: $scope.map.markers[0].coords.longitude,
+      };
+        console.log("session obj", $scope.sessionObjs);
+        SessionService.addSession($scope.sessionObjs).then(function(res){
+        console.log('session created', res);
+        $location.path('/sessions');
+        // $scope.$apply();
+      });
+      // .error(function(err) {
+      //   console.log('doh', err);
+      //   $('#sessionTime').html('<div class="alert alert-danger" role="alert"><strong>Oh no!</strong> The username and password do not match. Try again.</div>');
+      // });
+    }
+
+    // addSesh update
+    $scope.$on('session:added', function() {
+      SessionService.getSession()
+      .then(function(data) {
+        $scope.seshActivity = data.data;
+        console.log('it was added!', data);
+        console.log("Markers:, ", $scope.map.markers);
+      });
+    });
+>>>>>>> 3ab949c6a0c72abad0d474b86360dbbd53a58561
 
       /**
        * Converts `value` to property path array if it's not one.
@@ -649,6 +702,7 @@ Nicholas McCready - https://twitter.com/nmccready
         }
       };
 
+<<<<<<< HEAD
       /*
       From a High Level:
         This is a SniffedPromiseQueueManager (looking to rename) where the queue is existingPiecesObj.existingPieces.
@@ -785,6 +839,133 @@ Nicholas McCready - https://twitter.com/nmccready
         }
         return cb(array, keys);
       };
+=======
+    function allGoingToSesh(id) {
+      console.log('new person going to this sesh:', id);
+      SessionService.getAllGoingToSesh(id)
+        .then(function(data) {
+          console.log('all going to sesh in ctrl:', data);
+          $scope.usersGoingToSesh = data;
+          // console.log('data', data.data.username);
+        })
+        // .then(function() {
+        //   SessionService.getSession()
+        //   .then(function(data) {
+        //     CacheEngine.put('seshActivity', data);
+        //     $scope.seshActivity = data.data;
+        //   });
+        // })
+
+    }
+    $scope.map = {
+      center: {
+          latitude: 32.7799400,
+          longitude:-79.9341970
+      },
+      zoom: 11,
+      markers: [],
+      events: {
+      click: function (map, eventName, originalEventArgs) {
+          $scope.$apply(function(){
+          var e = originalEventArgs[0];
+          var lat = e.latLng.lat(),lon = e.latLng.lng();
+          var marker = {
+              id: Date.now(),
+              coords: {
+                  latitude: lat,
+                  longitude: lon
+              }
+          };
+          $scope.location.push({
+            lat: lat,
+            lon: lon
+          });
+          console.log("location: ", $scope.location);
+          $scope.map.markers.pop(); //only can add one marker
+          $scope.map.markers.push(marker);
+          console.log('MARKERS:', $scope.map.markers);
+          window.glow = $scope.map.markers;
+        });
+      }
+  }
+  };
+  //GOOGLE MAP
+  // angular.extend($scope, {
+  //     map: {
+  //         center: {
+  //             latitude: 32.7799400,
+  //             longitude:-79.9341970
+  //         },
+  //         zoom: 11,
+  //         markers: [],
+  //         events: {
+  //         click: function (map, eventName, originalEventArgs) {
+  //             var e = originalEventArgs[0];
+  //             var lat = e.latLng.lat(),lon = e.latLng.lng();
+  //             var marker = {
+  //                 id: Date.now(),
+  //                 coords: {
+  //                     latitude: lat,
+  //                     longitude: lon
+  //                 }
+  //             };
+  //             $scope.map.markers.push(marker);
+  //             console.log('MARKERS:', $scope.map.markers.markers);
+  //             window.glow = $scope.map.markers;
+  //             $scope.mapCoords = $scope.map.markers;
+  //             $scope.$apply();
+  //         }
+  //     }
+  //     }
+  // });
+
+
+
+
+  }); // end of SessionController
+
+},{}],7:[function(require,module,exports){
+angular
+  .module('surfSup')
+  .controller('UserController', function($scope, $location, UserService, $rootScope, WeatherService) {
+    $location.path() === "/login" || $location.path() === "/create" ? $rootScope.showBar = false : $rootScope.showBar = true;
+    $scope.loginObj = {
+      username: '',
+      password: ''
+    };
+    $scope.login = login;
+    $scope.acctObj = {};
+    $scope.submitForm = submitForm;
+    $scope.getWeatherData = getWeatherData;
+    $scope.getCurrentUser = getCurrentUser;
+  
+
+    // LOGIN PAGE
+    function login() {
+      console.log('login object:', $scope.loginObj);
+      UserService.loginUser($scope.loginObj).success(function (res) {
+        $rootScope.$broadcast('requestAmt:added');
+        console.log('we can redirect here if so', res);
+        $location.path('/home');
+      })
+      .error(function (err) {
+        console.log('doh');
+        $('#userNameAlert').html('<div class="alert alert-danger" role="alert"><strong>Oh no!</strong> The username and password do not match. Try again.</div>');
+      });
+    }
+
+    // CREATE USER FORM
+    function submitForm() {
+      console.log('account object:', $scope.acctObj);
+      UserService.addAcct($scope.acctObj).success(function(res){
+        console.log('create works');
+        $location.path('/home');
+      })
+      .error (function (err) {
+        console.log('create not working');
+      });
+    }
+>>>>>>> 3ab949c6a0c72abad0d474b86360dbbd53a58561
 
       /*
         Author: Nicholas McCready & jfriend00
@@ -930,7 +1111,22 @@ Nicholas McCready - https://twitter.com/nmccready
         return this;
       };
 
+<<<<<<< HEAD
       return BaseObject;
+=======
+},{}],8:[function(require,module,exports){
+angular
+.module ('surfSup')
+.directive ('mapReader', function (){
+  return {
+    templateUrl: '../templates/map-reader.html',
+    // controller: 'SessionController',
+    restrict: 'E',
+    scope: {
+    }
+  };
+});
+>>>>>>> 3ab949c6a0c72abad0d474b86360dbbd53a58561
 
     })();
     return BaseObject;
@@ -75445,7 +75641,7 @@ angular
     function editSession (session) {
         console.log('in editSession', session);
         console.log('this is the id:', session.id);
-        var editUrl = sessionUrl + "/" + session.id;
+        var editUrl = sessionUrl;
         return $http.put(editUrl, session);
     }
 

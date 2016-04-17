@@ -17,10 +17,61 @@
   <h2>FUTURE SESSIONS</h2>
 <hr>
 
+<div  ng-repeat="seshActivities in seshActivity | orderBy: 'time '">
+  <!-- <session-reader seshActivities = "seshActivities"> </session-reader> -->
+  <!-- SESH INFORMATION -->
+  <div class="list-group">
+      <h5 class="list-group-item-heading">
+          <span aria-hidden="true" class=
+          "glyphicon glyphicon-user">
+          </span>
+          <strong>{{seshActivities.user.username}}
+          </strong> is going {{seshActivities.isSurf ? 'Surfing' : 'Paddle Boarding'}}
+      </h5>
+
+      <div class="edit-delete-sesh" ng-controller="UserController">
+          <p class="list-group-item-text" ng-if="currentUser.username!==seshActivities.user.username">
+              Where: <a>{{seshActivities.location}}</a>
+          </p>
+
+          <p class="list-group-item-text" ng-if="currentUser.username===seshActivities.user.username">
+              Where: <a editable-text="seshActivities.location" href="#" onaftersave=
+              "editSession(seshActivities)">{{seshActivities.location}}</a>
+          </p>
+
+          <p class="list-group-item-text" ng-if="currentUser.username!==seshActivities.user.username">
+              When: <a date-type="datetime" >{{seshActivities.time | date : 'EEEE, MMMM d, h:mm a'}}</a>
+          </p>
+          <p class="list-group-item-text" ng-if="currentUser.username===seshActivities.user.username">
+              When: <a date-type="datetime" editable-combodate="seshActivities.time" href="#" onaftersave=
+              "editSession(seshActivities)">{{seshActivities.time | date : 'EEEE, MMMM d, h:mm a'}}</a>
+          </p>
+      </div>
 
 
-<!-- <div  ng-repeat="seshActivities in seshActivity | orderBy: 'time '">
-  <session-reader activity = "seshActivities"> </session-reader>
+      <!-- JOINING SESH -->
+       <span><button class="list-group-item-text" ng-click=
+      "allGoingToSesh(seshActivities.id); showUsers = !showUsers"><span>Who is going:</span> <!-- {{seshActivities.id}} -->
+
+      <ul ng-if="showUsers">
+          <li ng-repeat="user in usersGoingToSesh.data">{{user.username}}
+          </li>
+      </ul>
+    </button></span>
+
+
+      <!-- DELETING AND JOINING SESH BUTTONS -->
+       <button class="btn btn-xs btn-danger pull-right" data-placement="bottom" data-toggle="tooltip"
+      name="button" ng-click="deleteSession(seshActivities.id)" ng-controller="UserController" ng-show=
+      "currentUser.username===seshActivities.user.username" onmouseenter="$(this).tooltip('show')" title=
+      "Delete Session" type="button"><span aria-hidden="true" class=
+      "glyphicon glyphicon-remove"></span></button>
+
+      <button class="btn btn-xs btn-success pull-right"
+      data-toggle="tooltip" name="button" ng-click="joinSession(seshActivities.id)"  onmouseenter="$(this).tooltip('show')" title="Join Session" type=
+      "button"><span aria-hidden="true" class="glyphicon glyphicon-plus"></span></button>
+  </div>
+
 </div>
 <a href="/#/addSession">
   <button class="btn btn-success"

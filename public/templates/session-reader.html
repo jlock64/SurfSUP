@@ -1,5 +1,5 @@
 <!-- SESH INFORMATION -->
-<div class="list-group">
+<!-- <div class="list-group">
     <h5 class="list-group-item-heading">
         <span aria-hidden="true" class=
         "glyphicon glyphicon-user">
@@ -25,23 +25,24 @@
             When: <a date-type="datetime" editable-combodate="activity.time" href="#" onaftersave=
             "editSession(activity)">{{activity.time | date : 'EEEE, MMMM d, h:mm a'}}</a>
         </p>
-    </div>
+    </div> -->
 
 
     <!-- JOINING SESH -->
-     <span ng-controller="SessionController"><button class="list-group-item-text" ng-click=
+     <!-- <span ng-controller="SessionController"><button class="list-group-item-text" ng-click=
     "allGoingToSesh(activity.id); showUsers = !showUsers"><span ng-controller=
-    "SessionController">Who is going:</span> <!-- {{activity.id}} -->
+    "SessionController">Who is going:</span>  -->
+    <!-- {{activity.id}} -->
 
-    <ul ng-if="showUsers">
+    <!-- <ul ng-if="showUsers">
         <li ng-repeat="user in usersGoingToSesh.data">{{user.username}}
         </li>
     </ul>
-  </button></span>
+  </button></span> -->
 
 
     <!-- DELETING AND JOINING SESH BUTTONS -->
-     <button class="btn btn-xs btn-danger pull-right" data-placement="bottom" data-toggle="tooltip"
+     <!-- <button class="btn btn-xs btn-danger pull-right" data-placement="bottom" data-toggle="tooltip"
     name="button" ng-click="deleteSession(activity.id)" ng-controller="UserController" ng-show=
     "currentUser.username===activity.user.username" onmouseenter="$(this).tooltip('show')" title=
     "Delete Session" type="button"><span aria-hidden="true" class=
@@ -51,13 +52,6 @@
     data-toggle="tooltip" name="button" ng-click="joinSession(activity.id)" ng-controller=
     "SessionController" onmouseenter="$(this).tooltip('show')" title="Join Session" type=
     "button"><span aria-hidden="true" class="glyphicon glyphicon-plus"></span></button>
-    <!-- <div class="alreadyJoined"></div>
-    <div ng-show="" >
-      <div class="alert alert-danger">
-        You are already going
-      </div>
-    </div> -->
-</div>
 <!-- if (today.getDay() === new Date().getDay()) {
   console.log('today is today')
 }
