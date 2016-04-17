@@ -1,4 +1,4 @@
-<h1 ng-controller="UserController">WELCOME TO SESSIONS, {{currentUser.username}}</h1>
+<h1>WELCOME TO SESSIONS, {{currentUser.username}}</h1>
 <h6>(edit your session by clicking links)</h6>
 <hr>
 
@@ -17,11 +17,13 @@
       <div class="edit-delete-sesh" ng-controller="UserController">
           <p class="list-group-item-text" ng-if="currentUser.username!==seshActivities.user.username">
               Where: <a>{{seshActivities.location}}</a>
+              <a ng-click="showMap()">map</a>
           </p>
 
           <p class="list-group-item-text" ng-if="currentUser.username===seshActivities.user.username">
               Where: <a editable-text="seshActivities.location" href="#" onaftersave=
               "editSession(seshActivities)">{{seshActivities.location}}</a>
+              <a ng-click="showMap()">map</a>
           </p>
 
           <p class="list-group-item-text" ng-if="currentUser.username!==seshActivities.user.username">
@@ -56,7 +58,10 @@
       data-toggle="tooltip" name="button" ng-click="joinSession(seshActivities.id)"  onmouseenter="$(this).tooltip('show')" title="Join Session" type=
       "button"><span aria-hidden="true" class="glyphicon glyphicon-plus"></span></button>
   </div>
-
+  <div>
+    <div id="map"></div>
+    <div data-ng-model="mymarker"></div>
+</div>
 </div>
 <a href="/#/addSession">
   <button class="btn btn-success"
