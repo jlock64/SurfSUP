@@ -364,15 +364,14 @@ angular
       $scope.sessionObjs = {
         time: $scope.time ? $scope.time.toISOString().slice(0,19) : "",
         isSurf: $scope.suppy,
-        location: $scope.location
+        location: $scope.map.center.latitude
       };
       console.log("session obj", $scope.sessionObjs);
-      console.log("map coords: ", $scope.map.markers);
       SessionService.addSession($scope.sessionObjs).then(function(res){
         console.log('session created', res);
         $location.path('/sessions');
         // $scope.$apply();
-      })
+      });
       // .error(function(err) {
       //   console.log('doh', err);
       //   $('#sessionTime').html('<div class="alert alert-danger" role="alert"><strong>Oh no!</strong> The username and password do not match. Try again.</div>');
@@ -461,37 +460,64 @@ angular
         //     $scope.seshActivity = data.data;
         //   });
         // })
-    }
-    // allGoingToSesh();
 
+    }
+    $scope.map = {
+      center: {
+          latitude: 32.7799400,
+          longitude:-79.9341970
+      },
+      zoom: 11,
+      markers: [],
+      events: {
+      click: function (map, eventName, originalEventArgs) {
+          var e = originalEventArgs[0];
+          var lat = e.latLng.lat(),lon = e.latLng.lng();
+          var marker = {
+              id: Date.now(),
+              coords: {
+                  latitude: lat,
+                  longitude: lon
+              }
+          };
+          $scope.map.markers.push(marker);
+          console.log('MARKERS:', $scope.map.markers);
+          window.glow = $scope.map.markers;
+          $scope.$apply();
+      }
+  }
+  };
   //GOOGLE MAP
-  angular.extend($scope, {
-      map: {
-          center: {
-              latitude: 32.7799400,
-              longitude:-79.9341970
-          },
-          zoom: 11,
-          markers: [],
-          events: {
-          click: function (map, eventName, originalEventArgs) {
-              var e = originalEventArgs[0];
-              var lat = e.latLng.lat(),lon = e.latLng.lng();
-              var marker = {
-                  id: Date.now(),
-                  coords: {
-                      latitude: lat,
-                      longitude: lon
-                  }
-              };
-              $scope.map.markers.push(marker);
-              console.log('MARKERS:', $scope.map.markers);
-              window.glow = $scope.map.markers;
-              $scope.$apply();
-          }
-      }
-      }
-  });
+  // angular.extend($scope, {
+  //     map: {
+  //         center: {
+  //             latitude: 32.7799400,
+  //             longitude:-79.9341970
+  //         },
+  //         zoom: 11,
+  //         markers: [],
+  //         events: {
+  //         click: function (map, eventName, originalEventArgs) {
+  //             var e = originalEventArgs[0];
+  //             var lat = e.latLng.lat(),lon = e.latLng.lng();
+  //             var marker = {
+  //                 id: Date.now(),
+  //                 coords: {
+  //                     latitude: lat,
+  //                     longitude: lon
+  //                 }
+  //             };
+  //             $scope.map.markers.push(marker);
+  //             console.log('MARKERS:', $scope.map.markers.markers);
+  //             window.glow = $scope.map.markers;
+  //             $scope.mapCoords = $scope.map.markers;
+  //             $scope.$apply();
+  //         }
+  //     }
+  //     }
+  // });
+
+
 
 
   }); // end of SessionController
@@ -572,7 +598,7 @@ angular
 .module ('surfSup')
 .directive ('mapReader', function (){
   return {
-    templateUrl: '../templates/map.html',
+    templateUrl: '../templates/map-reader.html',
     controller: 'SessionController',
     restrict: 'E',
     scope: {
