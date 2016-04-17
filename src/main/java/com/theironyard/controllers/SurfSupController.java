@@ -393,8 +393,6 @@ public class SurfSupController {
     //EDIT EXISTING SESH
     @RequestMapping(path = "/sesh", method = RequestMethod.PUT)
     public void editSesh (@RequestBody Sesh sesh, HttpSession session) {
-        User user = users.findByUsername((String) session.getAttribute("username"));
-
         seshs.save(sesh);
     }
 
