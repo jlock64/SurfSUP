@@ -39,6 +39,12 @@ public class Sesh {
     @Column(nullable = false)
     String location;
 
+    @Column(nullable = false)
+    double lat;
+
+    @Column(nullable = false)
+    double lon;
+
     //GETTERS/SETTERS
     public String getLocation() {
         return location;
@@ -74,5 +80,21 @@ public class Sesh {
 
     public int getId() {
         return id;
+    }
+
+    public double getLat() {
+        return lat;
+    }
+
+    public void setLat(double lat) {
+        this.lat = lat;
+    }
+
+    public double getLon() {
+        return lon;
+    }
+
+    public void setLon(double lon) {
+        this.lon = lon;
     }
 }
