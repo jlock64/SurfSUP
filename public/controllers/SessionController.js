@@ -121,8 +121,8 @@ angular
           .error(function(err) {
             console.log('you are already going to this sesh', err);
             $('.alreadyJoined').html('<div class="alert alert-danger" role="alert"><strong>Oh no!</strong> The username and password do not match. Try again.</div>');
-          })
-        })
+          });
+        });
     }
 
     function allGoingToSesh(id) {
@@ -132,7 +132,7 @@ angular
           console.log('all going to sesh in ctrl:', data);
           $scope.usersGoingToSesh = data;
           // console.log('data', data.data.username);
-        })
+        });
         // .then(function() {
         //   SessionService.getSession()
         //   .then(function(data) {
@@ -175,7 +175,8 @@ angular
   }
   };
 
-  function showMap () {
+  function showMap (id) {
+    SessionService.getCoords(id);
     console.log("show map is working");
     var item = {
        coordinates: [$scope.seshActivity.lat, $scope.seshActivity.lon]
@@ -203,7 +204,7 @@ angular
   //      position: new google.maps.LatLng(item.coordinates[0], item.coordinates[1]),
   //      title: woa.city
   //  });
-  };
+  }
 
 
 
@@ -214,7 +215,7 @@ angular
       $scope.currentUser = data.data;
       console.log("Current User: ", data.data);
     });
-  };
+  }
   getCurrentUser();
 
   $scope.$on('requestAmt:added', function () {

@@ -31,14 +31,14 @@
 
       <div class="edit-delete-sesh" ng-controller="UserController">
           <p class="list-group-item-text" ng-if="currentUser.username!==seshActivities.user.username">
-              Where: <a>{{seshActivities.location}}</a>
-              <a ng-click="showMap()">map</a>
+              Where: <button>{{seshActivities.location}}</button>
+              <button ng-click="showMap(seshActivities.id)">map</button>
           </p>
 
           <p class="list-group-item-text" ng-if="currentUser.username===seshActivities.user.username">
               Where: <a editable-text="seshActivities.location" href="#" onaftersave=
               "editSession(seshActivities)">{{seshActivities.location}}</a>
-              <a ng-click="showMap()">map</a>
+              <button ng-click="showMap(seshActivities.id)">map</button>
           </p>
 
           <p class="list-group-item-text" ng-if="currentUser.username!==seshActivities.user.username">
