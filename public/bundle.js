@@ -63503,8 +63503,6 @@ angular
     //ONLY LET CURRENT USER EDIT SESSION
 
 
-
-
     //Changing Color when SUP/SURF is clicked
   	$scope.isActiveSurf = false;
     function activeButtonSurf () {
@@ -63624,7 +63622,7 @@ angular
     $scope.submitForm = submitForm;
     $scope.getWeatherData = getWeatherData;
     $scope.getCurrentUser = getCurrentUser;
-  
+
 
     // LOGIN PAGE
     function login() {
@@ -63687,7 +63685,7 @@ angular
 .directive ('mapReader', function (){
   return {
     templateUrl: '../templates/map-reader.html',
-    // controller: 'SessionController',
+    controller: 'SessionController',
     restrict: 'E',
     scope: {
     }
