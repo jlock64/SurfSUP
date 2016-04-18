@@ -2,8 +2,15 @@
   height: 400px; }
 
 .sessions-map {
-  height: 400px;
-  width: 400px; }
+  width: 500px;
+  height: 480px; }
+
+div#myModal.modal.fade.in {
+  visibility: visible; }
+
+div#myModal.modal.fade {
+  display: block;
+  visibility: hidden; }
 
 #friendsListWrapper {
   max-width: 400px;
