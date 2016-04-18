@@ -11,7 +11,7 @@
   <h1>Weather or Google Map</h1>
   <p>could go here</p>
   <div class="">
-    <div ng-repeat="weather in weatherData | limitTo: 6" >
+    <div ng-repeat="weather in weatherData | limitTo: 6: 3" >
       <span>{{weather.localTimestamp * 1000 | date:'EEE h a'}},</span>
       <span>Surf: {{weather.swell.maxBreakingHeight}}ft,</span>
       <span>Wind: {{weather.wind.compassDirection}},</span>
