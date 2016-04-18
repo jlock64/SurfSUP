@@ -25,6 +25,29 @@
               <a ng-click="showMap(seshActivities.id)" data-toggle="modal" data-target="#myModal">(map)</a>
           </p>
 
+          <!-- MODAL -->
+          </a>
+          <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+            <div class="modal-dialog" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                  <h4 class="modal-title" id="myModalLabel"><strong>{{seshActivities.user.username}}
+                  </strong> is going {{seshActivities.isSurf ? 'Surfing' : 'Paddle Boarding'}} at {{seshActivities.time | date : 'EEEE, MMMM d, h:mm a'}} </h4>
+                </div>
+                <div class="modal-body">
+                  <ui-gmap-google-map  draggable="true" center="seshMap.center" zoom="seshMap.zoom">
+                      <ui-gmap-marker coords="seshMarkers.coords" idKey="seshMarkers.id" dorebuildall="true" ></ui-gmap-marker>
+                  </ui-gmap-google-map>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                  <button type="button" class="btn btn-primary">Save changes</button>
+                </div>
+              </div>
+            </div>
+          </div>
+
           <p class="list-group-item-text" ng-if="currentUser.username!==seshActivities.user.username">
               When: <a date-type="datetime" >{{seshActivities.time | date : 'EEEE, MMMM d, h:mm a'}}</a>
           </p>
@@ -70,26 +93,6 @@
   </button>
 
 
-</a>
-<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title" id="myModalLabel">Modal title</h4>
-      </div>
-      <div class="modal-body">
-        <ui-gmap-google-map  draggable="true" center="seshMap.center" zoom="seshMap.zoom">
-            <ui-gmap-markers models="seshMarkers" dorebuildall="true" coords="'self'" icon="'icon'"></ui-gmap-markers>
-        </ui-gmap-google-map>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
-      </div>
-    </div>
-  </div>
-</div>
 
 
 <!-- if (today.getDay() === new Date().getDay()) {
