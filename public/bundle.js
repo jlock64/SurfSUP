@@ -511,30 +511,41 @@ angular
 
 //GOOGLE MAPS ON SESSIONS PAGE
 $scope.seshMap = {
-    center: { latitude: 42, longitude: -79.9341970 },
-    zoom: 25
+    center: {
+      latitude: 32.7799400,
+      longitude:-79.9341970},
+      zoom: 10
  };
-$scope.markers = [];
+$scope.seshMarkers = [];
 function showMap(id) {
  SessionService.getCoords(id)
  .then(function(response) {
    console.log("show map is working", response);
-   window.glow = response.data;
+
    var markers = response.data;
    markers.coords = {
-       lat: markers.lat,
-       lon: markers.lon
+       idKey: markers.id,
+       latitude: markers.lat,
+       longitude: markers.lon
      };
     console.log("marker coords, ", markers.coords );
-  $scope.markers = markers;
+  $scope.seshMarkers = markers;
 });
 }
+
+// $scope.seshMarkers = [
+//                {
+//                  idKey: 583187,
+//                  latitude: 46.7682,
+//                  longitude: -71.3234,
+//                  title: "title"
+//                }
+//              ];
 
 // GET CURRENT USER
   function getCurrentUser() {
     UserService.currentUser().then(function(data) {
       $scope.currentUser = data.data;
-      console.log("Current User: ", data.data);
     });
   }
   getCurrentUser();
@@ -591,7 +602,6 @@ angular
     function getCurrentUser() {
       UserService.currentUser().then(function(data) {
         $scope.currentUser = data.data;
-        console.log("Current User: ", data.data);
       });
     }
     getCurrentUser();
