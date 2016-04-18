@@ -474,6 +474,8 @@ angular
         // })
 
     }
+
+//GOOGLE MAPS ON ADD SESSIONS PAGE
     $scope.map = {
       center: {
           latitude: 32.7799400,
@@ -507,41 +509,28 @@ angular
   }
   };
 
-  function showMap (id) {
-    SessionService.getCoords(id);
-    console.log("show map is working");
-    var item = {
-       coordinates: [$scope.seshActivity.lat, $scope.seshActivity.lon]
-   };
-   console.log("LAT AND LON IN SHOW MAP", $scope.seshActivity);
+//GOOGLE MAPS ON SESSIONS PAGE
+$scope.seshMap = {
+    center: { latitude: 42, longitude: -79.9341970 },
+    zoom: 25
+ };
+$scope.markers = [];
+function showMap(id) {
+ SessionService.getCoords(id)
+ .then(function(response) {
+   console.log("show map is working", response);
+   window.glow = response.data;
+   var markers = response.data;
+   markers.coords = {
+       lat: markers.lat,
+       lon: markers.lon
+     };
+    console.log("marker coords, ", markers.coords );
+  $scope.markers = markers;
+});
+}
 
-  //  var woa = {
-  //      city: 'This is my marker. There are many like it but this one is mine.'
-  //  };
-   //
-   //
-  //  //set up map
-  //  var mapOptions = {
-  //      zoom: 11,
-  //      center: new google.maps.LatLng(40.0000, -98.0000),
-  //      mapTypeId: google.maps.MapTypeId.TERRAIN
-  //  };
-   //
-  //  $scope.mymapdetail = new google.maps.Map(document.getElementById('map'), mapOptions);
-   //
-  //  //add marker
-  //  $scope.mymarker = new google.maps.Marker({
-  //      map: $scope.mymapdetail,
-  //      animation: google.maps.Animation.DROP,
-  //      position: new google.maps.LatLng(item.coordinates[0], item.coordinates[1]),
-  //      title: woa.city
-  //  });
-  }
-
-
-
-
-  // GET CURRENT USER
+// GET CURRENT USER
   function getCurrentUser() {
     UserService.currentUser().then(function(data) {
       $scope.currentUser = data.data;
