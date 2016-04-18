@@ -12,6 +12,8 @@ import com.theironyard.utilities.PasswordStorage;
 import org.h2.tools.Server;
 import org.omg.CORBA.Request;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.converter.json.GsonHttpMessageConverter;
+import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.multipart.MultipartFile;
@@ -37,6 +39,9 @@ import java.util.stream.Collectors;
 public class SurfSupController {
 
     static final String IOP_URL = "http://magicseaweed.com/api/05b02278d73272e0e716626de5b875e4/forecast/?spot_id=760";
+    static final String PAWLEY_URL = "http://magicseaweed.com/api/05b02278d73272e0e716626de5b875e4/forecast/?spot_id=989";
+    static final String WASHOUT_URL = "http://magicseaweed.com/api/05b02278d73272e0e716626de5b875e4/forecast/?spot_id=406";
+    static final String IOP_TIDE_URL = "http://www.worldtides.info/api?extremes&lat=33.746&lon=-84.127&key=cb380c07-986b-452e-ab83-c8ad144407bf";
 
     @Autowired
     UserRepository users;
@@ -195,8 +200,8 @@ public class SurfSupController {
     }
 
     //WEATHER AT IOP
-    @RequestMapping(path = "/weather", method = RequestMethod.GET)
-    public List weather () {
+    @RequestMapping(path = "/weatherIOP", method = RequestMethod.GET)
+    public List weatherIop () {
         RestTemplate query = new RestTemplate();
         List result = query.getForObject(IOP_URL, List.class);
         if (result != null) {
@@ -204,6 +209,36 @@ public class SurfSupController {
         }
         return null;
     }
+
+    //WEATHER AT SHEM CREEK
+    @RequestMapping(path = "/weatherPawley", method = RequestMethod.GET)
+    public List weatherPawley () {
+        RestTemplate query = new RestTemplate();
+        List result = query.getForObject(PAWLEY_URL, List.class);
+        if (result != null) {
+            return result;
+        }
+        return null;
+    }
+
+    //WEATHER AT WASHOUT
+    @RequestMapping(path = "/weatherWashout", method = RequestMethod.GET)
+    public List weatherWashout () {
+        RestTemplate query = new RestTemplate();
+        List result = query.getForObject(WASHOUT_URL, List.class);
+        if (result != null) {
+            return result;
+        }
+        return null;
+    }
+
+//    //TIDAL EXTREMES AT IOP
+//    @RequestMapping(path = "/tidesIOP", method = RequestMethod.GET)
+//    public HashMap tidesIop () {
+//        RestTemplate query = new RestTemplate();
+//        HashMap result = query.getForObject(IOP_TIDE_URL, HashMap.class);
+//        return result;
+//    }
 
     // CURRENT USER USERNAME
     @RequestMapping(path = "/currentUsername", method = RequestMethod.GET)
