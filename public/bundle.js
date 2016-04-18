@@ -528,7 +528,7 @@ function showMap(id) {
        latitude: markers.lat,
        longitude: markers.lon
      };
-    console.log("marker coords, ", markers.coords );
+  console.log("marker coords, ", markers.coords );
   $scope.seshMarkers = markers;
 });
 }
@@ -546,6 +546,7 @@ function showMap(id) {
   function getCurrentUser() {
     UserService.currentUser().then(function(data) {
       $scope.currentUser = data.data;
+      console.log("Current User: ", data.data);
     });
   }
   getCurrentUser();
