@@ -12,9 +12,12 @@
   <p>could go here</p>
   <div class="">
     <div ng-repeat="weather in weatherData | limitTo: 6" >
-      <span>{{weather.localTimestamp * 1000 | date:'EEE h a'}}</span>
-      <span>{{weather.localTimestamp * 1000 | date:'EEE h a'}}</span>
-      Surf: {{weather.swell.maxBreakingHeight}}feet, Temp: {{weather.condition.temperature}}
+      <span>{{weather.localTimestamp * 1000 | date:'EEE h a'}},</span>
+      <span>Surf: {{weather.swell.maxBreakingHeight}}ft,</span>
+      <span>Wind: {{weather.wind.compassDirection}},</span>
+      <span>{{weather.wind.speed}}mph,</span>
+      <span>Temp: {{weather.condition.temperature}}</span>
+
     </div>
   </div>
 
