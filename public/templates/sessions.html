@@ -73,11 +73,28 @@
       data-toggle="tooltip" name="button" ng-click="joinSession(seshActivities.id)"  onmouseenter="$(this).tooltip('show')" title="Join Session" type=
       "button"><span aria-hidden="true" class="glyphicon glyphicon-plus"></span></button>
   </div>
-  <div>
-    <div id="map"></div>
-    <div data-ng-model="mymarker"></div>
+
+  <!-- GOOGLE MAP -->
+<div class="sessions-map">
+  <ui-gmap-google-map
+           center='map.center'
+           zoom='map.zoom'>
+
+         <ui-gmap-markers models="markers"
+             coords="'coords'"
+             options="'options'"
+             events="'events'"
+             idkey="'_id'">
+           <ui-gmap-windows>
+              <div ng-non-bindable>{{location}}</div>
+           </ui-gmap-windows>
+         </ui-gmap-markers>
+        </ui-gmap-google-map>
 </div>
+
 </div>
+
+<!-- ADD SESSION BUTTON -->
 <a href="/#/addSession">
   <button class="btn btn-success"
           type="button"

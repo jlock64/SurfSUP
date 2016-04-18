@@ -1,3 +1,10 @@
+.angular-google-map-container {
+  height: 400px; }
+
+.sessions-map {
+  height: 400px;
+  width: 400px; }
+
 #friendsListWrapper {
   max-width: 400px;
   margin: 0 auto; }
@@ -109,9 +116,6 @@ body {
   /*left or right and the width of your navigation panel*/
   width: 15.625em;
   /*should match the above value*/ }
-
-.angular-google-map-container {
-  height: 400px; }
 
 form {
   max-width: 330px;
