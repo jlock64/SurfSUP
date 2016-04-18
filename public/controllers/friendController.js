@@ -7,7 +7,6 @@ angular
 
 
     $scope.searchFriends = searchFriends;
-    // $scope.sendInvite = sendInvite;
     $scope.getRequestList = getRequestList;
     $scope.getFriendsList = getFriendsList;
     $scope.denyFriendRequest = denyFriendRequest;
