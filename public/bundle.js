@@ -549,10 +549,10 @@ function showMap(id) {
      console.log("show map is working", response);
 
      var markers = response.data;
-     markers.idKey = Date.now();
+
      markers.coords = {
        idKey: markers.id,
-       id: Date.now(),
+       id: markers.id,
        latitude: markers.lat,
        longitude: markers.lon,
     };
