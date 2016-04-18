@@ -91,7 +91,6 @@ angular
 
 
     $scope.searchFriends = searchFriends;
-    // $scope.sendInvite = sendInvite;
     $scope.getRequestList = getRequestList;
     $scope.getFriendsList = getFriendsList;
     $scope.denyFriendRequest = denyFriendRequest;
@@ -302,16 +301,48 @@ angular
   .controller('ProfileController', function($scope,$location, FriendService, $routeParams,$rootScope) {
     $location.path() === "/login" || $location.path() === "/create" ? $rootScope.showBar = false : $rootScope.showBar = true;
     $scope.sendInvite = sendInvite;
+    $scope.hideAddButton = hideAddButton;
 
-      // GET USERS PROFILE
+      // GET FRIENDS PROFILE
       FriendService.getProfile($routeParams.id)
       .then(function(data) {
-        console.log('user profile info: ', data.data);
+        // console.log('friend profile info: ', data.data);
         $scope.profiles = data.data;
+        FriendService.friendsList()
+          .success(function(friends){
+            // console.log('before map function: ', friends);
+            var friendsIdList = _.map(friends, function(el) {
+              return el.id;
+            });
+            // console.log('$routeParams.id:', $routeParams.id);
+            // console.log('friendsIdList:',friendsIdList);
+            if(friendsIdList.indexOf(+$routeParams.id) !== -1) {
+              // Hide button here.
+              // console.log('inside indexof method');
+              hideAddButton();
+            }
+          })
       },function(err) {
         console.log("THIS IS AN ERROR",err);
       });
 
+      // GET CURRENT USER PROFILE
+      FriendService.getProfile($routeParams.id)
+      .then(function(data) {
+        $scope.profiles = data.data;
+        console.log('getProfile', $scope.profiles.id )
+        console.log('$routeParams.id', $routeParams.id)
+      }).then(function() {
+        if(+$routeParams.id === $scope.profiles.id) {
+          hideAddButton();
+        }
+      })
+
+      // HIDE ADD BUTTON ON FRIENDS PROFILE PAGE
+      function hideAddButton () {
+        console.log('in hide button');
+        $scope.dontShowButton = true;
+      }
 
       // SEND INVITATION TO FRIEND
       function sendInvite (username) {
@@ -495,10 +526,10 @@ angular
                   longitude: lon
               }
           };
-          $scope.location.push({
-            lat: lat,
-            lon: lon
-          });
+          // $scope.location.push({
+          //   lat: lat,
+          //   lon: lon
+          // });
           console.log("location: ", $scope.location);
           $scope.map.markers.pop(); //only can add one marker
           $scope.map.markers.push(marker);
@@ -510,27 +541,31 @@ angular
   };
 
 //GOOGLE MAPS ON SESSIONS PAGE
-$scope.seshMap = {
-    center: {
-      latitude: 32.7799400,
-      longitude:-79.9341970},
-      zoom: 10
- };
+
 $scope.seshMarkers = [];
 function showMap(id) {
- SessionService.getCoords(id)
- .then(function(response) {
-   console.log("show map is working", response);
+   SessionService.getCoords(id)
+   .then(function(response) {
+     console.log("show map is working", response);
 
-   var markers = response.data;
-   markers.coords = {
+     var markers = response.data;
+     markers.idKey = Date.now();
+     markers.coords = {
        idKey: markers.id,
+       id: Date.now(),
        latitude: markers.lat,
-       longitude: markers.lon
-     };
-    console.log("marker coords, ", markers.coords );
-  $scope.seshMarkers = markers;
-});
+       longitude: markers.lon,
+    };
+
+    console.log("marker coords, ", markers );
+    $scope.seshMarkers = markers;
+    $scope.seshMap = {
+        center: {
+          latitude: markers.lat,
+          longitude: markers.lon},
+          zoom: 13
+    };
+  });
 }
 
 // $scope.seshMarkers = [
@@ -546,6 +581,7 @@ function showMap(id) {
   function getCurrentUser() {
     UserService.currentUser().then(function(data) {
       $scope.currentUser = data.data;
+      console.log("Current User: ", data.data);
     });
   }
   getCurrentUser();

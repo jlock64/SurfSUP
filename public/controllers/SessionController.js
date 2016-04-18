@@ -163,10 +163,10 @@ angular
                   longitude: lon
               }
           };
-          $scope.location.push({
-            lat: lat,
-            lon: lon
-          });
+          // $scope.location.push({
+          //   lat: lat,
+          //   lon: lon
+          // });
           console.log("location: ", $scope.location);
           $scope.map.markers.pop(); //only can add one marker
           $scope.map.markers.push(marker);
@@ -178,27 +178,31 @@ angular
   };
 
 //GOOGLE MAPS ON SESSIONS PAGE
-$scope.seshMap = {
-    center: {
-      latitude: 32.7799400,
-      longitude:-79.9341970},
-      zoom: 10
- };
+
 $scope.seshMarkers = [];
 function showMap(id) {
- SessionService.getCoords(id)
- .then(function(response) {
-   console.log("show map is working", response);
+   SessionService.getCoords(id)
+   .then(function(response) {
+     console.log("show map is working", response);
 
-   var markers = response.data;
-   markers.coords = {
+     var markers = response.data;
+     markers.idKey = Date.now();
+     markers.coords = {
        idKey: markers.id,
+       id: Date.now(),
        latitude: markers.lat,
-       longitude: markers.lon
-     };
-    console.log("marker coords, ", markers.coords );
-  $scope.seshMarkers = markers;
-});
+       longitude: markers.lon,
+    };
+
+    console.log("marker coords, ", markers );
+    $scope.seshMarkers = markers;
+    $scope.seshMap = {
+        center: {
+          latitude: markers.lat,
+          longitude: markers.lon},
+          zoom: 13
+    };
+  });
 }
 
 // $scope.seshMarkers = [
@@ -214,6 +218,7 @@ function showMap(id) {
   function getCurrentUser() {
     UserService.currentUser().then(function(data) {
       $scope.currentUser = data.data;
+      console.log("Current User: ", data.data);
     });
   }
   getCurrentUser();

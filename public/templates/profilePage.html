@@ -3,8 +3,10 @@
 <div>
   username: {{profiles.username}}
   <button
+  ng-hide="dontShowButton"
   type="button"
   class="btn btn-default"
   ng-click = "sendInvite(profiles.username)"
   name="button">add friend</button>
+  <div id="requestFriendAlert"></div>
 </div>
