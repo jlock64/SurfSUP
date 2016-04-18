@@ -236,6 +236,15 @@ input.form-control, input.form-control:focus {
   box-shadow: none;
   color: grey; }
 
+#profileWrapper {
+  margin: 0 auto;
+  width: 50%;
+  text-align: center; }
+  #profileWrapper h3 {
+    margin-top: 0; }
+  #profileWrapper .glyphicon.glyphicon-user.profilePic {
+    font-size: 80px; }
+
 .desktop-navigation {
   display: inline-block; }
 
