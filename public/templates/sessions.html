@@ -74,23 +74,10 @@
       "button"><span aria-hidden="true" class="glyphicon glyphicon-plus"></span></button>
   </div>
 
-  <!-- GOOGLE MAP -->
-<div class="sessions-map">
-  <ui-gmap-google-map
-           center='map.center'
-           zoom='map.zoom'>
-
-         <ui-gmap-markers models="markers"
-             coords="'coords'"
-             options="'options'"
-             events="'events'"
-             idkey="'_id'">
-           <ui-gmap-windows>
-              <div ng-non-bindable>{{location}}</div>
-           </ui-gmap-windows>
-         </ui-gmap-markers>
-        </ui-gmap-google-map>
-</div>
+<!-- GOOGLE MAP -->
+<ui-gmap-google-map  draggable="true" center="seshMap.center" zoom="seshMap.zoom">
+    <ui-gmap-markers idKey="'idKey'" models="seshMarkers" coords="'self'" icon="'icon'"></ui-gmap-markers>
+</ui-gmap-google-map>
 
 </div>
 
