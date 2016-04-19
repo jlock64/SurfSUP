@@ -54,15 +54,26 @@ angular
 
     //GET WEATHER DATA
     function getWeatherData() {
-      console.log('in getWeatherData function');
       WeatherService.getWeather()
         .then(function(data) {
           console.log(data);
-          window.glob = data.data;
+          // window.glob = data.data;
           $scope.weatherData = data.data;
         });
     }
     getWeatherData();
+
+    //GET WEATHER DATA
+    function getTideData() {
+      WeatherService.getTides()
+        .then(function(data) {
+          console.log('tide data',data);
+          window.glob = data.data.extremes;
+          $scope.tideData = data.data.extremes;
+          console.log('scope.tideData;', $scope.tideData);
+        });
+    }
+    getTideData();
 
 
   }); // end of LoginController

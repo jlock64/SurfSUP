@@ -15,7 +15,7 @@
 
       <div class="edit-delete-sesh" ng-controller="UserController">
           <p class="list-group-item-text" ng-if="currentUser.username!==seshActivities.user.username">
-              Where: <button>{{seshActivities.location}}</button>
+              Where: <a>{{seshActivities.location}}</a>
               <a ng-click="showMap(seshActivities.id)" data-toggle="modal" data-target="#myModal">(map)</a>
           </p>
 
