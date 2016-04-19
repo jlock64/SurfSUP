@@ -63719,15 +63719,26 @@ angular
 
     //GET WEATHER DATA
     function getWeatherData() {
-      console.log('in getWeatherData function');
       WeatherService.getWeather()
         .then(function(data) {
           console.log(data);
-          window.glob = data.data;
+          // window.glob = data.data;
           $scope.weatherData = data.data;
         });
     }
     getWeatherData();
+
+    //GET WEATHER DATA
+    function getTideData() {
+      WeatherService.getTides()
+        .then(function(data) {
+          console.log('tide data',data);
+          window.glob = data.data.extremes;
+          $scope.tideData = data.data.extremes;
+          console.log('scope.tideData;', $scope.tideData);
+        });
+    }
+    getTideData();
 
 
   }); // end of LoginController
@@ -75584,15 +75595,24 @@ angular
 
     // var key = '05b02278d73272e0e716626de5b875e4';
     // var weatherUrl = 'http://magicseaweed.com/api/' + key + '/forecast/?spot_id=760';
-    var weatherUrl = '/weather';
+    var weatherUrl = '/weatherIOP';
+    // var weatherWashout = '/weatherWashout';
+    // var weatherPawley = '/weatherPawley';
+    var tidesUrl = '/tidesIOP'
 
     function getWeather() {
       return $http.get(weatherUrl);
     };
 
-    return {
-      getWeather: getWeather
+    function getTides() {
+      return $http.get(tidesUrl);
     };
+
+    return {
+      getWeather: getWeather,
+      getTides: getTides
+    };
+
   });
 
    /* Your API details are below:
