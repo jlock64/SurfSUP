@@ -3,9 +3,9 @@ angular
   .controller('NavbarController', function($scope,$location, $rootScope, FriendService, UserService) {
     $scope.profilePage = profilePage;
     $scope.logout = logout;
+    $scope.isLogin = isLogin;
 
-    $scope.isLogin = function () {
-      console.log('this is our location', $location.path() === '/login');
+    function isLogin() {
       return $location.path() !== '/login' && $location.path() !== '/create';
     }
     $scope.$on('requestAmt:added', function(data) {
