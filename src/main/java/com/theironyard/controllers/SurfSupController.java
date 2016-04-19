@@ -1,5 +1,6 @@
 package com.theironyard.controllers;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.theironyard.entities.Friend;
 import com.theironyard.entities.Join;
 import com.theironyard.entities.Sesh;
@@ -10,8 +11,14 @@ import com.theironyard.services.SeshRepository;
 import com.theironyard.services.UserRepository;
 import com.theironyard.utilities.PasswordStorage;
 import org.h2.tools.Server;
-import org.omg.CORBA.Request;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpInputMessage;
+import org.springframework.http.HttpOutputMessage;
+import org.springframework.http.MediaType;
+import org.springframework.http.converter.AbstractHttpMessageConverter;
+import org.springframework.http.converter.HttpMessageNotReadableException;
+import org.springframework.http.converter.HttpMessageNotWritableException;
+import org.springframework.http.converter.StringHttpMessageConverter;
 import org.springframework.http.converter.json.GsonHttpMessageConverter;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.web.bind.annotation.*;
@@ -24,11 +31,9 @@ import javax.servlet.http.HttpSession;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
 
 
@@ -42,6 +47,8 @@ public class SurfSupController {
     static final String PAWLEY_URL = "http://magicseaweed.com/api/05b02278d73272e0e716626de5b875e4/forecast/?spot_id=989";
     static final String WASHOUT_URL = "http://magicseaweed.com/api/05b02278d73272e0e716626de5b875e4/forecast/?spot_id=406";
     static final String IOP_TIDE_URL = "http://www.worldtides.info/api?extremes&lat=33.746&lon=-84.127&key=cb380c07-986b-452e-ab83-c8ad144407bf";
+    static final String PAWLEYS_TIDE_URL = "http://www.worldtides.info/api?extremes&lat=34.805&lon=-82.211&key=cb380c07-986b-452e-ab83-c8ad144407bf";
+    static final String WASHOUT_TIDE_URL = "http://www.worldtides.info/api?extremes&lat=32.655&lon=-79.940&key=cb380c07-986b-452e-ab83-c8ad144407bf";
 
     @Autowired
     UserRepository users;
@@ -232,13 +239,92 @@ public class SurfSupController {
         return null;
     }
 
-//    //TIDAL EXTREMES AT IOP
-//    @RequestMapping(path = "/tidesIOP", method = RequestMethod.GET)
-//    public HashMap tidesIop () {
-//        RestTemplate query = new RestTemplate();
-//        HashMap result = query.getForObject(IOP_TIDE_URL, HashMap.class);
-//        return result;
-//    }
+    //TIDAL EXTREMES AT IOP
+    @RequestMapping(path = "/tidesIOP", method = RequestMethod.GET)
+    public HashMap tidesIop () {
+        AbstractHttpMessageConverter converter = new AbstractHttpMessageConverter(MediaType.parseMediaType("text/json")) {
+            @Override
+            protected Object readInternal(Class clazz, HttpInputMessage inputMessage) throws IOException, HttpMessageNotReadableException {
+                ObjectMapper om = new ObjectMapper();
+                InputStream is = inputMessage.getBody();
+                Scanner s = new Scanner(is).useDelimiter("\\A");
+                String msg = s.next();
+                return om.readValue(msg, clazz);
+            }
+
+            @Override
+            protected void writeInternal(Object o, HttpOutputMessage outputMessage) throws IOException, HttpMessageNotWritableException {
+
+            }
+
+            @Override
+            protected boolean supports(Class clazz) {
+                return true;
+            }
+        };
+
+        RestTemplate query = new RestTemplate(Arrays.asList(converter));
+        HashMap result = query.getForObject(IOP_TIDE_URL, HashMap.class);
+        return result;
+    }
+
+    //TIDAL EXTREMES AT PAWLEY'S PIER
+    @RequestMapping(path = "/tidesPawleys", method = RequestMethod.GET)
+    public HashMap tidesPawleys () {
+        AbstractHttpMessageConverter converter = new AbstractHttpMessageConverter(MediaType.parseMediaType("text/json")) {
+            @Override
+            protected Object readInternal(Class clazz, HttpInputMessage inputMessage) throws IOException, HttpMessageNotReadableException {
+                ObjectMapper om = new ObjectMapper();
+                InputStream is = inputMessage.getBody();
+                Scanner s = new Scanner(is).useDelimiter("\\A");
+                String msg = s.next();
+                return om.readValue(msg, clazz);
+            }
+
+            @Override
+            protected void writeInternal(Object o, HttpOutputMessage outputMessage) throws IOException, HttpMessageNotWritableException {
+
+            }
+
+            @Override
+            protected boolean supports(Class clazz) {
+                return true;
+            }
+        };
+
+        RestTemplate query = new RestTemplate(Arrays.asList(converter));
+        HashMap result = query.getForObject(PAWLEYS_TIDE_URL, HashMap.class);
+        return result;
+    }
+
+    //TIDAL EXTREMES AT THE WASHOUT
+    @RequestMapping(path = "/tidesWashout", method = RequestMethod.GET)
+    public HashMap tidesWashout () {
+        AbstractHttpMessageConverter converter = new AbstractHttpMessageConverter(MediaType.parseMediaType("text/json")) {
+            @Override
+            protected Object readInternal(Class clazz, HttpInputMessage inputMessage) throws IOException, HttpMessageNotReadableException {
+                ObjectMapper om = new ObjectMapper();
+                InputStream is = inputMessage.getBody();
+                Scanner s = new Scanner(is).useDelimiter("\\A");
+                String msg = s.next();
+                return om.readValue(msg, clazz);
+            }
+
+            @Override
+            protected void writeInternal(Object o, HttpOutputMessage outputMessage) throws IOException, HttpMessageNotWritableException {
+
+            }
+
+            @Override
+            protected boolean supports(Class clazz) {
+                return true;
+            }
+        };
+
+        RestTemplate query = new RestTemplate(Arrays.asList(converter));
+        HashMap result = query.getForObject(WASHOUT_TIDE_URL, HashMap.class);
+        return result;
+    }
 
     // CURRENT USER USERNAME
     @RequestMapping(path = "/currentUsername", method = RequestMethod.GET)
