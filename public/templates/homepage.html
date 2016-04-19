@@ -15,17 +15,19 @@
   <button class="btn btn-default btn-med" ng-click="getWeatherData(Pawley)">Pawleys Island</button>
   <div class="">
     <h3>Today's Weather</h3>
-    <div ng-repeat="weather in weatherData | limitTo: 6: 3" >
-      <span>{{weather.localTimestamp * 1000 | date:'EEE h a'}},</span>
-      <span>Surf: {{weather.swell.maxBreakingHeight}}ft,</span>
-      <span>Wind: {{weather.wind.compassDirection}},</span>
-      <span>{{weather.wind.speed}}mph,</span>
-      <span>Temp: {{weather.condition.temperature}}</span>
-    </div>
+    <table class="table table-striped">
+      <div ng-repeat="weather in weatherData | limitTo: 6: 3" >
+        <span>{{weather.localTimestamp * 1000 | date:'ha'}},</span>
+        <span>Surf: {{weather.swell.maxBreakingHeight}}ft,</span>
+        <span>Wind: {{weather.wind.compassDirection}},</span>
+        <span>{{weather.wind.speed}}mph,</span>
+        <span>Temp: {{weather.condition.temperature}}</span>
+      </div>
+    </table>
     <div class="">
       <h3>Next 4 tides</h3>
       <div ng-repeat="tide in tideData | limitTo: 4" >
-        <span>{{tide.type}}</span>
+        <span><strong>{{tide.type}}</strong></span>
         <span>{{tide.dt * 1000 | date:'EEE h:mm a'}}</span>
       </div>
     </div>

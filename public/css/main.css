@@ -252,6 +252,11 @@ input.form-control, input.form-control:focus {
   #profileWrapper .glyphicon.glyphicon-user.profilePic {
     font-size: 80px; }
 
+.verticalText {
+  transform: rotate(90deg);
+  transform-origin: left top 0;
+  display: inline-block; }
+
 .desktop-navigation {
   display: inline-block; }
 
