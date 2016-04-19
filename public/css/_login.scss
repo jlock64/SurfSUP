@@ -35,7 +35,7 @@
 }
 
 form {
-  max-width: 330px;
+  max-width: 400px;
   padding: 15px;
   margin: 0 auto;
   color: #7d7d7d;
@@ -135,11 +135,17 @@ form {
     opacity: 0.9;
   }
   #create-form-link {
-    font-size: 1.2em;
+    font-size: 1.3em;
     text-transform: uppercase;
+    font-family: 'Inconsolata', sans-serif;
   }
   #main-input {
       background-color: rgba(250, 250, 250, 0.6);
       border-radius: 0;
+  }
+  label {
+    text-transform: uppercase;
+    font-family: 'Inconsolata', sans-serif;
+    font-size: 1.3em;
   }
 } // end of form
