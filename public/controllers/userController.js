@@ -53,8 +53,9 @@ angular
 
 
     //GET WEATHER DATA
-    function getWeatherData() {
-      WeatherService.getWeather()
+    function getWeatherData(city) {
+      console.log("city =", city);
+      WeatherService.getWeather(city)
         .then(function(data) {
           console.log(data);
           // window.glob = data.data;
@@ -62,12 +63,14 @@ angular
         });
     }
     getWeatherData();
-
+    $scope.iop = 'IOP';
+    $scope.washout = 'Washout';
+    $scope.pawley = 'Pawley';
     //GET WEATHER DATA
-    function getTideData() {
-      WeatherService.getTides()
+    function getTideData(city) {
+      WeatherService.getTides(city)
         .then(function(data) {
-          console.log('tide data',data);
+          console.log('tide data',data, 'city ', city);
           window.glob = data.data.extremes;
           $scope.tideData = data.data.extremes;
           console.log('scope.tideData;', $scope.tideData);
