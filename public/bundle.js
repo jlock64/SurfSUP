@@ -63356,9 +63356,10 @@ angular
   .controller('NavbarController', function($scope,$location, $rootScope, FriendService, UserService) {
     $scope.profilePage = profilePage;
     $scope.logout = logout;
+
     $scope.isLogin = function () {
       console.log('this is our location', $location.path() === '/login');
-      return $location.path() !== '/login';
+      return $location.path() !== '/login' && $location.path() !== '/create';
     }
     $scope.$on('requestAmt:added', function(data) {
       FriendService.requestAmt();

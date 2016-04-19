@@ -99,7 +99,8 @@ h6 {
 
 * {
   box-sizing: border-box;
-  font-family: 'Open Sans Condensed', sans-serif; }
+  font-family: 'Open Sans Condensed', sans-serif;
+  font-family: "Inconsolata"; }
 
 body {
   background-color: none;
