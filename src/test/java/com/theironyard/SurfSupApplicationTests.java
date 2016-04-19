@@ -2,6 +2,7 @@ package com.theironyard;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.theironyard.entities.User;
+import com.theironyard.services.SeshRepository;
 import com.theironyard.services.UserRepository;
 import org.hibernate.validator.internal.constraintvalidators.bv.AssertTrueValidator;
 import org.junit.Assert;
@@ -32,6 +33,9 @@ public class SurfSupApplicationTests {
 
 	@Autowired
 	UserRepository users;
+
+	@Autowired
+	SeshRepository seshs;
 
 	@Autowired
 	WebApplicationContext wap;
@@ -65,7 +69,19 @@ public class SurfSupApplicationTests {
 	}
 
 	@Test
-	public void test2login() throws Exception {
+	public void test2logout() throws Exception {
+		ResultActions ra = mockMvc.perform(
+				MockMvcRequestBuilders.post("/logout")
+
+		);
+		MvcResult result = ra.andReturn();
+		MockHttpServletRequest request = result.getRequest();
+		HttpSession session = request.getSession();
+		Assert.assertTrue(session.getAttribute("username") == null);
+	}
+
+	@Test
+	public void test3login() throws Exception {
         User user = new User();
         user.setUsername("user");
         user.setPassword("password");
@@ -83,19 +99,9 @@ public class SurfSupApplicationTests {
 		Assert.assertTrue(session.getAttribute("username") != null);
 	}
 
-//    @Test
-//    public void test3
-
-    @Test
-    public void test3logout() throws Exception {
-        ResultActions ra = mockMvc.perform(
-                MockMvcRequestBuilders.post("/logout")
-
-        );
-        MvcResult result = ra.andReturn();
-        MockHttpServletRequest request = result.getRequest();
-        HttpSession session = request.getSession();
-        Assert.assertTrue(session.getAttribute("username") == null);
-    }
-
+//	@Test
+//	public void test4addSesh() {
+//
+//		Assert.assertTrue(seshs.findAll() != null);
+//	}
 }
