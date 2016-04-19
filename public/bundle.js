@@ -551,7 +551,7 @@ function showMap(id) {
      var markers = response.data;
 
      markers.coords = {
-       idKey: markers.id,
+      //  idKey: markers.id,
        id: markers.id,
        latitude: markers.lat,
        longitude: markers.lon,
