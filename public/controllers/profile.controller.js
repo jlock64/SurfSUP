@@ -2,6 +2,7 @@ angular
   .module('surfSup')
   .controller('ProfileController', function($scope,$location, FriendService, $routeParams,$rootScope, UserService) {
     $location.path() === "/login" || $location.path() === "/create" ? $rootScope.showBar = false : $rootScope.showBar = true;
+
     $scope.sendInvite = sendInvite;
     $scope.hideAddButton = hideAddButton;
 

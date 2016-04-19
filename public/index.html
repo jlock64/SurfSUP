@@ -57,9 +57,12 @@
 	</header>
 </span>
 <body>
-
-	<div class="container main-container push">
-			<ng-view></ng-view>
+	<div ng-controller="NavbarController" class="container" ng-class="{outerSiteWrapper: isLogin()}">
+	  <div class="innerSiteWrapper" ng-class="{innerSiteWrapper: isLogin()}">
+			<div class="main-container push">
+					<ng-view></ng-view>
+			</div>
+		</div>
 	</div>
 
 
