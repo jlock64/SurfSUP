@@ -1,7 +1,12 @@
 * {
   box-sizing: border-box;
   font-family: 'Open Sans Condensed', sans-serif;
-  font-family: 'Inconsolata', ;
+  color: #fff;
+  // font-family: 'Inconsolata', ;
+}
+
+*:focus {
+  outline: none;
 }
 
 body {
