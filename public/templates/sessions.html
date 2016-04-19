@@ -59,8 +59,7 @@
 
 
       <!-- JOINING SESH -->
-       <span><button class="list-group-item-text" ng-click=
-      "allGoingToSesh(seshActivities.id); showUsers = !showUsers"><span>Who is going:</span> <!-- {{seshActivities.id}} -->
+       <span><button class="btn btn-primary btn-sm" ng-click="allGoingToSesh(seshActivities.id); showUsers = !showUsers"><span>WHO IS GOING?</span> 
 
       <ul ng-if="showUsers">
           <li ng-repeat="user in usersGoingToSesh.data">{{user.username}}

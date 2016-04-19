@@ -1,5 +1,11 @@
-.verticalText {
-  transform: rotate(90deg);
-	transform-origin: left top 0;
-  display: inline-block;
+// .verticalText {
+//   transform: rotate(90deg);
+// 	transform-origin: left top 0;
+//   display: inline-block;
+// }
+div.outerWxWrapper {
+  border: 1px solid #eee;
+  .innerWxWrapper {
+    background-color: rgba(250, 250, 250, 0.3);
+  }
 }
