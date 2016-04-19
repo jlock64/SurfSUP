@@ -77,11 +77,21 @@ require('./controllers/sessionController');
 require('./controllers/friendController');
 require('./controllers/navbar.controller');
 require('./controllers/mapController');
+require('./controllers/easyClose.controller');
 require ('./directives/sessionDirective');
 require ('./directives/mapDirective');
 require('./controllers/profile.controller');
 
-},{"./controllers/friendController":2,"./controllers/mapController":3,"./controllers/navbar.controller":4,"./controllers/profile.controller":5,"./controllers/sessionController":6,"./controllers/userController":7,"./directives/mapDirective":8,"./directives/sessionDirective":9,"./services/cacheEngineService":25,"./services/friendService":26,"./services/sessionService":27,"./services/userService":28,"./services/weatherService":29,"./xeditable":30,"angular":19,"angular-google-maps":10,"angular-route":12,"angular-simple-logger":13,"angular-ui-mask":17,"jquery":22,"lodash":23}],2:[function(require,module,exports){
+},{"./controllers/easyClose.controller":2,"./controllers/friendController":3,"./controllers/mapController":4,"./controllers/navbar.controller":5,"./controllers/profile.controller":6,"./controllers/sessionController":7,"./controllers/userController":8,"./directives/mapDirective":9,"./directives/sessionDirective":10,"./services/cacheEngineService":26,"./services/friendService":27,"./services/sessionService":28,"./services/userService":29,"./services/weatherService":30,"./xeditable":31,"angular":20,"angular-google-maps":11,"angular-route":13,"angular-simple-logger":14,"angular-ui-mask":18,"jquery":23,"lodash":24}],2:[function(require,module,exports){
+angular.module('surfSup')
+.controller('EasyCloseController', function ($scope) {
+  $scope.easyCloseMenu = easyCloseMenu;
+  function easyCloseMenu () {
+    $scope.easyClose = true;
+  }
+});
+
+},{}],3:[function(require,module,exports){
 angular
   .module('surfSup')
   .controller('FriendController', function($scope,$q, $location, FriendService, $rootScope,SessionService) {
@@ -226,7 +236,7 @@ angular
 
   }); // end of FriendController
 
-},{}],3:[function(require,module,exports){
+},{}],4:[function(require,module,exports){
 angular.module('surfSup')
 .controller('MapController', function ($scope) {
 
@@ -259,7 +269,7 @@ angular.module('surfSup')
     // });
 });
 
-},{}],4:[function(require,module,exports){
+},{}],5:[function(require,module,exports){
 angular
   .module('surfSup')
   .controller('NavbarController', function($scope,$location, $rootScope, FriendService, UserService) {
@@ -295,7 +305,7 @@ angular
 
   }); // end of NavbarControler
 
-},{}],5:[function(require,module,exports){
+},{}],6:[function(require,module,exports){
 angular
   .module('surfSup')
   .controller('ProfileController', function($scope,$location, FriendService, $routeParams,$rootScope, UserService) {
@@ -349,7 +359,7 @@ angular
 
   }); // end of FriendController
 
-},{}],6:[function(require,module,exports){
+},{}],7:[function(require,module,exports){
 angular
   .module('surfSup')
   .controller('SessionController', function($scope, $location, SessionService, CacheEngine, $rootScope, UserService) {
@@ -581,7 +591,7 @@ function showMap(id) {
 
   }); // end of SessionController
 
-},{}],7:[function(require,module,exports){
+},{}],8:[function(require,module,exports){
 angular
   .module('surfSup')
   .controller('UserController', function($scope, $location, UserService, $rootScope, WeatherService) {
@@ -668,7 +678,7 @@ angular
 
   }); // end of LoginController
 
-},{}],8:[function(require,module,exports){
+},{}],9:[function(require,module,exports){
 angular
 .module ('surfSup')
 .directive ('mapReader', function (){
@@ -681,7 +691,7 @@ angular
   };
 });
 
-},{}],9:[function(require,module,exports){
+},{}],10:[function(require,module,exports){
 angular
 .module ('surfSup')
 .directive ('sessionReader', function (){
@@ -695,7 +705,7 @@ angular
   };
 });
 
-},{}],10:[function(require,module,exports){
+},{}],11:[function(require,module,exports){
 /*! angular-google-maps 2.3.2 2016-02-11
  *  AngularJS directives for Google Maps
  *  git: https://github.com/angular-ui/angular-google-maps.git
@@ -16382,7 +16392,7 @@ angular.module('uiGmapgoogle-maps.extensions')
   };
 }]);
 }( window,angular));
-},{}],11:[function(require,module,exports){
+},{}],12:[function(require,module,exports){
 /**
  * @license AngularJS v1.5.3
  * (c) 2010-2016 Google, Inc. http://angularjs.org
@@ -17406,11 +17416,11 @@ function ngViewFillContentFactory($compile, $controller, $route) {
 
 })(window, window.angular);
 
-},{}],12:[function(require,module,exports){
+},{}],13:[function(require,module,exports){
 require('./angular-route');
 module.exports = 'ngRoute';
 
-},{"./angular-route":11}],13:[function(require,module,exports){
+},{"./angular-route":12}],14:[function(require,module,exports){
 /**
  *  angular-simple-logger
  *
@@ -17558,7 +17568,7 @@ angular.module('nemLogging').provider('nemSimpleLogger', [
   }
 ]);
 
-},{"angular":15,"debug":20}],14:[function(require,module,exports){
+},{"angular":16,"debug":21}],15:[function(require,module,exports){
 /**
  * @license AngularJS v1.5.3
  * (c) 2010-2016 Google, Inc. http://angularjs.org
@@ -48273,11 +48283,11 @@ $provide.value("$locale", {
 })(window, document);
 
 !window.angular.$$csp().noInlineStyle && window.angular.element(document.head).prepend('<style type="text/css">@charset "UTF-8";[ng\\:cloak],[ng-cloak],[data-ng-cloak],[x-ng-cloak],.ng-cloak,.x-ng-cloak,.ng-hide:not(.ng-hide-animate){display:none !important;}ng\\:form{display:block;}.ng-animate-shim{visibility:hidden;}.ng-anchor{position:absolute;}</style>');
-},{}],15:[function(require,module,exports){
+},{}],16:[function(require,module,exports){
 require('./angular');
 module.exports = angular;
 
-},{"./angular":14}],16:[function(require,module,exports){
+},{"./angular":15}],17:[function(require,module,exports){
 /*!
  * angular-ui-mask
  * https://github.com/angular-ui/ui-mask
@@ -49014,7 +49024,7 @@ angular.module('ui.mask', [])
         ]);
 
 }());
-},{}],17:[function(require,module,exports){
+},{}],18:[function(require,module,exports){
 //https://github.com/angular/angular.js/pull/10732
 
 var angular = require('angular');
@@ -49022,11 +49032,11 @@ var mask = require('./dist/mask');
 
 module.exports = 'ui.mask';
 
-},{"./dist/mask":16,"angular":19}],18:[function(require,module,exports){
-arguments[4][14][0].apply(exports,arguments)
-},{"dup":14}],19:[function(require,module,exports){
+},{"./dist/mask":17,"angular":20}],19:[function(require,module,exports){
 arguments[4][15][0].apply(exports,arguments)
-},{"./angular":18,"dup":15}],20:[function(require,module,exports){
+},{"dup":15}],20:[function(require,module,exports){
+arguments[4][16][0].apply(exports,arguments)
+},{"./angular":19,"dup":16}],21:[function(require,module,exports){
 
 /**
  * This is the web browser implementation of `debug()`.
@@ -49196,7 +49206,7 @@ function localstorage(){
   } catch (e) {}
 }
 
-},{"./debug":21}],21:[function(require,module,exports){
+},{"./debug":22}],22:[function(require,module,exports){
 
 /**
  * This is the common logic for both the Node.js and web browser
@@ -49395,7 +49405,7 @@ function coerce(val) {
   return val;
 }
 
-},{"ms":24}],22:[function(require,module,exports){
+},{"ms":25}],23:[function(require,module,exports){
 /*!
  * jQuery JavaScript Library v2.2.3
  * http://jquery.com/
@@ -59239,7 +59249,7 @@ if ( !noGlobal ) {
 return jQuery;
 }));
 
-},{}],23:[function(require,module,exports){
+},{}],24:[function(require,module,exports){
 (function (global){
 /**
  * @license
@@ -75270,7 +75280,7 @@ return jQuery;
 }.call(this));
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{}],24:[function(require,module,exports){
+},{}],25:[function(require,module,exports){
 /**
  * Helpers.
  */
@@ -75397,14 +75407,14 @@ function plural(ms, n, name) {
   return Math.ceil(ms / n) + ' ' + name + 's';
 }
 
-},{}],25:[function(require,module,exports){
+},{}],26:[function(require,module,exports){
 angular
 .module('surfSup')
 .service ('CacheEngine', function($cacheFactory){
   return $cacheFactory('sessionsAPI');
 });
 
-},{}],26:[function(require,module,exports){
+},{}],27:[function(require,module,exports){
 angular
   .module('surfSup')
   .service('FriendService', function($http, $rootScope) {
@@ -75478,7 +75488,7 @@ angular
 
   });
 
-},{}],27:[function(require,module,exports){
+},{}],28:[function(require,module,exports){
 angular
   .module('surfSup')
   .service('SessionService', function($http, $q, $rootScope) {
@@ -75559,7 +75569,7 @@ angular
 
   });
 
-},{}],28:[function(require,module,exports){
+},{}],29:[function(require,module,exports){
 angular
   .module('surfSup')
   .service('UserService', function($http) {
@@ -75594,7 +75604,7 @@ angular
     };
   });
 
-},{}],29:[function(require,module,exports){
+},{}],30:[function(require,module,exports){
 angular
   .module('surfSup')
   .service('WeatherService', function($http) {
@@ -75630,7 +75640,7 @@ angular
 
   Here's an example URL showing the forecast for Newquay: http://magicseaweed.com/api/05b02278d73272e0e716626de5b875e4/forecast/?spot_id=1 */
 
-},{}],30:[function(require,module,exports){
+},{}],31:[function(require,module,exports){
 /*!
 angular-xeditable - 0.1.11
 Edit-in-place for angular.js

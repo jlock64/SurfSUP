@@ -76,6 +76,7 @@ require('./controllers/sessionController');
 require('./controllers/friendController');
 require('./controllers/navbar.controller');
 require('./controllers/mapController');
+require('./controllers/easyClose.controller');
 require ('./directives/sessionDirective');
 require ('./directives/mapDirective');
 require('./controllers/profile.controller');

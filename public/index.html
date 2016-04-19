@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html ng-app = 'surfSup'>
+<html ng-app = 'surfSup' ng-controller = "EasyCloseController" ng-click="easyCloseMenu()">
 <head>
 	<meta charset="utf-8">
 	<title>surfSUP</title>
@@ -11,7 +11,7 @@
 </head>
 
 <span ng-controller="NavbarController" ng-show="showBar">
-	<nav id="menu" easyClose="true" class="panel" role="navigation">
+	<nav id="menu" easyClose="false" class="panel" role="navigation">
 		<ul>
 				<li><a href="/#/home">Home</a></li>
 				<li><a href="/#/sessions">Session Activity</a></li>
