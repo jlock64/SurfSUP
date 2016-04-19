@@ -10,14 +10,24 @@
   <a href="/#/sessions"><button class="btn btn-success" type="button" name="button">Go To Sessions</button></a>
   <h1>Weather or Google Map</h1>
   <p>could go here</p>
+  <button class="btn btn-default btn-med" ng-click="getWeatherData(IOP)">Isle Of Palms</button>
+  <button class="btn btn-default btn-med" ng-click="getWeatherData(Washout)">Folly Beach</button>
+  <button class="btn btn-default btn-med" ng-click="getWeatherData(Pawley)">Pawleys Island</button>
   <div class="">
+    <h3>Today's Weather</h3>
     <div ng-repeat="weather in weatherData | limitTo: 6: 3" >
       <span>{{weather.localTimestamp * 1000 | date:'EEE h a'}},</span>
       <span>Surf: {{weather.swell.maxBreakingHeight}}ft,</span>
       <span>Wind: {{weather.wind.compassDirection}},</span>
       <span>{{weather.wind.speed}}mph,</span>
       <span>Temp: {{weather.condition.temperature}}</span>
-
+    </div>
+    <div class="">
+      <h3>Next 4 tides</h3>
+      <div ng-repeat="tide in tideData | limitTo: 4" >
+        <span>{{tide.type}}</span>
+        <span>{{tide.dt * 1000 | date:'EEE h:mm a'}}</span>
+      </div>
     </div>
   </div>
 
