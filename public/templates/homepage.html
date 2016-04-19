@@ -6,30 +6,58 @@
   <button ng-click="logout()" class="btn btn-md btn-danger pull-right" type="button" name="button">Logout</button>
 </div> -->
 <div class="jumbotron">
-  <a href="/#/addSession"><button class="btn btn-warning" type="button" name="button">Add Session</button></a>
-  <a href="/#/sessions"><button class="btn btn-success" type="button" name="button">Go To Sessions</button></a>
-  <h1>Weather or Google Map</h1>
-  <p>could go here</p>
-  <button class="btn btn-default btn-med" ng-click="getWeatherData(iop)">Isle Of Palms</button>
-  <button class="btn btn-default btn-med" ng-click="getWeatherData(washout)">Folly Beach</button>
-  <button class="btn btn-default btn-med" ng-click="getWeatherData(Pawley)">Pawleys Island</button>
+  <h1>Today's Weather</h1>
+  <!-- <div class="btn-group" role="group" aria-label="...">
+    <button class="btn btn-default btn-med" ng-click="getWeatherData(iop); getTideData(iop)">Isle Of Palms</button>
+    <button class="btn btn-default btn-med" ng-click="getWeatherData(washout); getTideData(washout)">Folly Beach</button>
+    <button class="btn btn-default btn-med" ng-click="getWeatherData(pawley); getTideData(pawleys)">Pawleys Island</button>
+  </div> -->
+  <div class="btn-group btn-group-justified" role="group" aria-label="...">
+    <div class="btn-group" role="group">
+      <button type="button" class="btn btn-default" ng-class="{btn btn-primary:clicked}" ng-click="getWeatherData(iop); getTideData(iop); clicked=true">Isle Of Palms</button>
+    </div>
+    <div class="btn-group" role="group">
+      <button type="button" class="btn btn-default" ng-class="{btn btn-primary:clicked}" ng-click="getWeatherData(washout); getTideData(washout); clicked=true">Folly Beach</button>
+    </div>
+    <div class="btn-group" role="group">
+      <button type="button" class="btn btn-default" ng-class="{btn btn-primary:clicked}" ng-click="getWeatherData(pawley); getTideData(pawleys); clicked=true">Pawleys Island</button>
+    </div>
+  </div>
   <div class="">
     <h3>Today's Weather</h3>
     <table class="table table-striped">
-      <div ng-repeat="weather in weatherData | limitTo: 6: 3" >
-        <span>{{weather.localTimestamp * 1000 | date:'ha'}},</span>
-        <span>Surf: {{weather.swell.maxBreakingHeight}}ft,</span>
-        <span>Wind: {{weather.wind.compassDirection}},</span>
-        <span>{{weather.wind.speed}}mph,</span>
-        <span>Temp: {{weather.condition.temperature}}</span>
-      </div>
+      <thead>
+     <tr>
+       <th>TIME</th>
+       <th>SURF</th>
+       <th>WIND</th>
+       <th>TEMP</th>
+     </tr>
+   </thead>
+      <tr ng-repeat="weather in weatherData | limitTo: 6: 3" >
+        <td>{{weather.localTimestamp * 1000 | date:'ha'}}</td>
+        <td>{{weather.swell.maxBreakingHeight}}ft</td>
+        <td>{{weather.wind.compassDirection}} {{weather.wind.speed}}mph</td>
+        <td>{{weather.condition.temperature}}</td>
+      </tr>
     </table>
-    <div class="">
-      <h3>Next 4 tides</h3>
-      <div ng-repeat="tide in tideData | limitTo: 4" >
-        <span><strong>{{tide.type}}</strong></span>
-        <span>{{tide.dt * 1000 | date:'EEE h:mm a'}}</span>
-      </div>
+    <h3>Next 4 tides</h3>
+    <table class="table table-striped">
+      <thead>
+     <tr>
+       <th>TIDE</th>
+       <th>TIME</th>
+     </tr>
+   </thead>
+      <tr ng-repeat="tide in tideData | limitTo: 4: 1" >
+        <td><strong>{{tide.type}}</strong></td>
+        <td>{{tide.dt * 1000 | date:'EEE h:mm a'}}</td>
+      </tr>
+    </table>
+    <div class="btn-group btn-group" role="group">
+      <a href="/#/addSession"><button class="btn btn-warning" type="button" name="button">Add Session</button></a>
+      <a href="/#/sessions"><button class="btn btn-success" type="button" name="button">Go To Sessions</button></a>
+    </div>
     </div>
   </div>
 

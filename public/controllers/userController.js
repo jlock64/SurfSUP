@@ -10,6 +10,7 @@ angular
     $scope.acctObj = {};
     $scope.submitForm = submitForm;
     $scope.getWeatherData = getWeatherData;
+    $scope.getTideData = getTideData;
     $scope.getCurrentUser = getCurrentUser;
 
 
@@ -51,10 +52,14 @@ angular
       getCurrentUser();
     });
 
+    // CITY VARIABLES FOR WEATHER AND TIDE FUNCTIONS
+    $scope.pawleys = 'Pawleys'
+    $scope.iop = 'IOP';
+    $scope.washout = 'Washout';
+    $scope.pawley = 'Pawley';
 
     //GET WEATHER DATA
     function getWeatherData(city) {
-      console.log("city =", city);
       WeatherService.getWeather(city)
         .then(function(data) {
           console.log(data);
@@ -62,21 +67,19 @@ angular
           $scope.weatherData = data.data;
         });
     }
-    getWeatherData();
-    $scope.iop = 'IOP';
-    $scope.washout = 'Washout';
-    $scope.pawley = 'Pawley';
-    //GET WEATHER DATA
+    getWeatherData($scope.iop);
+
+    //GET TIDE DATA
     function getTideData(city) {
+      console.log('in getTideData', city);
       WeatherService.getTides(city)
         .then(function(data) {
           console.log('tide data',data, 'city ', city);
           window.glob = data.data.extremes;
           $scope.tideData = data.data.extremes;
-          console.log('scope.tideData;', $scope.tideData);
         });
     }
-    getTideData();
+    getTideData($scope.iop);
 
 
   }); // end of LoginController
