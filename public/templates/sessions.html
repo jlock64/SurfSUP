@@ -76,7 +76,8 @@
       "glyphicon glyphicon-remove"></span></button>
 
       <button class="btn btn-xs btn-success pull-right"
-      data-toggle="tooltip" name="button" ng-click="joinSession(seshActivities.id)"  onmouseenter="$(this).tooltip('show')" title="Join Session" type=
+      data-toggle="tooltip" name="button" ng-click="joinSession(seshActivities.id)" ng-hide=
+      "currentUser.username===seshActivities.user.username" onmouseenter="$(this).tooltip('show')" title="Join Session" type=
       "button"><span aria-hidden="true" class="glyphicon glyphicon-plus"></span></button>
   </div>
 
