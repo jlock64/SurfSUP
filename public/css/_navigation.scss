@@ -52,8 +52,9 @@ a:hover {
     cursor: pointer;
   }
   .friendCircle {
-    padding: 5px;
-    border-radius: 100%;
     background-color: #ccc;
+  }
+  span.glyphicon.glyphicon-user {
+    top: 3px;
   }
 }

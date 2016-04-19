@@ -251,6 +251,11 @@ input.form-control, input.form-control:focus {
   #profileWrapper .glyphicon.glyphicon-user.profilePic {
     font-size: 80px; }
 
+.verticalText {
+  transform: rotate(90deg);
+  transform-origin: left top 0;
+  display: inline-block; }
+
 .desktop-navigation {
   display: inline-block; }
 
@@ -302,6 +307,6 @@ a:hover {
   .friendRequestIcon:hover {
     cursor: pointer; }
   .friendRequestIcon .friendCircle {
-    padding: 5px;
-    border-radius: 100%;
     background-color: #ccc; }
+  .friendRequestIcon span.glyphicon.glyphicon-user {
+    top: 3px; }
