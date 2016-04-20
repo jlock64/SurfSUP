@@ -301,6 +301,17 @@ h1 {
   background-color: rgba(250, 250, 250, 0.6);
   border-radius: 0; }
 
+.navigation-container {
+  margin: 0 auto; }
+
+@media (min-width: 768px) {
+  .navigation-container {
+    width: 750px; } }
+
+@media (min-width: 992px) {
+  .navigation-container {
+    width: 970px; } }
+
 @media (min-width: 450px) {
   .wind-column {
     width: 26%; } }
@@ -770,34 +781,40 @@ header.page-header.push {
     background: linear-gradient(to right, #0B6575 0%, #326D6E 100%);
     border: none;
     padding: 0px 25px;
+    height: 102px;
     margin: 0; }
   header.page-header.push #logoutBtn {
     color: #278A86;
     background-color: #fff;
     border-color: #ccc;
     font-weight: bold;
-    padding: 5px; }
+    padding: 5px;
+    float: right; }
   header.page-header.push .logOutAndFriend {
     position: relative;
-    top: 24px; }
+    top: 35px; }
+  header.page-header.push #username-display-nav {
+    margin-bottom: 3px; }
   header.page-header.push #navbarDesktop {
     position: relative;
     bottom: 7px;
     width: 71%; }
   header.page-header.push #navbarDesktop li {
     color: #ddd;
-    font-size: 16px; }
+    font-size: 17px; }
   header.page-header.push #navbarDesktop li:hover {
     color: #fff;
     border-bottom: 1px solid #fff; }
   header.page-header.push h3 {
-    display: inline-block; }
+    display: inline-block;
+    margin: 0; }
   header.page-header.push #logo-header a {
     font-family: 'Open Sans Condensed', sans-serif;
-    font-size: 1.5em;
+    font-size: 2em;
     color: #fff;
     font-weight: 900;
-    display: inline-block; }
+    display: inline-block;
+    margin-top: 20px; }
   header.page-header.push a:hover {
     text-decoration: none; }
   header.page-header.push ul.desktop-navigation.ng-scope a {
@@ -807,14 +824,21 @@ header.page-header.push {
     font-size: 2em;
     color: #191DA5;
     margin-right: 15px; }
-  @media (max-width: 765px) {
+  @media (min-width: 992) {
+    header.page-header.push .menu-link {
+      display: inline-block; }
+    header.page-header.push .desktop-navigation {
+      display: inline-block; } }
+  @media (max-width: 991px) {
     header.page-header.push .menu-link {
       display: inline-block; }
     header.page-header.push .desktop-navigation {
       display: none; } }
   header.page-header.push .friendRequestIcon {
     display: inline-block;
-    margin-right: 10px; }
+    margin-right: 10px;
+    float: right;
+    margin-top: 5px; }
     header.page-header.push .friendRequestIcon:hover {
       cursor: pointer; }
     header.page-header.push .friendRequestIcon .friendCircle {
