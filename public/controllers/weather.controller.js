@@ -5,9 +5,9 @@ angular
 
     $scope.getWeatherData = getWeatherData;
     $scope.getTideData = getTideData;
-    $scope.isClicked = function(direction) {
+    $scope.isClicked = function(city) {
       console.log('isClicked is being clicked');
-      $scope.clicky = direction;
+      $scope.clicky = city;
     }
 
     // CITY VARIABLES FOR WEATHER AND TIDE FUNCTIONS
