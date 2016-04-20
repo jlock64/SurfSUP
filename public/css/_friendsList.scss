@@ -25,7 +25,6 @@ h1#PageHeadline {
 }
 input#friendsSearchBar {
   margin-top: 5px;
-  margin-bottom: 25px;
   height: 30px;
   min-width: 300px;
   outline: none;
@@ -56,12 +55,16 @@ color: white !important;
     text-align: center;
   }
   .friendsHeader {
+    margin-top: 25px;
     text-transform: uppercase;
     font-weight: bold;
   }
   a.list-group-item {
     background-color: rgba(250,250,250, 0.1);
     margin-bottom: 20px;
+  }
+  a.list-group-item:hover {
+    background-color: #278A86;
   }
   #friendsListUserIcon {
     font-size: 30px;
@@ -75,7 +78,7 @@ color: white !important;
   .btn.btn-xs.btn-danger.pull-right.removeFriendBtn {
     position: relative;
     top: 8px;
-    // background-color: ##CA5C5C;
+    background-color: #B12041;
   }
   #friendsListProfileLink {
     vertical-align: 8px;

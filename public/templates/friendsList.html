@@ -14,8 +14,8 @@
 <!-- INDIVIDUAL FRIEND -->
 <div id="friendsListWrapper" class="list-group">
   <h4 class="friendsHeader">Your Friends:</h4>
-  <a ng-repeat="friend in friendsList" class="list-group-item">
-    <div class="friendsListInfo" ng-click="profilePage(friend.id)">
+  <a id="friendInfoWrapper" ng-repeat="friend in friendsList" class="list-group-item" ng-click="profilePage(friend.id)">
+    <div class="friendsListInfo" >
       <span id="friendsListUserIcon" class="glyphicon glyphicon-user"></span>
       <span id="friendsListUsername">{{friend.username}}</span>
       <!-- <span id="friendsListProfileLink"><a class="viewProfileLink" href="">View Profile</a></span> -->
