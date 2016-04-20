@@ -63624,7 +63624,10 @@ angular
 //GOOGLE MAPS ON SESSIONS PAGE
 
 $scope.seshMarkers = [];
-function showMap(id) {
+function showMap(id,name,type) {
+
+  $scope.modalName = name;
+  $scope.modalType = type;
    SessionService.getCoords(id)
    .then(function(response) {
      console.log("show map is working", response);
@@ -63725,9 +63728,9 @@ angular
 
     $scope.getWeatherData = getWeatherData;
     $scope.getTideData = getTideData;
-    $scope.isClicked = function(direction) {
+    $scope.isClicked = function(city) {
       console.log('isClicked is being clicked');
-      $scope.clicky = direction;
+      $scope.clicky = city;
     }
 
     // CITY VARIABLES FOR WEATHER AND TIDE FUNCTIONS
