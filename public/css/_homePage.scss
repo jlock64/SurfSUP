@@ -3,7 +3,8 @@
 // 	transform-origin: left top 0;
 //   display: inline-block;
 // }
-h1#todayWeatherHeadline {
+h1#PageHeadline {
+  font-family: 'Open Sans Condensed', sans-serif;
   margin-bottom: 10px;
   font-size: 40px;
   font-weight: 600;
@@ -13,10 +14,10 @@ h1#todayWeatherHeadline {
   color: #fff;
 }
 
-div.weatherUnderline {
+div.headlineUnderline {
   border-bottom: 1px solid #FC9B1B;
   margin: 0 auto;
-  width: 90px;
+  width: 150px;
   margin-bottom: 10px;
 }
 

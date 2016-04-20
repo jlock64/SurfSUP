@@ -11,28 +11,6 @@ div#myModal.modal.fade {
   display: block;
   visibility: hidden; }
 
-#friendsListWrapper {
-  max-width: 400px;
-  margin: 0 auto; }
-  #friendsListWrapper .viewProfileLink {
-    display: inline-block;
-    text-decoration: underline;
-    text-align: center; }
-  #friendsListWrapper #friendsListUserIcon {
-    font-size: 30px; }
-  #friendsListWrapper #friendsListUsername {
-    vertical-align: 8px; }
-  #friendsListWrapper .btn.btn-xs.btn-danger.pull-right.removeFriendBtn {
-    position: relative;
-    top: 8px; }
-  #friendsListWrapper #friendsListProfileLink {
-    vertical-align: 8px; }
-  #friendsListWrapper .friendsListInfo {
-    display: inline-block; }
-
-.searchBar {
-  position: absolute; }
-
 .add-sessions-container {
   padding: 40px 8px;
   width: 90%;
@@ -288,7 +266,7 @@ body {
     padding: 8px;
     max-width: 952px; }
     body div.outerSiteWrapper .innerSiteWrapper {
-      background-color: rgba(250, 250, 250, 0.2); }
+      background-color: rgba(250, 250, 250, 0.1); }
     body div.outerSiteWrapper h1 {
       margin-top: 0; }
 
@@ -523,7 +501,8 @@ form {
   #profileWrapper .glyphicon.glyphicon-user.profilePic {
     font-size: 80px; }
 
-h1#todayWeatherHeadline {
+h1#PageHeadline {
+  font-family: 'Open Sans Condensed', sans-serif;
   margin-bottom: 10px;
   font-size: 40px;
   font-weight: 600;
@@ -532,10 +511,10 @@ h1#todayWeatherHeadline {
   letter-spacing: 0.5px;
   color: #fff; }
 
-div.weatherUnderline {
+div.headlineUnderline {
   border-bottom: 1px solid #FC9B1B;
   margin: 0 auto;
-  width: 90px;
+  width: 150px;
   margin-bottom: 10px; }
 
 ul {
@@ -612,57 +591,148 @@ div.tableWrapper {
 .weather-data {
   font-size: 1.7em; }
 
+h1#PageHeadline {
+  font-family: 'Open Sans Condensed', sans-serif;
+  margin-bottom: 10px;
+  font-size: 40px;
+  font-weight: 600;
+  padding-top: 25px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: #fff; }
+
+.searchBar {
+  text-align: center;
+  background-color: #fafafa;
+  width: 300px;
+  margin: 0 auto;
+  font-family: 'Inconsolata', sans-serif;
+  color: #278A86;
+  font-size: 16px;
+  text-transform: uppercase; }
+
+#searchBarWrapper {
+  text-align: center; }
+
+input#friendsSearchBar {
+  margin-top: 5px;
+  margin-bottom: 25px;
+  height: 30px;
+  min-width: 300px;
+  outline: none;
+  border: 1px solid white;
+  font-family: 'Inconsolata', sans-serif;
+  background-color: #ccc;
+  color: #fff;
+  text-transform: uppercase;
+  font-weight: 700;
+  letter-spacing: 1px;
+  font-size: 1.2em;
+  text-align: center; }
+
+input#friendsSearchBar:focus {
+  border: 1px solid white; }
+
+input#friendsSearchBar::-webkit-input-placeholder {
+  color: white !important; }
+
+#friendsListWrapper {
+  max-width: 600px;
+  margin: 0 auto;
+  border-bottom: none; }
+  #friendsListWrapper .viewProfileLink {
+    display: inline-block;
+    text-decoration: underline;
+    text-align: center; }
+  #friendsListWrapper .friendsHeader {
+    text-transform: uppercase;
+    font-weight: bold; }
+  #friendsListWrapper a.list-group-item {
+    background-color: rgba(250, 250, 250, 0.1);
+    margin-bottom: 20px; }
+  #friendsListWrapper #friendsListUserIcon {
+    font-size: 30px; }
+  #friendsListWrapper #friendsListUsername {
+    margin-left: 5px;
+    vertical-align: 5px;
+    font-size: 24px;
+    font-weight: bold; }
+  #friendsListWrapper .btn.btn-xs.btn-danger.pull-right.removeFriendBtn {
+    position: relative;
+    top: 8px; }
+  #friendsListWrapper #friendsListProfileLink {
+    vertical-align: 8px; }
+  #friendsListWrapper .friendsListInfo {
+    display: inline-block; }
+
 .desktop-navigation {
   display: inline-block; }
 
 .desktop-navigation li {
   list-style-type: none;
   display: inline-block;
-  font-family: 'Lato', sans-serif;
   text-transform: uppercase;
   margin-right: 30px;
   font-size: 1em;
-  color: #7d7d7d;
   letter-spacing: 1px; }
 
-.navbar {
-  background-color: white;
-  border: none;
-  padding: 0px 25px;
-  margin: 0; }
-
-h3 {
-  display: inline-block; }
-
-#logo-header a {
-  font-family: 'Lato', sans-serif;
-  font-size: 1.5em;
-  color: #191DA5;
-  font-weight: 900;
-  letter-spacing: 1px;
-  display: inline-block; }
-
-a:hover {
-  text-decoration: none; }
-
-.menu-link {
-  display: none;
-  font-size: 2em;
-  color: #191DA5;
-  margin-right: 15px; }
-
-@media (max-width: 765px) {
-  .menu-link {
+header.page-header.push {
+  background: linear-gradient(to right, #0B6575 0%, #326D6E 100%);
+  padding: 0;
+  border-bottom: none;
+  box-shadow: 1px 1px 8px #333; }
+  header.page-header.push .navbar {
+    background: linear-gradient(to right, #0B6575 0%, #326D6E 100%);
+    border: none;
+    padding: 0px 25px;
+    margin: 0; }
+  header.page-header.push #logoutBtn {
+    color: #278A86;
+    background-color: #fff;
+    border-color: #ccc;
+    font-weight: bold;
+    padding: 5px; }
+  header.page-header.push .logOutAndFriend {
+    position: relative;
+    top: 24px; }
+  header.page-header.push #navbarDesktop {
+    position: relative;
+    bottom: 7px;
+    width: 71%; }
+  header.page-header.push #navbarDesktop li {
+    color: #ddd;
+    font-size: 16px; }
+  header.page-header.push #navbarDesktop li:hover {
+    color: #fff;
+    border-bottom: 1px solid #fff; }
+  header.page-header.push h3 {
     display: inline-block; }
-  .desktop-navigation {
-    display: none; } }
-
-.friendRequestIcon {
-  position: relative;
-  top: 32px; }
-  .friendRequestIcon:hover {
-    cursor: pointer; }
-  .friendRequestIcon .friendCircle {
-    background-color: #ccc; }
-  .friendRequestIcon span.glyphicon.glyphicon-user {
-    top: 3px; }
+  header.page-header.push #logo-header a {
+    font-family: 'Open Sans Condensed', sans-serif;
+    font-size: 1.5em;
+    color: #fff;
+    font-weight: 900;
+    display: inline-block; }
+  header.page-header.push a:hover {
+    text-decoration: none; }
+  header.page-header.push ul.desktop-navigation.ng-scope a {
+    color: #fff; }
+  header.page-header.push .menu-link {
+    display: none;
+    font-size: 2em;
+    color: #191DA5;
+    margin-right: 15px; }
+  @media (max-width: 765px) {
+    header.page-header.push .menu-link {
+      display: inline-block; }
+    header.page-header.push .desktop-navigation {
+      display: none; } }
+  header.page-header.push .friendRequestIcon {
+    display: inline-block;
+    margin-right: 10px; }
+    header.page-header.push .friendRequestIcon:hover {
+      cursor: pointer; }
+    header.page-header.push .friendRequestIcon .friendCircle {
+      background-color: #FC9B1B; }
+    header.page-header.push .friendRequestIcon span.glyphicon.glyphicon-user {
+      top: 3px; }
