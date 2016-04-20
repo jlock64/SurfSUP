@@ -474,6 +474,7 @@ angular
           .success(function(data) {
             CacheEngine.put('seshActivity', data);
             $scope.seshActivity = data.data;
+
           })
           .error(function(err) {
             console.log('you are already going to this sesh', err);
@@ -488,6 +489,7 @@ angular
         .then(function(data) {
           console.log('all going to sesh in ctrl:', data);
           $scope.usersGoingToSesh = data;
+          $scope.usersGoingToSeshLength = data.data.length;
           // console.log('data', data.data.username);
         });
         // .then(function() {
