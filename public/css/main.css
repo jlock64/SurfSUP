@@ -523,7 +523,13 @@ header.page-header.push {
     background-color: #fff;
     border-color: #ccc;
     font-weight: bold;
-    padding: 5px; }
+    padding: 5px;
+    position: relative;
+    bottom: 7px; }
+  header.page-header.push #navbarDesktop {
+    position: relative;
+    bottom: 7px;
+    width: 83%; }
   header.page-header.push h3 {
     display: inline-block; }
   header.page-header.push #logo-header a {

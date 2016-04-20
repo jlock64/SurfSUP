@@ -27,6 +27,13 @@ header.page-header.push {
     border-color: #ccc;
     font-weight: bold;
     padding: 5px;
+    position: relative;
+    bottom: 7px;
+  }
+  #navbarDesktop {
+    position: relative;
+    bottom: 7px;
+    width:83%;
   }
   h3 {
     display: inline-block;
