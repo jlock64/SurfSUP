@@ -5,30 +5,30 @@ angular
     $scope.logout = logout;
     $scope.isLogin = isLogin;
     $scope.getRequestAmt = getRequestAmt;
-    $scope.getFriendsList = getFriendsList;
+    // $scope.getFriendsList = getFriendsList;
     $scope.getRequestList = getRequestList;
     $scope.getCurrentUser = getCurrentUser;
     $scope.denyFriendRequest = denyFriendRequest;
     $scope.acceptInvite = acceptInvite;
 
-    // GET FRIENDS LIST
-    function getFriendsList() {
-      FriendService.friendsList()
-        .success(function(data){
-          console.log("FRINEDS LIST", data);
-          $rootScope.myFriends = data.data;
-          $rootScope.$broadcast('friendList:added', data.data);
-        });
-    }
-    getFriendsList();
-
-    // FRIENDS LIST AUTO UPDATE
-    $scope.$on('friendList:added', function(data) {
-      FriendService.friendsList()
-      .then(function(data) {
-        $scope.friendsList = data.data;
-      });
-    });
+    // // GET FRIENDS LIST
+    // function getFriendsList() {
+    //   FriendService.friendsList()
+    //     .success(function(data){
+    //       console.log("FRINEDS LIST", data);
+    //       $rootScope.myFriends = data.data;
+    //       $rootScope.$broadcast('friendList:added', data.data);
+    //     });
+    // }
+    // getFriendsList();
+    //
+    // // FRIENDS LIST AUTO UPDATE
+    // $scope.$on('friendList:added', function(data) {
+    //   FriendService.friendsList()
+    //   .then(function(data) {
+    //     $scope.friendsList = data.data;
+    //   });
+    // });
 
     // GET REQUEST AMOUNT
     function getRequestAmt() {
