@@ -21,6 +21,7 @@ body {
     border: 1px solid #aaa;
     margin: 50px auto;
     padding: 8px;
+    max-width: 952px;
     .innerSiteWrapper {
       background-color: rgba(250, 250, 250, 0.2);
     }
@@ -51,4 +52,8 @@ h1 {
   font-weight: 700;
   font-size: 2.9em;
   text-transform: uppercase;
+}
+#main-input {
+    background-color: rgba(250, 250, 250, 0.6);
+    border-radius: 0;
 }
