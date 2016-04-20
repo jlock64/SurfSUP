@@ -561,6 +561,8 @@ ul {
   ul li.cityLink {
     display: inline-block;
     padding: 0 10px 0 10px; }
+  ul li.cityLink:hover {
+    background-color: #278A86; }
   ul li.cityLink.middleLink {
     border-left: 1px solid #fff;
     border-right: 1px solid #fff; }
@@ -569,8 +571,6 @@ ul {
     text-decoration: none;
     text-transform: uppercase;
     color: #fff; }
-  ul li.cityLink a:hover {
-    color: #ddd; }
 
 div.tableWrapper {
   padding: 10px; }
