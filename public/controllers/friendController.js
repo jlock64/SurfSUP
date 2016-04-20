@@ -9,11 +9,31 @@ angular
     $scope.searchFriends = searchFriends;
     $scope.deleteFriendFromList = deleteFriendFromList;
     // $scope.requestList = requestList;
+    $scope.getFriendsList = getFriendsList;
 
     // SEARCH FRIENDS
     function searchFriends(friend) {
       FriendService.findFriends(friend);
     }
+
+    // GET FRIENDS LIST
+    function getFriendsList() {
+      FriendService.friendsList()
+        .success(function(data){
+          console.log("FRINEDS LIST", data);
+          $rootScope.myFriends = data.data;
+          $rootScope.$broadcast('friendList:added', data.data);
+        });
+    }
+    getFriendsList();
+
+    // FRIENDS LIST AUTO UPDATE
+    $scope.$on('friendList:added', function(data) {
+      FriendService.friendsList()
+      .then(function(data) {
+        $scope.friendsList = data.data;
+      });
+    });
 
     // FIND FRIENDS (USERS)
     FriendService.findFriends()
