@@ -31,18 +31,22 @@
 				<a href="/#/sessions"><li>Session Activity</li></a>
 				<a href="/#/friend"><li>Friends List</li></a>
 				<a href="" ng-click="profilePage(currentUser.id)"><li>User Profile</li></a>
+
 		  </ul>
-			<button ng-click="logout()" id="logoutBtn" class="btn btn-md btn-danger" type="button" name="button">
-				Logout
-			</button>
+			<div class="logOutAndFriend pull-right">
+				<div data-toggle="modal" ng-controller="FriendController" data-target=".bs-example-modal-lg" class="friendRequestIcon" id = "request-modal">
+					<span class="glyphicon glyphicon-user" aria-hidden="true"></span>
+					<span class="friendCircle badge">{{requests}}</span>
+				</div>
+				<button ng-click="logout()" id="logoutBtn" class="btn btn-md btn-danger" type="button" name="button">
+					Logout
+				</button>
+			</div>
 
 
 
 			<!-- <friend-accept-reader></friend-accept-reader> -->
-			<div data-toggle="modal" ng-controller="FriendController" data-target=".bs-example-modal-lg" class="friendRequestIcon" id = "request-modal">
-			  <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
-			  <span class="friendCircle badge">{{requests}}</span>
-			</div>
+
 			<div class="modal fade bs-example-modal-lg" ng-controller="FriendController" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
 			  <div class="modal-dialog modal-lg">
 			    <div class="modal-content">
