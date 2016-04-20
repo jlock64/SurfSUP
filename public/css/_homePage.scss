@@ -4,6 +4,7 @@
 //   display: inline-block;
 // }
 h1#todayWeatherHeadline {
+  font-family: 'Open Sans Condensed', sans-serif;
   margin-bottom: 10px;
   font-size: 40px;
   font-weight: 600;
@@ -16,7 +17,7 @@ h1#todayWeatherHeadline {
 div.weatherUnderline {
   border-bottom: 1px solid #FC9B1B;
   margin: 0 auto;
-  width: 90px;
+  width: 150px;
   margin-bottom: 10px;
 }
 
