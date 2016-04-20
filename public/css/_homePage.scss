@@ -3,6 +3,10 @@
 // 	transform-origin: left top 0;
 //   display: inline-block;
 // }
+.active {
+  border-bottom: 1px solid #fff;
+}
+
 h1#PageHeadline {
   font-family: 'Open Sans Condensed', sans-serif;
   margin-bottom: 10px;
@@ -30,8 +34,8 @@ ul {
     padding: 0 10px 0 10px;
   }
   li.cityLink:hover {
-    background-color: #278A86;
-    // border: 1px solid #fff;
+    // background-color: #278A86;
+
   }
   li.cityLink.middleLink {
     border-left: 1px solid #fff;
@@ -44,7 +48,7 @@ ul {
     color: #fff;
   }
   li.cityLink a:hover {
-    // color: #ddd;
+    border-bottom: 1px solid #fff;
   }
 }
 

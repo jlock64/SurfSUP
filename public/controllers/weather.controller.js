@@ -5,6 +5,10 @@ angular
 
     $scope.getWeatherData = getWeatherData;
     $scope.getTideData = getTideData;
+    $scope.isClicked = function(city) {
+      console.log('isClicked is being clicked');
+      $scope.clicky = city;
+    }
 
     // CITY VARIABLES FOR WEATHER AND TIDE FUNCTIONS
     $scope.pawleys = 'Pawleys'
