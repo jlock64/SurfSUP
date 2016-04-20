@@ -272,8 +272,7 @@ body {
       margin-top: 0; }
 
 .main-container {
-  position: relative;
-  padding: 0 25px; }
+  position: relative; }
 
 .page-header {
   position: relative;
@@ -299,6 +298,13 @@ h1 {
 #main-input {
   background-color: rgba(250, 250, 250, 0.6);
   border-radius: 0; }
+
+@media (min-width: 450px) {
+  .wind-column {
+    width: 26%; } }
+
+.weather-data {
+  font-size: 1.7em; }
 
 .login-outterSiteWrapper {
   width: 75%;
@@ -573,7 +579,8 @@ ul {
     color: #fff; }
 
 div.tableWrapper {
-  padding: 10px; }
+  padding: 10px;
+  margin: 0 50px; }
   div.tableWrapper th {
     font-family: 'Inconsolata';
     border-top: none;
@@ -600,14 +607,15 @@ div.tableWrapper {
     text-transform: uppercase;
     font-weight: 600; }
   div.tableWrapper #weatherPageBtn {
-    background-color: #1F5064;
-    color: #fff;
+    background-color: #fff;
+    color: #1F5064;
     font-weight: bold;
     border-radius: 0;
     border: none;
     text-transform: uppercase;
     letter-spacing: 1px;
-    font-weight: 700; }
+    font-weight: 700;
+    font-size: 1.3em; }
 
 .time-column {
   width: 10%; }
@@ -804,3 +812,17 @@ header.page-header.push {
       background-color: #FC9B1B; }
     header.page-header.push .friendRequestIcon span.glyphicon.glyphicon-user {
       top: 3px; }
+
+.mobile-nav-links {
+  font-size: 1.7em;
+  color: #1F5064;
+  margin: 15px 0px; }
+
+.mobile-nav-links a {
+  font-family: 'Inconsolata', sans-serif; }
+
+.panel {
+  background-color: white; }
+
+.mobile-nav {
+  margin: 15% 0; }

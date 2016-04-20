@@ -50,6 +50,7 @@ ul {
 
 div.tableWrapper {
   padding: 10px;
+  margin: 0 50px;
   th {
     font-family: 'Inconsolata';
     border-top: none;
@@ -84,14 +85,15 @@ div.tableWrapper {
     font-weight: 600;
   }
   #weatherPageBtn {
-    background-color: #1F5064;
-    color: #fff;
+    background-color: #fff;
+    color: #1F5064;
     font-weight: bold;
     border-radius: 0;
     border: none;
     text-transform: uppercase;
     letter-spacing: 1px;
     font-weight: 700;
+    font-size: 1.3em;
   }
 }
 .time-column {
