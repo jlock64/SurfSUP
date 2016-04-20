@@ -12,7 +12,7 @@ div#myModal.modal.fade {
   visibility: hidden; }
 
 .add-sessions-container {
-  padding: 40px 15px;
+  padding: 40px 8px;
   width: 90%;
   margin: 0 auto; }
 
@@ -39,14 +39,14 @@ div#myModal.modal.fade {
   display: block;
   margin: 0 auto; }
 
-form max-width
-.btn-group, form .form-group {
+.add-session-form max-width
+.btn-group, .add-session-form .form-group {
   width: 100%; }
 
-form .btn-success {
+.add-session-form .btn-success {
   text-transform: uppercase; }
 
-form .surf-sup-button {
+.add-session-form .surf-sup-button {
   padding: 14px;
   color: #fff;
   background: none;
@@ -57,21 +57,21 @@ form .surf-sup-button {
   font-size: 1.3em;
   margin-right: 1%; }
 
-form .surf-sup-button:last-child {
+.add-session-form .surf-sup-button:last-child {
   margin-right: 0px; }
 
-form .disabled {
+.add-session-form .disabled {
   background: #eee;
   color: green; }
 
-form .active {
+.add-session-form .active {
   background: #278A86; }
 
-form .disabled {
+.add-session-form .disabled {
   background: #eee;
   color: #aaa; }
 
-form input.form-control, form input.form-control:focus {
+.add-session-form input.form-control, .add-session-form input.form-control:focus {
   outline: none;
   border: 1px solid white;
   -webkit-box-shadow: none !important;
@@ -79,19 +79,19 @@ form input.form-control, form input.form-control:focus {
   box-shadow: none !important;
   font-family: 'Inconsolata', sans-serif; }
 
-form .add-session-form input {
+.add-session-form .add-session-form input {
   height: 48px; }
 
-form .add-session-form input:focus {
+.add-session-form .add-session-form input:focus {
   border: 1px solid white; }
 
-form .main-input {
+.add-session-form .main-input {
   border-radius: 0;
-  width: 70%;
+  width: 75%;
   margin: 0 auto;
   font-size: 1.3em; }
 
-form .submit-session-button {
+.add-session-form .submit-session-button {
   background-color: #278A86;
   box-shadow: none;
   border: none;
@@ -159,6 +159,14 @@ h6 {
     color: white;
     font-weight: 400;
     font-size: 1.4em; }
+  .list-group h3 {
+    margin: 0;
+    background-color: #1F5064;
+    display: block;
+    padding: 10px;
+    font-weight: 700;
+    text-transform: uppercase;
+    font-size: .6em; }
   .list-group a {
     color: white;
     font-family: 'Inconsolata', sans-serif;
@@ -195,7 +203,6 @@ h6 {
     background-color: rgba(250, 250, 250, 0.2);
     border: 1px solid white;
     font-size: 2em;
-    padding: 15px;
     margin: 10px 0; }
   .list-group .editable-sesh {
     text-decoration: underline; }
@@ -232,6 +239,11 @@ h6 {
   background-color: #1F5064;
   border: 1px white solid; }
 
+#joiners-length {
+  background-color: #94B4C1;
+  padding: 0px 4px;
+  border-radius: 9%; }
+
 * {
   box-sizing: border-box;
   font-family: 'Open Sans Condensed', sans-serif;
@@ -259,7 +271,8 @@ body {
       margin-top: 0; }
 
 .main-container {
-  position: relative; }
+  position: relative;
+  padding: 0 25px; }
 
 .page-header {
   position: relative;
@@ -312,7 +325,7 @@ h1 {
     background: linear-gradient(to right, #0B6575 0%, #326D6E 100%); }
   .login-innerSiteWrapper h1 {
     margin: 0;
-    padding: 23px 0;
+    padding: 20px 0;
     font-family: 'Inconsolata', sans-serif;
     font-size: 2em;
     color: white; }
@@ -390,7 +403,6 @@ form {
     text-transform: uppercase;
     font-family: 'Inconsolata', sans-serif; }
   form #main-input {
-    background-color: rgba(250, 250, 250, 0.4);
     border-radius: 0;
     padding: 0 15px; }
   form label {
@@ -436,18 +448,19 @@ form {
     color: white; }
   .create-innerSiteWrapper input.form-control, .create-innerSiteWrapper input.form-control:focus {
     outline: none;
-    border: 1px solid white;
+    border: 1px solid #E3E3E3;
     -webkit-box-shadow: none !important;
     -moz-box-shadow: none !important;
     box-shadow: none !important;
-    font-family: 'Inconsolata', sans-serif; }
+    font-family: 'Inconsolata', sans-serif;
+    color: white; }
   .create-innerSiteWrapper .create-form {
     max-width: 465px;
     font-family: 'Inconsolata', sans-serif; }
   .create-innerSiteWrapper .create-form input {
     height: 48px; }
   .create-innerSiteWrapper .create-form input:focus {
-    border: 1px solid white; }
+    border: 1px solid #ABABAB; }
   .create-innerSiteWrapper .create-form label {
     font-family: 'Inconsolata', sans-serif;
     text-transform: uppercase;
@@ -476,21 +489,8 @@ form {
     color: white;
     font-size: 1.2em; }
   .create-innerSiteWrapper .main-input {
-    background-color: #278A86;
-    box-shadow: none;
-    border: none;
-    color: white;
-    font-family: 'Inconsolata', sans-serif;
-    color: white;
-    text-transform: uppercase;
-    width: 135px;
-    height: 50px;
-    font-weight: 700;
-    letter-spacing: 1px;
-    transition: all 0.3s ease 0s;
-    border-radius: 0;
-    text-transform: uppercase;
-    font-size: 1.2em; }
+    background-color: rgba(250, 250, 250, 0.3);
+    border-radius: 0; }
 
 #profileWrapper {
   margin: 0 auto;
@@ -546,8 +546,9 @@ div.tableWrapper {
     border: 1px solid #aaa; }
   div.tableWrapper tr#weatherHeaders {
     background-color: #278A86; }
-  div.tableWrapper .table-bordered > thead > tr > th, div.tableWrapper .table-bordered > tbody > tr > th, div.tableWrapper .table-bordered > tfoot > tr > th, div.tableWrapper .table-bordered > thead > tr > td, div.tableWrapper .table-bordered > tbody > tr > td, div.tableWrapper .table-bordered > tfoot > tr > td {
-    border: 1px solid #aaa; }
+  div.tableWrapper .weather-data, div.tableWrapper .table-bordered > thead > tr > th, div.tableWrapper .table-bordered > tbody > tr > th, div.tableWrapper .table-bordered > tfoot > tr > th, div.tableWrapper .table-bordered > thead > tr > td, div.tableWrapper .table-bordered > tbody > tr > td, div.tableWrapper .table-bordered > tfoot > tr > td {
+    border: 1px solid #aaa;
+    font-size: 1.5em; }
   div.tableWrapper td {
     text-align: center;
     font-weight: bold;
@@ -562,10 +563,33 @@ div.tableWrapper {
     text-transform: uppercase;
     font-weight: 600; }
   div.tableWrapper #weatherPageBtn {
-    color: #278A86;
-    background-color: #fff;
-    border-color: #ccc;
-    font-weight: bold; }
+    background-color: #1F5064;
+    color: #fff;
+    font-weight: bold;
+    border-radius: 0;
+    border: none;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-weight: 700; }
+
+.time-column {
+  width: 10%; }
+
+.surf-column {
+  width: 24%; }
+
+.wind-column {
+  width: 42%; }
+
+.temp-column {
+  width: 26%; }
+
+@media (min-width: 450px) {
+  .wind-column {
+    width: 26%; } }
+
+.weather-data {
+  font-size: 1.7em; }
 
 h1#PageHeadline {
   font-family: 'Open Sans Condensed', sans-serif;

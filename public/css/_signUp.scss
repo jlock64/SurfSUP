@@ -42,11 +42,12 @@
     }
   input.form-control,input.form-control:focus {
     outline: none;
-    border: 1px solid white;
+    border: 1px solid #E3E3E3;
     -webkit-box-shadow: none !important;
     -moz-box-shadow: none !important;
     box-shadow: none !important;
     font-family: 'Inconsolata', sans-serif;
+    color: white;
 
   }
 
@@ -60,7 +61,7 @@
   }
 
   .create-form input:focus {
-    border: 1px solid white;
+    border: 1px solid #ABABAB;
   }
 
   .create-form label {
@@ -96,21 +97,8 @@
     font-size: 1.2em;
   }
   .main-input {
-    background-color: #278A86;
-    box-shadow: none;
-    border: none;
-    color: white;
-    font-family: 'Inconsolata', sans-serif;
-    color: white;
-    text-transform: uppercase;
-    width: 135px;
-    height: 50px;
-    font-weight: 700;
-    letter-spacing: 1px;
-    transition: all 0.3s ease 0s;
-    border-radius: 0;
-    text-transform: uppercase;
-    font-size: 1.2em;
+      background-color: rgba(250, 250, 250, 0.3);
+      border-radius: 0;
   }
 
 }

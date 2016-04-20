@@ -17,17 +17,17 @@
       <table class="table table-bordered">
         <thead>
        <tr id="weatherHeaders">
-         <th>TIME</th>
-         <th>SURF</th>
-         <th>WIND</th>
-         <th>TEMP</th>
+         <th class="time-column">TIME</th>
+         <th class="surf-column">SURF</th>
+         <th class="wind-column">WIND</th>
+         <th class="temp-column">TEMP</th>
        </tr>
      </thead>
         <tr ng-repeat="weather in weatherData | limitTo: 6" >
-          <td id="timeStamp">{{weather.localTimestamp * 1000 | date:'ha'}}</td>
-          <td>{{weather.swell.maxBreakingHeight}}ft</td>
-          <td>{{weather.wind.compassDirection}} {{weather.wind.speed}}mph</td>
-          <td>{{weather.condition.temperature}}</td>
+          <td class="time-weather-data" id="timeStamp">{{weather.localTimestamp * 1000 | date:'ha'}}</td>
+          <td class="weather-data">{{weather.swell.maxBreakingHeight}}ft</td>
+          <td class="weather-data">{{weather.wind.compassDirection}} {{weather.wind.speed}}mph</td>
+          <td class="weather-data">{{weather.condition.temperature}}</td>
         </tr>
       </table>
       <h3 id="tideHeadline" >Next 4 tides</h3>

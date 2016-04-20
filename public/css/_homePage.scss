@@ -58,8 +58,9 @@ div.tableWrapper {
   tr#weatherHeaders {
     background-color: #278A86;
   }
-  .table-bordered > thead > tr > th, .table-bordered > tbody > tr > th, .table-bordered > tfoot > tr > th, .table-bordered > thead > tr > td, .table-bordered > tbody > tr > td, .table-bordered > tfoot > tr > td {
+  .weather-data , .table-bordered > thead > tr > th, .table-bordered > tbody > tr > th, .table-bordered > tfoot > tr > th, .table-bordered > thead > tr > td, .table-bordered > tbody > tr > td, .table-bordered > tfoot > tr > td {
     border: 1px solid #aaa;
+    font-size: 1.5em;
   }
   td {
     text-align: center;
@@ -79,9 +80,34 @@ div.tableWrapper {
     font-weight: 600;
   }
   #weatherPageBtn {
-    color: #278A86;
-    background-color: #fff;
-    border-color: #ccc;
+    background-color: #1F5064;
+    color: #fff;
     font-weight: bold;
+    border-radius: 0;
+    border: none;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-weight: 700;
   }
+}
+.time-column {
+  width: 10%;
+}
+.surf-column {
+  width: 24%;
+}
+.wind-column {
+  width: 42%;
+}
+.temp-column {
+  width: 26%;
+}
+
+@media (min-width: 450px) {
+.wind-column {
+  width: 26%;
+}
+}
+.weather-data {
+  font-size: 1.7em;
 }

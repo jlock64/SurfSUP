@@ -78,6 +78,7 @@
          <button class="who-is-going-button" ng-click="allGoingToSesh(seshActivities.id); showUsers = !showUsers">WHO IS GOING?</button>
 
         <ul class="joined-sesh-list-container" ng-if="showUsers">
+            <h3><span id="joiners-length">{{usersGoingToSeshLength}}</span> Friends joining the sesh:</h3>
             <li ng-repeat="user in usersGoingToSesh.data">{{user.username}}
             </li>
         </ul>
