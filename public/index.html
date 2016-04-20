@@ -34,7 +34,7 @@
 
 		  </ul>
 			<div class="logOutAndFriend pull-right">
-				<div data-toggle="modal" ng-controller="FriendController" data-target=".bs-example-modal-lg" class="friendRequestIcon" id = "request-modal">
+				<div data-toggle="modal" ng-controller="FriendController" data-target=".bs-example-modal-sm" class="friendRequestIcon" id = "request-modal">
 					<span class="glyphicon glyphicon-user" aria-hidden="true"></span>
 					<span class="friendCircle badge">{{requests}}</span>
 				</div>
@@ -47,14 +47,14 @@
 
 			<!-- <friend-accept-reader></friend-accept-reader> -->
 
-			<div class="modal fade bs-example-modal-lg" ng-controller="FriendController" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
-			  <div class="modal-dialog modal-lg">
-			    <div class="modal-content">
-			      <h4 class="modal-title" id="gridSystemModalLabel">Friend Request</h4>
-			      <div ng-repeat = "requests in requestList">
+			<div class="modal fade bs-example-modal-sm" ng-controller="FriendController" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+			  <div class="modal-dialog modal-sm">
+			    <div id="modalContent" class="modal-content">
+			      <h4 class="modal-title modalTitle" id="gridSystemModalLabel">Friend Request</h4>
+			      <div id="friendRequestWrapper" ng-repeat = "requests in requestList">
 			        {{requests.username}}
-							<button class='btn btn-success' ng-click ="acceptInvite(requests.username); getFriendsList() " type="button" name="button" data-dismiss="modal">Accept</button>
-							<button class='btn btn-danger' ng-click="denyFriendRequest(requests.id)"type="button" name="button" data-dismiss="modal">Deny</button>
+							<button id="friendAcceptButton" class='btn btn-success pull-right' ng-click ="acceptInvite(requests.username); getFriendsList() " type="button" name="button" data-dismiss="modal">Accept</button>
+							<button id="friendDenyButton" class='btn btn-danger pull-right' ng-click="denyFriendRequest(requests.id)"type="button" name="button" data-dismiss="modal">Deny</button>
 			      </div>
 			    </div>
 			  </div>
