@@ -29,6 +29,10 @@ ul {
     display: inline-block;
     padding: 0 10px 0 10px;
   }
+  li.cityLink:hover {
+    background-color: #278A86;
+    // border: 1px solid #fff;
+  }
   li.cityLink.middleLink {
     border-left: 1px solid #fff;
     border-right: 1px solid #fff;
@@ -40,7 +44,7 @@ ul {
     color: #fff;
   }
   li.cityLink a:hover {
-    color: #ddd;
+    // color: #ddd;
   }
 }
 
