@@ -1,5 +1,11 @@
+
+.sesh-activities-container {
+    padding: 40px 25px;
+  }
+@media (min-width: 532px) {
 .sesh-activities-container {
   padding: 40px 80px;
+}
 }
 .indiv-sesh-activities-container p , h5, strong {
   font-family: 'Inconsolata', sans-serif;
@@ -11,9 +17,11 @@
   color: white;
   font-weight: 700;
   text-transform: uppercase;
-  padding: 8px;
+  padding: 8px 10px;
   display: block;
   margin: 0 auto;
+  font-size: 1.5em;
+  letter-spacing: 1px;
 }
 strong {
   text-transform: uppercase;
@@ -79,6 +87,7 @@ h6 {
     border: none;
     font-weight: 700;
     padding: 8px;
+    letter-spacing: 1px;
   }
   li {
     list-style: none;
@@ -122,4 +131,8 @@ h6 {
 }
 .join-button:focus {
   background-color: #CD811C;
+}
+.editable-buttons button {
+  background-color: #1F5064;
+  border: 1px white solid;
 }
