@@ -16,7 +16,7 @@
      <th class="temp-column">AIR TEMP</th>
    </tr>
  </thead>
-    <tr ng-repeat="weather in weatherData | limitTo: 6" >
+    <tr ng-repeat="weather in weatherData | limitTo: 6: 3" >
       <td class="time-weather-data" id="timeStamp">{{weather.localTimestamp * 1000 | date:'ha'}}</td>
       <td class="weather-data">{{weather.swell.maxBreakingHeight}}ft</td>
       <td class="weather-data">{{weather.wind.compassDirection}} {{weather.wind.speed}}mph</td>
